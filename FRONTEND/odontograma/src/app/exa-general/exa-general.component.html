@@ -1,0 +1,64 @@
+<div class="body">
+  <div class="container">
+    <div class="box1">
+
+      <h1 class="NumeroBloque1">6</h1>
+      <h1 class="DescripcionBloque1"> EXAMEN CLÍNICO GENERAL</h1>
+      <h2 class="Descripcion2Bloque1"> Anote todos los exámenes que realizo a su paciente</h2>
+      <h3 class="ProgressDescripcionBloque1">Paso 6 de 8</h3>
+      <div class="progress-bar"></div>
+
+
+    </div>
+    <div class="box2">
+
+      <div class="form-container">
+        <div class="form-group">
+          <label for="field1">Peso</label>
+          <input type="text" id="peso" maxlength="30">
+        </div>
+        <div class="form-group">
+          <label for="field2">Talla</label>
+          <input type="text" id="talla" maxlength="30">
+        </div>
+        <div class="form-group">
+          <label for="field3">IMC</label>
+          <input type="text" id="imc" maxlength="30">
+        </div>
+      </div>
+
+      <div class="form-container">
+        <div class="form-group">
+          <label for="field4">Biotipo</label>
+          <input type="text" id="peso"maxlength="30">
+        </div>
+        <div class="form-group">
+        </div>
+        <div class="form-group">
+
+        </div>
+      </div>
+
+      <div class="form_etapa2">
+        <h3 class="anexos">Anexos (Piel, Cabello y Uñas)</h3>
+        <hr class="separador_anexo">
+      </div>
+      <div class="form-group-last">
+        <label for="field5">Descripción</label>
+        <textarea class="textarea"  name="comentarios" ></textarea>
+      </div>
+
+      <div class="button-container">
+        <button class="guardar">Guardar</button>
+        <button class="siguiente" [routerLink]="['/otros-estudios']" routerLinkActive="router-link-active">Siguiente</button>
+      </div>
+
+
+
+
+    </div>
+
+
+
+  </div>
+</div>

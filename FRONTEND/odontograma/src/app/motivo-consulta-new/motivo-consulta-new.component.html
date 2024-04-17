@@ -1,0 +1,39 @@
+<div class="body">
+    <div class="container">
+        <div class="box1">
+
+            <h1 class="NumeroBloque1">2</h1>
+            <h1 class="DescripcionBloque1">MOTIVO DE LA CONSULTA</h1>
+            <h2 class="Descripcion2Bloque1">Anote el motivo de la consulta y detalle si el paciente padece de alguna
+                enfermedad.</h2>
+            <h3 class="ProgressDescripcionBloque1">Paso 2 de 8</h3>
+            <div class="progress-bar"></div>
+
+
+        </div>
+        <div class="box2">
+
+            <div class="form-group-last">
+                <label class="motivo_label" for="field1">Motivo</label>
+                <textarea class="textarea" name="motivo" id="motivo"></textarea>
+            </div>
+
+            <div class="form-group-last">
+                <label class="motivo_label" for="field2">Enfermedad Actual</label>
+                <textarea class="textarea" name="enfermedad_actual" id="enfermedad_actual"></textarea>
+            </div>
+
+            <div class="button-container">
+                <button class="guardar">Guardar</button>
+                <button class="siguiente" [routerLink]="['/biologica']" routerLinkActive="router-link-active" >Siguiente</button>
+              </div>
+
+
+
+
+        </div>
+
+
+
+    </div>
+</div>

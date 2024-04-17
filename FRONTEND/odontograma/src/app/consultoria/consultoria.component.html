@@ -1,0 +1,79 @@
+<div class="flex justify-between">
+  <h2 class="text-[#2450A6] pl-20 pt-5 pb-5 font-bold">
+    Registrar paciente
+  </h2>
+  <div class="flex gap-2 mr-28">
+    <div class="items-center">
+      <span>E1</span>
+      <div class="bg-[#D9D9D9] w-5 h-5 rounded-full"></div>
+    </div>
+    <div class="items-center">
+      <span>E2</span>
+      <div class="bg-[#5B85D9] w-5 h-5 rounded-full"></div>
+    </div>
+    <div class="items-center">
+      <span>E3</span>
+      <div class="bg-[#D9D9D9] w-5 h-5 rounded-full"></div>
+    </div>
+    <div class="items-center">
+      <span>E4</span>
+      <div class="bg-[#D9D9D9] w-5 h-5 rounded-full"></div>
+    </div>
+    <div class="items-center">
+      <span>E5</span>
+      <div class="bg-[#D9D9D9] w-5 h-5 rounded-full"></div>
+    </div>
+    <div class="items-center">
+      <span>E6</span>
+      <div class="bg-[#D9D9D9] w-5 h-5 rounded-full"></div>
+    </div>
+    <div class="items-center">
+      <span>E7</span>
+      <div class="bg-[#D9D9D9] w-5 h-5 rounded-full"></div>
+    </div>
+    <div class="items-center">
+      <span>E8</span>
+      <div class="bg-[#D9D9D9] w-5 h-5 rounded-full"></div>
+    </div>
+  </div>
+</div>
+
+<div class="flex">
+  <div class="w-[353px] h-screen bg-[#2450A6] ml-20 justify-center items-center align-middle flex flex-col rounded-l-2xl text-center">
+    <h1 class="text-white font-extrabold text-3xl">2</h1>
+    <h2 class="text-white">MOTIVO DE CONSULTA</h2>
+    <p class="text-white font-medium">Anote el motivo de la consulta y detalle si el paciente padece de alguna enfermedad</p>
+    <label class="text-white">Paso 2 de 8</label>
+    <div class="w-[300px] bg-gray-200 rounded-full h-2.5 m-5">
+      <div class="bg-[#75F7FF] h-2.5 rounded-full" style="width: 25%"></div>
+    </div>
+  </div>
+  <div class="bg-[#A7BAF2] flex p-[20px] rounded-r-2xl">
+    <div class="flex-col">
+      <div>
+        <div class="flex flex-col ml-10">
+          <label class="font-medium" for="">Motivo</label>
+          <textarea class="border border-blue-500 p-1 w-[720px] h-[220px] rounded-sm outline-none" type="text" placeholder="Anote el motivo de consulta"></textarea>
+        </div>
+      </div>
+      <div>
+        <div class="flex flex-col ml-10">
+          <label class="font-medium" for="">Enfermedad actual</label>
+          <textarea class="border border-blue-500 p-1 w-[720px] h-[220px] rounded-sm outline-none" type="text" placeholder="Anote si el paciente padece alguna enfermedad en la visita"></textarea>
+        </div>
+      </div>
+      <div class="flex gap-3 mt-4 ml-[552px]">
+        <button class="bg-white text-[#2450A6] p-3 flex rounded-lg">
+          Guardar
+          <img class="ml-1" src="../../assets/icons/save.svg" alt="">
+        </button>
+        <button class="bg-[#2450A6] text-white p-3 rounded-lg"
+        [routerLink]="['/biologica']" routerLinkActive="router-link-active"
+        >
+          Siguiente
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

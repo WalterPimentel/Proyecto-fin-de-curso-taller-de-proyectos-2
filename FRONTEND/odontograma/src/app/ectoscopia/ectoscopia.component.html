@@ -1,0 +1,27 @@
+<div class="body">
+  <div class="container">
+    <div class="box1">
+      <h1 class="DescripcionBloque1">ECTOCOSPIA</h1>
+      <h2 class="Descripcion2Bloque1">
+        Anote todas las observaciones de su paciente a la hora de su llegada
+      </h2>
+    </div>
+    <div class="box2">
+      <div class="form-group-last">
+        <label for="field5">Descripción</label>
+        <textarea class="textarea" name="comentarios"></textarea>
+      </div>
+
+      <div class="button-container">
+        <button class="guardar">Guardar</button>
+        <button
+          class="volver"
+          [routerLink]="['/anamnesis']"
+          routerLinkActive="router-link-active"
+        >
+          Volver
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

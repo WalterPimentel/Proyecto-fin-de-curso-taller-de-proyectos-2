@@ -1,0 +1,8 @@
+.fondo1{
+  background: linear-gradient(99deg, #A7BAF2 10.91%, rgba(147, 170, 231, 0.82) 23.26%, rgba(126, 153, 218, 0.63) 37.89%, rgba(118, 147, 214, 0.56) 46.68%, rgba(107, 137, 207, 0.46) 54.25%, rgba(126, 153, 218, 0.32) 76.67%, rgba(142, 166, 228, 0.19) 90.18%);
+  padding: 30px 10px 30px 10px;
+  display: flex;
+  justify-content: space-between;
+
+  z-index: -1;
+}

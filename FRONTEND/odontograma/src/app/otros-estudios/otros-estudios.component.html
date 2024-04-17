@@ -1,0 +1,53 @@
+<div class="body">
+  <div class="container">
+      <div class="box1">
+
+          <h1 class="NumeroBloque1">7</h1>
+          <h1 class="DescripcionBloque1">OTROS ESTUDIOS</h1>
+          <h2 class="Descripcion2Bloque1">Registres estudios especializados para su paciente</h2>
+          <h3 class="ProgressDescripcionBloque1">Paso 7 de 8</h3>
+          <div class="progress-bar"></div>
+
+
+      </div>
+      <div class="box2">
+
+          <div class="form-container">
+
+              <div class="form-group">
+                  <label for="field1">Agregar Otros Estudios</label>
+                  <textarea class="textarea-comentarios"  name="comentarios" ></textarea>
+              </div>
+
+              <div class="form-group">
+                  <label for="field2">Descripción</label>
+                  <textarea class="textarea" name="descripcion"></textarea>
+              </div>
+
+              <div class="form-group_especial">
+
+                  <button class="agregar">+</button>
+              </div>
+
+
+          </div>
+
+
+          <div class="form_etapa2">
+              <h3 class="lista_datos">Listado de Datos</h3>
+              <hr class="separador_anexo">
+          </div>
+
+          <div class="detalle_container">
+              <div class="listado" id="listado-datos">
+              </div>
+
+          </div>
+          <div class="button-container">
+              <button class="guardar">Guardar</button>
+              <button class="siguiente" [routerLink]="['/plan-tratamiento']" routerLinkActive="router-link-active">Siguiente</button>
+          </div>
+      </div>
+  </div>
+
+</div>
