@@ -51,5 +51,5 @@ Si deseas contribuir a este proyecto, por favor sigue estos pasos:
 
 ## Licencia
 
-Este proyecto está bajo la Licencia [MIT](https://opensource.org/licenses/MIT).
+Este proyecto está bajo la Licencia [MIT](https://opensource.org/licenses/MIT)
 
