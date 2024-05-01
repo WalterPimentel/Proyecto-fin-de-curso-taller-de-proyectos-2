@@ -1,6 +1,46 @@
 version: '3.8'
 services:
+  backend:
+    container_name: backend-node
+    build: 
+      context: ./BACKEND
+    volumes:  
+      - ./BACKEND:/app
+      - /app/node_modules
+    ports: 
+      - "3000:3000"
+    command: npm run dev
+    networks:
+      - network1
+  database:
+    image: mysql:8.3
+    container_name: database-container
+    # depends_on:
+    #   - frontend
+    restart: always
+    environment:
+      - MYSQL_USER=example-user
+      - MYSQL_PASSWORD=secret-password
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=odontograma
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - network1
+  php-myadmin:
+    depends_on:
+      - database
+    image: phpmyadmin:apache
+    ports: 
+     - "8080:80"
+    restart: always
+    environment: 
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+    networks:
+      - network1
   frontend:
+    container_name: frontend-angular
     build:
       context: ./FRONTEND/odontograma
     ports:
@@ -9,3 +49,11 @@ services:
       - ./FRONTEND/odontograma:/app
       - /app/node_modules
     command: "ng serve --host 0.0.0.0 --poll=2000 --port 4200 --disable-host-check"
+    networks:
+      - network1
+
+networks:
+  network1:
+    driver: bridge
+volumes:
+  db-data:
