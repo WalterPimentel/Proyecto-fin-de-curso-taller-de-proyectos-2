@@ -21,7 +21,7 @@ services:
     environment:
       - MYSQL_USER=example-user
       - MYSQL_PASSWORD=secret-password
-      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=secret-password
       - MYSQL_DATABASE=odontograma
     volumes:
       - db-data:/var/lib/mysql
