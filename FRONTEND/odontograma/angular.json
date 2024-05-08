@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "registrarPaciente": {
+    "odontograma": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -11,11 +11,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/registrar-paciente",
+            "outputPath": "dist/odontograma",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -46,12 +46,9 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -60,10 +57,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "registrarPaciente:build:production"
+              "buildTarget": "odontograma:build:production"
             },
             "development": {
-              "browserTarget": "registrarPaciente:build:development"
+              "buildTarget": "odontograma:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +68,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "registrarPaciente:build"
+            "buildTarget": "odontograma:build"
           }
         },
         "test": {
@@ -94,8 +91,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "analytics": false
   }
 }
