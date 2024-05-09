@@ -1,0 +1,401 @@
+<body>
+
+
+  <section class="main-content">
+    <div class="container1">
+      <div class="content-left">
+        <h1>Odontograma<br>Anatómico</h1>
+        <p>Solo tienes que cubrir los datos y seleccionar los tratamientos en<br>las piezas dentales, y ya podrás imprimir el odontograma o<br>exportarlo a PDF.</p>      </div>
+      <div class="content-right">
+        <img src="assets/images/oanatomico.png" alt="Imagen">
+      </div>
+    </div>
+  </section>
+
+  <div class="modal" [ngStyle]="{ 'display': modalOpen ? 'block' : 'none' }" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+
+          <h5 class="modal-title">Añadir Tratamiento</h5>
+          <span class="close" (click)="closeModal()">&times;</span>
+
+        </div>
+
+        <div class="modal-body">
+
+
+          <div class="mb-3">
+            <label for="exampleFormControlInput3" class="form-label">Selecciona Pieza:</label><br>
+            <select class="form-select form-control" aria-label="Selecciona Pieza" id="selpieza" name="selpieza">
+              <option selected="" value="00">Todas</option>
+              <option value="11A">11A</option>
+              <option value="12A">12A</option>
+              <option value="13A">13A</option>
+              <option value="14A">14A</option>
+              <option value="15A">15A</option>
+              <option value="16A">16A</option>
+              <option value="17A">17A</option>
+              <option value="18A">18A</option>
+              <option value="21A">21A</option>
+              <option value="22A">22A</option>
+              <option value="23A">23A</option>
+              <option value="24A">24A</option>
+              <option value="25A">25A</option>
+              <option value="26A">26A</option>
+              <option value="27A">27A</option>
+              <option value="28A">28A</option>
+              <option value="31A">31A</option>
+              <option value="32A">32A</option>
+              <option value="33A">33A</option>
+              <option value="34A">34A</option>
+              <option value="35A">35A</option>
+              <option value="36A">36A</option>
+              <option value="37A">37A</option>
+              <option value="38A">38A</option>
+              <option value="41A">41A</option>
+              <option value="42A">42A</option>
+              <option value="43A">43A</option>
+              <option value="44A">44A</option>
+              <option value="45A">45A</option>
+              <option value="46A">46A</option>
+              <option value="47A">47A</option>
+              <option value="48A">48A</option>
+
+
+              <option value="14B">14B</option>
+              <option value="15B">15B</option>
+              <option value="16B">16B</option>
+              <option value="17B">17B</option>
+              <option value="18B">18B</option>
+
+              <option value="24B">24B</option>
+              <option value="25B">25B</option>
+              <option value="26B">26B</option>
+              <option value="27B">27B</option>
+              <option value="28B">28B</option>
+
+              <option value="34B">34B</option>
+              <option value="35B">35B</option>
+              <option value="36B">36B</option>
+              <option value="37B">37B</option>
+              <option value="38B">38B</option>
+
+              <option value="44B">44B</option>
+              <option value="45B">45B</option>
+              <option value="46B">46B</option>
+              <option value="47B">47B</option>
+              <option value="48B">48B</option>
+
+
+
+
+              <option value="11C">11C</option>
+              <option value="12C">12C</option>
+              <option value="13C">13C</option>
+              <option value="14C">14C</option>
+              <option value="15C">15C</option>
+              <option value="16C">16C</option>
+              <option value="17C">17C</option>
+              <option value="18C">18C</option>
+              <option value="21C">21C</option>
+              <option value="22C">22C</option>
+              <option value="23C">23C</option>
+              <option value="24C">24C</option>
+              <option value="25C">25C</option>
+              <option value="26C">26C</option>
+              <option value="27C">27C</option>
+              <option value="28C">28C</option>
+              <option value="31C">31C</option>
+              <option value="32C">32C</option>
+              <option value="33C">33C</option>
+              <option value="34C">34C</option>
+              <option value="35C">35C</option>
+              <option value="36C">36C</option>
+              <option value="37C">37C</option>
+              <option value="38C">38C</option>
+              <option value="41C">41C</option>
+              <option value="42C">42C</option>
+              <option value="43C">43C</option>
+              <option value="44C">44C</option>
+              <option value="45C">45C</option>
+              <option value="46C">46C</option>
+              <option value="47C">47C</option>
+              <option value="48C">48C</option>
+
+            </select>
+          </div>
+
+
+
+
+          <div class="mb-3">
+           <label for="exampleFormControlInput1" class="form-label">Selecciona Tratamiento:</label><br>
+                <select class="form-select form-control" aria-label="Selecciona tratamiento" id="seltratamiento" name="seltratamiento">
+              <option *ngFor="let treatment of tratamientos" [value]="treatment" [ngStyle]="{ 'background-color': tratamientoColores[treatment] }">
+                {{ treatment }}</option>
+           <option selected="" value="Apiceptomía">Apiceptomía</option>
+           <option value="Carillas">Carillas</option>
+           <option value="Cirugía">Cirugía</option>
+           <option value="Contanto Alimento">Contanto Alimento</option>
+           <option value="Corona">Corona</option>
+           <option value="Curetaje">Curetaje</option>
+           <option value="Endodoncia">Endodoncia</option>
+           <option value="Esqueletico">Esquelético</option>
+           <option value="Estética">Estética</option>
+           <option value="Exploración">Exploración</option>
+           <option value="Extrusión">Extrusión</option>
+           <option value="Furcas">Furcas</option>
+           <option value="Girar">Girar</option>
+           <option value="Impacto Alimento">Impacto Alimento</option>
+           <option value="Impresiones">Impresiones</option>
+           <option value="Inclinacion">Inclinación</option>
+           <option value="Limpieza">Limpieza</option>
+           <option value="Movilidad">Movilidad</option>
+           <option value="Obturacion">Obturación</option>
+           <option value="Ortodoncia">Ortodoncia</option>
+           <option value="Perno">Perno</option>
+           <option value="Pilar solo">Pilar Solo</option>
+           <option value="Pilar transepitelial">Pilar Transpitelial</option>
+           <option value="Placa descarga">Placa Descarga</option>
+           <option value="Protesis removible">Protesis Removible</option>
+           <option value="Puente">Puente</option>
+           <option value="Quitar">Quitar</option>
+           <option value="Radiografia">Radiografía</option>
+           <option value="Reconstrucción">Reconstrucción</option>
+           <option value="Sangrado">Sangrado</option>
+           <option value="Sellador">Sellador</option>
+           <option value="Sensibilidad">Sensibilidad</option>
+           <option value="Supurado">Supurado</option>
+           <option value="Tornillo">Tornillo</option>
+           <option value="Tornillo Solo">Tornillo Solo</option>
+           <option value="Tratamiento">Tratamiento</option>
+           </select>
+          </div>
+          <div class="">
+
+             <label for="exampleFormControlInput2" class="form-label">Selecciona Cara:</label><br>
+             <select class="form-select form-control" aria-label="Selecciona cara" id="selcara" name="selcara">
+              <option selected="" value="Vestibular">Vestibular</option>
+              <option value="Lingual">Lingual</option>
+              <option value="Palatino">Palatino</option>
+              <option value="Mesial">Mesial</option>
+               <option value="Distal">Distal</option>
+              <option value="Oclusal">Oclusal</option>
+          </select>
+          </div>
+
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="addTreatment()">Añadir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+
+<header class="espacio1">
+</header>
+
+<header class="fondo">
+  <div class="vertical-container">
+    <div class="row">
+      <div class="date-container">
+        <p class="Fecha: ">Fecha {{ fechaActual }}</p>
+        <button class="descargar-btn">Descargar PDF</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <p class="datos-cliente">Datos Cliente</p>
+    </div>
+
+    <div class="dni-container">
+      <p class="dni">DNI:</p>
+      <div class="colortext form-group">
+        <input type="text" id="dni" />
+      </div>
+      <button class="buscar-paciente-btn">Buscar Paciente</button>
+      <button class="agregar-paciente-btn">Agregar Paciente</button>
+    </div>
+
+    <div class="nombre-container">
+      <p class="nombre-text">Nombre:</p>
+      <div class="colortext form-group">
+        <input type="text" id="nombre" />
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PRUEBA DE CLIK POR IMAGEN-->
+
+  <div class="DIENTES">
+
+    <p></p>
+    <table class="table" style="margin-top:25px;">
+      <tr class="seccion_c">
+  <td>C</td>
+  <!-- Utiliza *ngFor para iterar sobre un arreglo de nombres de dientes -->
+  <ng-container *ngFor="let toothId of ['18C', '17C', '16C', '15C', '14C', '13C', '12C', '11C', '21C', '22C', '23C', '24C', '25C', '26C', '27C', '28C']">
+    <td [style.background-color]="getToothColor(toothId)">
+      <!-- Utiliza toothId en lugar de un valor fijo y pasa toothId a la función openModal -->
+      <input type="image" [src]="'assets/anatomico/' + toothId + '.png'" [id]="toothId" class="brush-images" alt="" (click)="openModal(toothId)">
+      <img *ngIf="getToothColor(toothId)" [src]="getToothIcon(toothId)" alt="" class="icono-tratamiento">
+    </td>
+  </ng-container>
+</tr>
+    <tr class="seccion_b">
+      <td>B</td>
+      <ng-container *ngFor="let toothId of ['18B', '17B', '16B', '15B', '14B']">
+        <td [style.background-color]="getToothColor(toothId)">
+          <input type="image" [src]="'assets/anatomico/' + toothId + '.png'" [id]="toothId" class="brush-images" alt="" (click)="openModal(toothId)">
+          <img *ngIf="getToothColor(toothId)" [src]="getToothIcon(toothId)" alt="" class="icono-tratamiento">
+        </td>
+      </ng-container>
+      <td></td>
+        <td></td>
+          <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <ng-container *ngFor="let toothId of ['24B', '25B', '26B', '27B', '28B']">
+        <td [style.background-color]="getToothColor(toothId)">
+          <input type="image" [src]="'assets/anatomico/' + toothId + '.png'" [id]="toothId" class="brush-images" alt="" (click)="openModal(toothId)">
+          <img *ngIf="getToothColor(toothId)" [src]="getToothIcon(toothId)" alt="" class="icono-tratamiento">
+        </td>
+      </ng-container>
+
+      </tr>
+    <tr class="seccion_a">
+      <td>A</td>
+      <ng-container *ngFor="let toothId of ['18A', '17A', '16A', '15A', '14A', '13A', '12A', '11A', '21A', '22A', '23A', '24A', '25A', '26A', '27A', '28A']">
+        <td [style.background-color]="getToothColor(toothId)">
+          <input type="image" [src]="'assets/anatomico/' + toothId + '.png'" [id]="toothId" class="brush-images" alt="" (click)="openModal(toothId)">
+          <img *ngIf="getToothColor(toothId)" [src]="getToothIcon(toothId)" alt="" class="icono-tratamiento">
+        </td>
+      </ng-container>
+
+      </tr>
+    <tr>
+      <td></td>
+      <td>18</td>
+      <td>17</td>
+      <td>16</td>
+      <td>15</td>
+      <td>14</td>
+      <td>13</td>
+        <td>12</td>
+          <td>11</td>
+      <td>21</td>
+      <td>22</td>
+      <td>23</td>
+      <td>24</td>
+      <td>25</td>
+      <td>26</td>
+      <td>27</td>
+      <td>28</td>
+      </tr>
+    <tr>
+      <td></td>
+      <td>48</td>
+      <td>47</td>
+      <td>46</td>
+      <td>45</td>
+      <td>44</td>
+      <td>43</td>
+        <td>42</td>
+          <td>41</td>
+      <td>31</td>
+      <td>32</td>
+      <td>33</td>
+      <td>34</td>
+      <td>35</td>
+      <td>36</td>
+      <td>37</td>
+      <td>38</td>
+      </tr>
+    <tr class="abajo_a">
+      <td>A</td>
+      <ng-container *ngFor="let toothId of ['48A', '47A', '46A', '45A', '44A', '43A', '42A', '41A', '31A', '32A', '33A', '34A', '35A', '36A', '37A', '38A']">
+        <td [style.background-color]="getToothColor(toothId)">
+      <input type="image" [src]="'assets/anatomico/' + toothId + '.png'" [id]="toothId" class="brush-images" alt="" (click)="openModal(toothId)">
+          <img *ngIf="getToothColor(toothId)" [src]="getToothIcon(toothId)" alt="" class="icono-tratamiento">
+        </td>
+      </ng-container>
+      </tr>
+    <tr class="abajo_b">
+      <td>B</td>
+      <ng-container *ngFor="let toothId of ['48B', '47B', '46B', '45B', '44B']">
+        <td [style.background-color]="getToothColor(toothId)">
+          <input type="image" [src]="'assets/anatomico/' + toothId + '.png'" [id]="toothId" class="brush-images" alt="" (click)="openModal(toothId)">
+          <img *ngIf="getToothColor(toothId)" [src]="getToothIcon(toothId)" alt="" class="icono-tratamiento">
+        </td>
+      </ng-container>
+
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <ng-container *ngFor="let toothId of ['34B', '35B', '36B', '37B', '38B']">
+        <td [style.background-color]="getToothColor(toothId)">
+          <input type="image" [src]="'assets/anatomico/' + toothId + '.png'" [id]="toothId" class="brush-images" alt="" (click)="openModal(toothId)">
+          <img *ngIf="getToothColor(toothId)" [src]="getToothIcon(toothId)" alt="" class="icono-tratamiento">
+        </td>
+      </ng-container>
+
+      </tr>
+    <tr class="abajo_c">
+      <td>C</td>
+      <ng-container *ngFor="let toothId of ['48C', '47C', '46C', '45C', '44C', '43C', '42C', '41C', '31C', '32C', '33C', '34C', '35C', '36C', '37C', '38C']">
+        <td [style.background-color]="getToothColor(toothId)">
+          <input type="image" [src]="'assets/anatomico/' + toothId + '.png'" [id]="toothId" class="brush-images" alt="" (click)="openModal(toothId)">
+          <img *ngIf="getToothColor(toothId)" [src]="getToothIcon(toothId)" alt="" class="icono-tratamiento">
+        </td>
+      </ng-container>
+
+      </tr>
+  </table>
+
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Tratamiento</th>
+        <th>Pieza</th>
+        <th>Cara</th>
+        <th>Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of datos; let i = index">
+        <td class="columna-tratamiento">
+          <img decoding="async" [src]="item.icono" alt="Icono Tratamiento" class="icono-tratamiento">
+          {{ item.tratamiento }}
+        </td>
+
+        <td>{{ item.pieza }}</td>
+        <td>{{ item.cara }}</td>
+        <td>
+          <button class="btn_eliminar" (click)="eliminarFila(i)">
+
+            <img src="assets/images/eliminar.png" alt="Eliminar">
+          </button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+    <button class="btn_añadirTra" (click)="openModal('')">Añadir Tratamiento</button>
+
+  <!-- -->
+</header>
+
+<header class="espacio2">
+</header>
