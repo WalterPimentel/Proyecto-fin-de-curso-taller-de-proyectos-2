@@ -12,33 +12,36 @@ services:
     command: npm run dev
     networks:
       - network1
+
   database:
-    image: mysql:8.3
+    image: mongo:8.0-rc-jammy
     container_name: database-container
-    # depends_on:
-    #   - frontend
     restart: always
     environment:
-      - MYSQL_USER=example-user
-      - MYSQL_PASSWORD=secret-password
-      - MYSQL_ROOT_PASSWORD=secret-password
-      - MYSQL_DATABASE=odontograma
+      - MONGO_INITDB_ROOT_USERNAME=example-user
+      - MONGO_INITDB_ROOT_PASSWORD=secret-password
+      - MONGO_INITDB_DATABASE=odontograma
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/data/db
     networks:
       - network1
-  php-myadmin:
+
+  mongo-express:
     depends_on:
       - database
-    image: phpmyadmin:apache
-    ports: 
-     - "8080:80"
+    image: mongo-express:1.0-20-alpine3.19
+    ports:
+      - "8081:8081"
     restart: always
-    environment: 
-      - PMA_ARBITRARY=1
-      - PMA_HOST=mysql
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=example-user
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=secret-password
+      - ME_CONFIG_MONGODB_SERVER=database
+      # - ME_CONFIG_MONGODB_URL=mongodb://example-user:secret-password@mongo:27017/
+      - ME_CONFIG_BASICAUTH=false
     networks:
       - network1
+
   frontend:
     container_name: frontend-angular
     build:
@@ -55,5 +58,6 @@ services:
 networks:
   network1:
     driver: bridge
+
 volumes:
   db-data:
