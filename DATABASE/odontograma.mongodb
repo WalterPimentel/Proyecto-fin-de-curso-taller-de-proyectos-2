@@ -1,0 +1,199 @@
+use ('odontogramaDB');
+// db.createCollection("odontograma", {
+//    validator: {
+//       $jsonSchema: {
+//          bsonType: "object",
+//          required: ["pacienteId", "odontograma"],
+//          properties: {
+//             pacienteId: {
+//                bsonType: "objectId",
+//                description: "ID del paciente"
+//             },
+//             odontograma: {
+//                bsonType: "object",
+//                required: ["incisivos", "caninos", "premolares", "molares"],
+//                properties: {
+//                   incisivos: {
+//                      bsonType: "object",
+//                      required: ["superior", "inferior"],
+//                      properties: {
+//                         superior: {
+//                            bsonType: "object",
+//                            required: ["derecho", "izquierdo"],
+//                            properties: {
+//                               derecho: {
+//                                  bsonType: "object",
+//                                  required: ["central", "lateral"],
+//                                  properties: {
+//                                     central: {
+//                                        bsonType: "string",
+//                                        description: "Estado del diente central"
+//                                     },
+//                                     lateral: {
+//                                        bsonType: "string",
+//                                        description: "Estado del diente lateral"
+//                                     }
+//                                  }
+//                               },
+//                               izquierdo: {
+//                                  bsonType: "object",
+//                                  required: ["central", "lateral"],
+//                                  properties: {
+//                                     central: {
+//                                        bsonType: "string",
+//                                        description: "Estado del diente central"
+//                                     },
+//                                     lateral: {
+//                                        bsonType: "string",
+//                                        description: "Estado del diente lateral"
+//                                     }
+//                                  }
+//                               }
+//                            }
+//                         },
+//                         inferior: {
+//                            bsonType: "object",
+//                            required: ["derecho", "izquierdo"],
+//                            properties: {
+//                               derecho: {
+//                                  bsonType: "object",
+//                                  required: ["central", "lateral"],
+//                                  properties: {
+//                                     central: {
+//                                        bsonType: "string",
+//                                        description: "Estado del diente central"
+//                                     },
+//                                     lateral: {
+//                                        bsonType: "string",
+//                                        description: "Estado del diente lateral"
+//                                     }
+//                                  }
+//                               },
+//                               izquierdo: {
+//                                  bsonType: "object",
+//                                  required: ["central", "lateral"],
+//                                  properties: {
+//                                     central: {
+//                                        bsonType: "string",
+//                                        description: "Estado del diente central"
+//                                     },
+//                                     lateral: {
+//                                        bsonType: "string",
+//                                        description: "Estado del diente lateral"
+//                                     }
+//                                  }
+//                               }
+//                            }
+//                         }
+//                      }
+//                   },
+//                   caninos: {
+//                      bsonType: "object",
+//                      required: ["superior", "inferior"],
+//                      properties: {
+//                         superior: {
+//                            bsonType: "object",
+//                            required: ["derecho", "izquierdo"],
+//                            properties: {
+//                               derecho: {
+//                                  bsonType: "string",
+//                                  description: "Estado del diente"
+//                               },
+//                               izquierdo: {
+//                                  bsonType: "string",
+//                                  description: "Estado del diente"
+//                               }
+//                            }
+//                         },
+//                         inferior: {
+//                            bsonType: "object",
+//                            required: ["derecho", "izquierdo"],
+//                            properties: {
+//                               derecho: {
+//                                  bsonType: "string",
+//                                  description: "Estado del diente"
+//                               },
+//                               izquierdo: {
+//                                  bsonType: "string",
+//                                  description: "Estado del diente"
+//                               }
+//                            }
+//                         }
+//                      }
+//                   },
+//                   premolares: {
+//                      bsonType: "object",
+//                      required: ["superior", "inferior"],
+//                      properties: {
+//                         superior: {
+//                            bsonType: "object",
+//                            required: ["derecho", "izquierdo"],
+//                            properties: {
+//                               derecho: {
+//                                  bsonType: "string",
+//                                  description: "Estado del diente"
+//                               },
+//                               izquierdo: {
+//                                  bsonType: "string",
+//                                  description: "Estado del diente"
+//                               }
+//                            }
+//                         },
+//                         inferior: {
+//                            bsonType: "object",
+//                            required: ["derecho", "izquierdo"],
+//                            properties: {
+//                               derecho: {
+//                                  bsonType: "string",
+//                                  description: "Estado del diente"
+//                               },
+//                               izquierdo: {
+//                                  bsonType: "string",
+//                                  description: "Estado del diente"
+//                               }
+//                            }
+//                         }
+//                      }
+//                   },
+//                   molares: {
+//                      bsonType: "object",
+//                      required: ["superior", "inferior"],
+//                      properties: {
+//                         superior: {
+//                            bsonType: "object",
+//                            required: ["derecho", "izquierdo"],
+//                            properties: {
+//                               derecho: {
+//                                  bsonType: "string",
+//                                  description: "Estado del diente"
+//                               },
+//                               izquierdo: {
+//                                  bsonType: "string",
+//                                  description: "Estado del diente"
+//                               }
+//                            }
+//                         },
+//                         inferior: {
+//                            bsonType: "object",
+//                            required: ["derecho", "izquierdo"],
+//                            properties: {
+//                               derecho: {
+//                                  bsonType: "string",
+//                                  description: "Estado del diente"
+//                               },
+//                               izquierdo: {
+//                                  bsonType: "string",
+//                                  description: "Estado del diente"
+//                               }
+//                            }
+//                         }
+//                      }
+//                   }
+//                }
+//             }
+//          }
+//       }
+//    }
+// });
+
+db.getCollectionInfos()

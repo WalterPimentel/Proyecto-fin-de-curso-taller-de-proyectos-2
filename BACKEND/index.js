@@ -14,6 +14,7 @@ app.use(express.static('public'));
 //lectura y parseo de body
 app.use(express.json());
 
+const PORT = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
     res.json({
@@ -24,6 +25,6 @@ app.get('/', (req, res) => {
 
 
 //escuchar peticiones
-app.listen(process.env.PORT, () => {
-    console.log("servidor"+process.env.PORT);
+app.listen(PORT, () => {
+    console.log("servidor en el puerto" + PORT);
 });
