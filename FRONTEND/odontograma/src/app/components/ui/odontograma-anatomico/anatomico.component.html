@@ -1,0 +1,124 @@
+<div class="mt-4 overflow-x-auto rounded-lg shadow-md bg-gray-100">
+    <table class="w-full border-collapse">
+      <thead>
+        <tr class="bg-gray-200">
+          <th class="px-4 py-2"></th>
+          <th
+            class="px-4 py-2"
+            *ngFor="let i of [].constructor(16); let j = index"
+          >
+            {{ 17 - j }}
+          </th>
+          <th
+            class="px-4 py-2"
+            *ngFor="let i of [].constructor(16); let j = index"
+          >
+            {{ 21 + j }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let fila of ['C', 'B', 'A']">
+          <tr>
+            <td class="px-4 py-2 border text-center">{{ fila }}</td>
+            <td
+              class="px-4 py-2 border relative"
+              *ngFor="let i of [].constructor(16); let j = index"
+            >
+              <input
+                type="image"
+                [src]="'assets/anatomico/' + (18 - j) + fila + '.png'"
+                [id]="18 - j + fila"
+                class="brush-images w-full h-auto"
+                alt=""
+                (click)="openModal(18 - j + fila)"
+              />
+              <img
+                *ngIf="getToothColor(18 - j + fila)"
+                [src]="getToothIcon(18 - j + fila)"
+                alt=""
+                class="icono-tratamiento absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              />
+            </td>
+            <td
+              class="px-4 py-2 border relative"
+              *ngFor="let i of [].constructor(16); let j = index"
+            >
+              <input
+                type="image"
+                [src]="'assets/anatomico/' + (21 + j) + fila + '.png'"
+                [id]="21 + j + fila"
+                class="brush-images w-full h-auto"
+                alt=""
+                (click)="openModal(21 + j + fila)"
+              />
+              <img
+                *ngIf="getToothColor(21 + j + fila)"
+                [src]="getToothIcon(21 + j + fila)"
+                alt=""
+                class="icono-tratamiento absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              />
+            </td>
+          </tr>
+        </ng-container>
+        <tr>
+          <td class="px-4 py-2 border"></td>
+          <td
+            class="px-4 py-2 border text-center"
+            *ngFor="let i of [].constructor(16); let j = index"
+          >
+            {{ 18 - j }}
+          </td>
+          <td
+            class="px-4 py-2 border text-center"
+            *ngFor="let i of [].constructor(16); let j = index"
+          >
+            {{ 21 + j }}
+          </td>
+        </tr>
+        <ng-container *ngFor="let fila of ['A', 'B', 'C']">
+          <tr>
+            <td class="px-4 py-2 border text-center">{{ fila }}</td>
+            <td
+              class="px-4 py-2 border relative"
+              *ngFor="let i of [].constructor(16); let j = index"
+            >
+              <input
+                type="image"
+                [src]="'assets/anatomico/' + (48 - j) + fila + '.png'"
+                [id]="48 - j + fila"
+                class="brush-images w-full h-auto"
+                alt=""
+                (click)="openModal(48 - j + fila)"
+              />
+              <img
+                *ngIf="getToothColor(48 - j + fila)"
+                [src]="getToothIcon(48 - j + fila)"
+                alt=""
+                class="icono-tratamiento absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              />
+            </td>
+            <td
+              class="px-4 py-2 border relative"
+              *ngFor="let i of [].constructor(16); let j = index"
+            >
+              <input
+                type="image"
+                [src]="'assets/anatomico/' + (31 + j) + fila + '.png'"
+                [id]="31 + j + fila"
+                class="brush-images w-full h-auto"
+                alt=""
+                (click)="openModal(31 + j + fila)"
+              />
+              <img
+                *ngIf="getToothColor(31 + j + fila)"
+                [src]="getToothIcon(31 + j + fila)"
+                alt=""
+                class="icono-tratamiento absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              />
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
