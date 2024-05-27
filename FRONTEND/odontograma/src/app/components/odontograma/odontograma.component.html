@@ -1,63 +1,81 @@
 <body class="p-4 bg-indigo-100">
-  <div class="flex justify-between items-center mb-4">
-    <h1 class="text-2xl font-bold">Odontograma Anatómico</h1>
-    <img src="assets/images/oanatomico.png" alt="Imagen" class="h-12 w-auto" />
-  </div>
-
-  <div class="bg-gray-100 p-4 rounded-lg shadow-md mt-4">
-    <div class="flex justify-between items-center">
-      <p class="font-bold">Fecha {{ fechaActual }}</p>
-      <button
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Descargar PDF
-      </button>
+  <app-spinner *ngIf="isLoading"></app-spinner>
+  <div *ngIf="!isLoading">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-bold">Odontograma Anatómico</h1>
+      <img
+        src="assets/images/oanatomico.png"
+        alt="Imagen"
+        class="h-12 w-auto"
+      />
     </div>
+
+    <div class="bg-gray-100 p-4 rounded-lg shadow-md mt-4">
+      <div class="flex justify-between items-center">
+        <p class="font-bold">Fecha {{ formatDate(fechaActual) }}</p>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Descargar PDF
+        </button>
+      </div>
+      <div class="mt-4">
+        <p class="font-bold">Paciente</p>
+        <p class="ml-3">DNI: {{ paciente.dni }}</p>
+        <p class="ml-3 italic">
+          {{ paciente.nombres }} {{ paciente.apellidos }}
+        </p>
+        <p class="ml-3">Edad: {{ paciente.edad }}</p>
+        <p class="ml-3">Registro: {{ formatDate(paciente.fecha) }}</p>        
+      </div>
+    </div>
+
     <div class="mt-4">
-      <p class="font-bold">Paciente</p>
-      <p class="ml-3">70059845</p>
-      <p class="ml-3 italic">Diego Fernando Capcha Leyva</p>
+      <label for="tipoOdontograma">Odontograma </label>
+      <select id="tipoOdontograma" [(ngModel)]="tipoOdontograma">
+        <option value="anatomico">Anatómico</option>
+        <option value="geometrico">Geométrico</option>
+      </select>
+      <label>, </label>
+      <select id="pacienteCategoria" [(ngModel)]="edadCategoria" title="Paciente Categoría">
+        <option value="adulto">Adulto</option>
+        <option value="menor">Menor</option>
+        <option value="completo">Completo</option>
+      </select>
+      <label>.</label>
     </div>
-  </div>
 
-  <div class="mt-4">
-    <label for="tipoOdontograma">Tipo de Odontograma:</label>
-    <select id="tipoOdontograma" [(ngModel)]="tipoOdontograma">
-      <option value="anatomico">Anatómico</option>
-      <option value="geometrico">Geométrico</option>
-    </select>
-  </div>
+    <app-ui-odontograma-anatomico
+      *ngIf="tipoOdontograma === 'anatomico'"
+    ></app-ui-odontograma-anatomico>
 
-  <app-ui-odontograma-anatomico
-    *ngIf="tipoOdontograma === 'anatomico'"
-  ></app-ui-odontograma-anatomico>
-
-  <div class="mt-4">
-    <div class="mb-4">
-      <label
-        for="especificaciones"
-        class="block text-gray-700 text-sm font-bold mb-2"
-        >Especificaciones:</label
-      >
-      <textarea
-        id="especificaciones"
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        placeholder="Especificaciones"
-        rows="3"
-      ></textarea>
-    </div>
-    <div>
-      <label
-        for="observaciones"
-        class="block text-gray-700 text-sm font-bold mb-2"
-        >Observaciones:</label
-      >
-      <textarea
-        id="observaciones"
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        placeholder="Observaciones"
-        rows="3"
-      ></textarea>
+    <div class="mt-4">
+      <div class="mb-4">
+        <label
+          for="especificaciones"
+          class="block text-gray-700 text-sm font-bold mb-2"
+          >Especificaciones:</label
+        >
+        <textarea
+          id="especificaciones"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Especificaciones"
+          rows="3"
+        ></textarea>
+      </div>
+      <div>
+        <label
+          for="observaciones"
+          class="block text-gray-700 text-sm font-bold mb-2"
+          >Observaciones:</label
+        >
+        <textarea
+          id="observaciones"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Observaciones"
+          rows="3"
+        ></textarea>
+      </div>
     </div>
   </div>
 </body>

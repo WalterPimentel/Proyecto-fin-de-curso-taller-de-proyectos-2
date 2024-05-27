@@ -2,6 +2,17 @@ const faker = require('faker');
 const { format, differenceInYears } = require('date-fns');
 const fs = require('fs');
 
+let generatedDnis = new Set();
+
+function generateUniqueDni() {
+    let dni;
+    do {
+        dni = faker.datatype.number({ min: 10000000, max: 99999999 });
+    } while (generatedDnis.has(dni));
+    generatedDnis.add(dni);
+    return dni.toString();
+}
+
 function generateData() {
     const data = {
         historiaClinica: []
@@ -9,7 +20,7 @@ function generateData() {
 
     for (let i = 1; i <= 100; i++) {
 
-        const fechaNacimiento = faker.date.between('1950-01-01', '2017-12-31');
+        const fechaNacimiento = faker.date.between('1950-01-01', '2018-12-31');
         const fecha = faker.date.past();
         const hora = faker.date.recent();
 
@@ -17,6 +28,7 @@ function generateData() {
             id: i,
             fecha: format(fecha, 'dd/MM/yyyy'),
             hora: format(hora, 'HH:mm'),
+            dni: generateUniqueDni(),
             apellidos: faker.name.lastName(),
             nombres: faker.name.firstName(),
             fechaNacimiento: format(fechaNacimiento, 'dd/MM/yyyy'),
