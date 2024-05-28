@@ -15,7 +15,8 @@ function generateUniqueDni() {
 
 function generateData() {
     const data = {
-        historiaClinica: []
+        historiaClinica: [],
+        userAuth: []
     };
 
     for (let i = 1; i <= 100; i++) {
@@ -35,11 +36,21 @@ function generateData() {
             edad: differenceInYears(new Date(), fechaNacimiento),
             sexo: faker.random.arrayElement(['Masculino', 'Femenino']),
             telefono: '9' + faker.datatype.number({ min: 10000000, max: 99999999 }),
-            peso: faker.random.number({ min: 40, max: 100 }),
-            talla: faker.random.number({ min: 150, max: 200 }),
-            presionArterial: faker.random.number({ min: 80, max: 120 }) + '/' + faker.random.number({ min: 60, max: 80 }),
-            pulso: faker.random.number({ min: 60, max: 100 }),
-            temperatura: faker.random.number({ min: 36, max: 39, precision: 0.1 })
+            peso: faker.datatype.number({ min: 40, max: 100 }),
+            talla: faker.datatype.number({ min: 150, max: 200 }),
+            presionArterial: faker.datatype.number({ min: 80, max: 120 }) + '/' + faker.datatype.number({ min: 60, max: 80 }),
+            pulso: faker.datatype.number({ min: 60, max: 100 }),
+            temperatura: faker.datatype.number({ min: 36, max: 39, precision: 0.1 })
+        });
+    }
+
+    for (i = 1; i <= 15; i++) {
+        data.userAuth.push({
+            id: i,
+            username: faker.internet.userName(),
+            role: faker.random.arrayElement(['Admin', 'User', 'Guest']),
+            email: faker.internet.email(),
+            status: faker.random.arrayElement(['Active', 'Inactive']),
         });
     }
 

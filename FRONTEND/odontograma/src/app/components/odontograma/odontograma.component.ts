@@ -126,7 +126,7 @@ export class OdontogramaComponent {
     private cdr: ChangeDetectorRef,
     private pacienteService: PacienteService
   ) {
-    this.tipoOdontograma = 'anatomico';
+    this.tipoOdontograma = 'geometrico';
     this.isLoading = true;
     this.cdr.markForCheck();
   }

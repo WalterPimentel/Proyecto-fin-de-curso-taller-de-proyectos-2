@@ -1,0 +1,89 @@
+<div class="w-full bg-slate-400">
+  <div class="raiz relative bg-black cursor-pointer"></div>
+  <div class="flex">
+    <div class="coronaSuperior"></div>
+    <div class="coronaInferior"></div>
+    <div class="coronaDerecha"></div>
+    <div class="coronaIzquierda"></div>
+  </div>
+  <div class="">
+    <div class="flex">
+      <div class="hueco"></div>
+      <div class="hueco"></div>
+      <div class="hueco"></div>
+    </div>
+    <div class="flex">
+      <div class="hueco"></div>
+      <div class="hueco"></div>
+      <div class="hueco"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .raiz {
+    width: 42px;
+    aspect-ratio: 1 / cos(30deg);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  }
+  .raiz::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background: #fff;
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  }
+  .coronaSuperior {
+    border: #000 solid 1px;
+    cursor: pointer;
+    background-color: #fff;
+    height: 16px;
+    width: 42px; /* Ajusta este valor para controlar el ancho */
+    clip-path: polygon(
+      0% 100%,
+      /* inferior izquierdo */ 25% 0%,
+      /* superior izquierdo */ 75% 0%,
+      /* superior derecho */ 100% 100% /* inferior derecho */
+    );
+    transform: rotate(180deg);
+  }
+  .coronaInferior {
+    border: #000 solid 1px;
+    cursor: pointer;
+    background-color: #fff;
+    height: 16px;
+    width: 42px;
+    clip-path: polygon(0% 100%, 25% 0%, 75% 0%, 100% 100%);
+  }
+  .coronaDerecha {
+    border: #000 solid 1px;
+    cursor: pointer;
+    background-color: #fff;
+    height: 16px;
+    width: 42px;
+    clip-path: polygon(0% 100%, 25% 0%, 75% 0%, 100% 100%);
+    transform: rotate(90deg);
+  }
+  .coronaIzquierda {
+    border: #000 solid 1px;
+    cursor: pointer;
+    background-color: #fff;
+    height: 16px;
+    width: 42px;
+    clip-path: polygon(0% 100%, 25% 0%, 75% 0%, 100% 100%);
+    transform: rotate(-90deg);
+  }
+  .hueco {
+    background-color: #fff;
+    width: 8px;
+    height: 8px;
+    border: 1px solid #000;
+    cursor: pointer;
+  }
+  .hueco:hover {
+    background-color: #bcbc46;
+  }
+</style>

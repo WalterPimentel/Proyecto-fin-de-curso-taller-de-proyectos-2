@@ -2,7 +2,7 @@
   <app-spinner *ngIf="isLoading"></app-spinner>
   <div *ngIf="!isLoading">
     <div class="flex justify-between items-center mb-4">
-      <h1 class="text-2xl font-bold">Odontograma Anatómico</h1>
+      <h1 class="text-2xl font-bold">Odontograma Inicial</h1>
       <img
         src="assets/images/oanatomico.png"
         alt="Imagen"
@@ -48,6 +48,10 @@
     <app-ui-odontograma-anatomico
       *ngIf="tipoOdontograma === 'anatomico'"
     ></app-ui-odontograma-anatomico>
+
+    <app-ui-odontograma-geometrico
+      *ngIf="tipoOdontograma === 'geometrico'"
+    ></app-ui-odontograma-geometrico>
 
     <div class="mt-4">
       <div class="mb-4">
