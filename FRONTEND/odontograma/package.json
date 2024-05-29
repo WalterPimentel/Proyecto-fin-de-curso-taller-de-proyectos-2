@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "npm run generate && concurrently \"npm run server\" \"ng serve\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "generate": "node generateDataFake.js",
+    "server": "json-server --watch dbFaker.json"
   },
   "private": true,
   "dependencies": {
@@ -18,6 +20,7 @@
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
+    "date-fns": "^3.6.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
@@ -28,6 +31,8 @@
     "@angular/compiler-cli": "^17.3.0",
     "@types/jasmine": "~5.1.0",
     "autoprefixer": "^10.4.19",
+    "concurrently": "^8.2.2",
+    "faker": "^5.5.3",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
