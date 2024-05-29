@@ -187,7 +187,9 @@ export class OdontogramaComponent {
     this.pacienteService.getPacienteAleatorio().subscribe((paciente) => {
       this.paciente = paciente;
       this.edadCategoria = paciente.edad > 12 ? 'adulto' : 'menor';
-      this.isLoading = false;
+      setTimeout(() => {
+        this.isLoading = false;        
+      }, 3000);
     });
   }
 
