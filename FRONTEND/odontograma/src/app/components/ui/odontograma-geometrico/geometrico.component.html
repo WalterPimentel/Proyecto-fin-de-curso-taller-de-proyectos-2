@@ -1,9 +1,19 @@
-<div class="odontograma bg-slate-300">
+<app-ui-menu-contextual
+  *ngIf="selectedDiente"
+  [contextMenuPosition]="contextMenuPosition"
+  [diente]="selectedDiente"
+  [part]="selectedPart"
+  (selectTreatment)="onSelectTreatment($event)"
+  (closeMenu)="closeMenu()"
+></app-ui-menu-contextual>
+<div
+  class="flex relative flex-col items-center p-[30px] bg-slate-300 overflow-x-auto"
+>
   <div
-    class="divider"
+    class="border-l-[3px] border-black absolute"
     [ngClass]="{
-      'h-[65%]': edadCategoria === 'adulto' || edadCategoria === 'menor',
-      'h-[80%]': edadCategoria === 'completo'
+      'h-[67%]': edadCategoria === 'adulto' || edadCategoria === 'menor',
+      'h-[82%]': edadCategoria === 'completo'
     }"
   ></div>
   <div *ngIf="edadCategoria === 'adulto' || edadCategoria === 'completo'">
@@ -18,11 +28,26 @@
         }"
       >
         <span class="tooth-number">{{ diente }}</span>
-        <div class="top tooth-side unselected"></div>
-        <div class="left tooth-side unselected"></div>
-        <div class="bottom tooth-side unselected"></div>
-        <div class="right tooth-side unselected"></div>
-        <div class="center tooth-center unselected"></div>
+        <div
+          class="top tooth-side unselected"
+          (click)="logToothPart(diente, 'top', $event)"
+        ></div>
+        <div
+          class="left tooth-side unselected"
+          (click)="logToothPart(diente, 'left', $event)"
+        ></div>
+        <div
+          class="bottom tooth-side unselected"
+          (click)="logToothPart(diente, 'bottom', $event)"
+        ></div>
+        <div
+          class="right tooth-side unselected"
+          (click)="logToothPart(diente, 'right', $event)"
+        ></div>
+        <div
+          class="center tooth-center unselected"
+          (click)="logToothPart(diente, 'center', $event)"
+        ></div>
       </div>
     </div>
     <div class="row">
@@ -36,11 +61,27 @@
         }"
       >
         <span class="tooth-number">{{ diente }}</span>
-        <div class="top tooth-side unselected"></div>
-        <div class="left tooth-side unselected"></div>
-        <div class="bottom tooth-side unselected"></div>
-        <div class="right tooth-side unselected"></div>
-        <div class="center tooth-center unselected"></div>
+        <div class="triangle"></div>
+        <div
+          class="top tooth-side unselected"
+          (click)="logToothPart(diente, 'top', $event)"
+        ></div>
+        <div
+          class="left tooth-side unselected"
+          (click)="logToothPart(diente, 'left', $event)"
+        ></div>
+        <div
+          class="bottom tooth-side unselected"
+          (click)="logToothPart(diente, 'bottom', $event)"
+        ></div>
+        <div
+          class="right tooth-side unselected"
+          (click)="logToothPart(diente, 'right', $event)"
+        ></div>
+        <div
+          class="center tooth-center unselected"
+          (click)="logToothPart(diente, 'center', $event)"
+        ></div>
       </div>
     </div>
   </div>
@@ -56,11 +97,27 @@
         }"
       >
         <span class="tooth-number">{{ diente }}</span>
-        <div class="top tooth-side unselected"></div>
-        <div class="left tooth-side unselected"></div>
-        <div class="bottom tooth-side unselected"></div>
-        <div class="right tooth-side unselected"></div>
-        <div class="center tooth-center unselected"></div>
+        <div class="triangle"></div>
+        <div
+          class="top tooth-side unselected"
+          (click)="logToothPart(diente, 'top', $event)"
+        ></div>
+        <div
+          class="left tooth-side unselected"
+          (click)="logToothPart(diente, 'left', $event)"
+        ></div>
+        <div
+          class="bottom tooth-side unselected"
+          (click)="logToothPart(diente, 'bottom', $event)"
+        ></div>
+        <div
+          class="right tooth-side unselected"
+          (click)="logToothPart(diente, 'right', $event)"
+        ></div>
+        <div
+          class="center tooth-center unselected"
+          (click)="logToothPart(diente, 'center', $event)"
+        ></div>
       </div>
     </div>
     <div class="row">
@@ -74,11 +131,27 @@
         }"
       >
         <span class="tooth-number">{{ diente }}</span>
-        <div class="top tooth-side unselected"></div>
-        <div class="left tooth-side unselected"></div>
-        <div class="bottom tooth-side unselected"></div>
-        <div class="right tooth-side unselected"></div>
-        <div class="center tooth-center unselected"></div>
+        <div class="triangle"></div>
+        <div
+          class="top tooth-side unselected"
+          (click)="logToothPart(diente, 'top', $event)"
+        ></div>
+        <div
+          class="left tooth-side unselected"
+          (click)="logToothPart(diente, 'left', $event)"
+        ></div>
+        <div
+          class="bottom tooth-side unselected"
+          (click)="logToothPart(diente, 'bottom', $event)"
+        ></div>
+        <div
+          class="right tooth-side unselected"
+          (click)="logToothPart(diente, 'right', $event)"
+        ></div>
+        <div
+          class="center tooth-center unselected"
+          (click)="logToothPart(diente, 'center', $event)"
+        ></div>
       </div>
     </div>
   </div>
