@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { PacienteService } from '../../services/paciente.service';
+import { HistoriaClinicaService } from '../../services/historiaClinica.service';
 
 interface ToothTreatment {
   tratamiento: string;
@@ -17,6 +17,7 @@ interface ToothTreatment {
 export class OdontogramaComponent {
   isLoading: boolean;
   paciente: any;
+  userAuth : any;
   edadCategoria: string = '';
   tipoOdontograma: string;
   fechaActual = new Date();
@@ -124,7 +125,7 @@ export class OdontogramaComponent {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private pacienteService: PacienteService
+    private historiaClinicaService: HistoriaClinicaService
   ) {
     this.tipoOdontograma = 'geometrico';
     this.isLoading = true;
@@ -184,10 +185,13 @@ export class OdontogramaComponent {
   }
 
   ngOnInit(): void {
-    this.pacienteService.getPacienteAleatorio().subscribe((paciente) => {
+    this.historiaClinicaService.getPacienteAleatorio().subscribe((paciente) => {
       this.paciente = paciente;
       this.edadCategoria = paciente.edad > 12 ? 'adulto' : 'menor';
       this.isLoading = false;
+    });
+    this.historiaClinicaService.getUserAuthAleatorio().subscribe((userAuth) => {
+      this.userAuth = userAuth;
     });
   }
 

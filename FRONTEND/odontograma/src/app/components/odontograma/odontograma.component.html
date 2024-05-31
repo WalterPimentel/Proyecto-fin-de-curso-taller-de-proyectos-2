@@ -27,12 +27,19 @@
         </p>
         <p class="ml-3">Edad: {{ paciente.edad }}</p>
         <p class="ml-3">Registro: {{ formatDate(paciente.fecha) }}</p>
+        <p class="font-bold">Operador</p>
+        <p class="ml-3">{{userAuth.role}} {{ userAuth.fullname }}</p>
+        <p class="ml-3 italic text-xs text-zinc-600">{{ userAuth.email }}</p>
       </div>
     </div>
 
-    <div class="mt-4">
+    <div class="mt-3 mb-3">
       <label for="tipoOdontograma">Odontograma </label>
-      <select id="tipoOdontograma" [(ngModel)]="tipoOdontograma">
+      <select
+        id="tipoOdontograma"
+        [(ngModel)]="tipoOdontograma"
+        class="bg-transparent border-b-2 border-gray-500"
+      >
         <option value="anatomico">Anatómico</option>
         <option value="geometrico">Geométrico</option>
       </select>
@@ -41,6 +48,7 @@
         id="pacienteCategoria"
         [(ngModel)]="edadCategoria"
         title="Paciente Categoría"
+        class="bg-transparent border-b-2 border-gray-500"
       >
         <option value="adulto">Adulto</option>
         <option value="menor">Menor</option>
@@ -85,6 +93,11 @@
           rows="3"
         ></textarea>
       </div>
+      <button
+        class="w-full text-lg font-bold text-white rounded-lg bg-[#3B82F6] hover:bg-[#1D4ED8] p-2 mt-2"
+      >
+        <i class="fas fa-save"></i> Guardar Odontograma
+      </button>
     </div>
   </div>
 </body>
