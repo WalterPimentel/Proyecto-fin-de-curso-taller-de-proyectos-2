@@ -25,9 +25,9 @@ export class OdontogramaGeometricoUIComponent {
     this.contextMenuPosition = { x: event.clientX, y: event.clientY };
   }
 
-  onSelectTreatment(treatment: string) {
+  onSelectMultipleTreatments(treatments: string[]) {
     console.log(
-      `Diente: ${this.selectedDiente}, Parte: ${this.selectedPart}, Tratamiento: ${treatment}`
+      `Diente: ${this.selectedDiente}, Parte: ${this.selectedPart}, Tratamientos: ${treatments}`
     );
     this.selectedDiente = 0;
     this.selectedPart = '';

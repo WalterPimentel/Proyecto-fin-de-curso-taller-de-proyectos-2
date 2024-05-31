@@ -2,8 +2,8 @@
   *ngIf="selectedDiente"
   [contextMenuPosition]="contextMenuPosition"
   [diente]="selectedDiente"
-  [part]="selectedPart"
-  (selectTreatment)="onSelectTreatment($event)"
+  [part]="selectedPart"  
+  (selectMultipleTreatments)="onSelectMultipleTreatments($event)"
   (closeMenu)="closeMenu()"
 ></app-ui-menu-contextual>
 <div

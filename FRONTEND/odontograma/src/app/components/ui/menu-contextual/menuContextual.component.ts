@@ -4,7 +4,7 @@ import {
   Output,
   EventEmitter,
   ViewChild,
-  ElementRef
+  ElementRef,
 } from '@angular/core';
 
 @Component({
@@ -17,26 +17,33 @@ export class MenuContextualUIComponent {
   @Input() part: string = '';
   @Input() contextMenuPosition: { x: number; y: number } = { x: 0, y: 0 };
   @Output() selectTreatment = new EventEmitter<string>();
+  @Output() selectMultipleTreatments = new EventEmitter<string[]>();
   @Output() closeMenu = new EventEmitter<void>();
   @ViewChild('searchInput') searchInput!: ElementRef;
+  selectedTreatments: { [key: string]: boolean } = {};
+  dragging = false;
+  dragStart: { x: number; y: number } = { x: 0, y: 0 };
+  menuStart: { x: number; y: number } = { x: 0, y: 0 };
 
   treatments = [
     'Tratamiento 1',
-    'agmarra',
-    'dgamarra',
-    'Tratamiento 4',
-    'Tratamiento 5',
-    'Tratamiento 6asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd',
-    'Tratamiento 7',
-    'Tratamiento 8',
-    'Jhordan'
+    'diego',
+    'el chino',
+    'el delegado',
+    'esta',
+    'viedo',
+    'su',
+    'fulbito.',
+    'Jhordan',
   ];
 
   search = '';
 
   get filteredTreatments() {
-    return this.treatments.filter((treatment) =>
-      treatment.toLowerCase().includes(this.search.toLowerCase())
+    return this.treatments.filter(
+      (treatment) =>
+        treatment.toLowerCase().includes(this.search.toLowerCase()) &&
+        !this.selectedTreatments[treatment]
     );
   }
 
@@ -57,8 +64,45 @@ export class MenuContextualUIComponent {
   }
 
   onSelect(treatment: string) {
-    this.selectTreatment.emit(treatment);
+    this.selectedTreatments[treatment] = true;
+    this.search = '';
   }
+
+  emitSelectedTreatments() {
+    const selectedTreatments = Object.keys(this.selectedTreatments).filter(
+      (treatment) => this.selectedTreatments[treatment]
+    );
+    this.selectMultipleTreatments.emit(selectedTreatments);
+  }
+
+  get selectedTreatmentsArray() {
+    return Object.keys(this.selectedTreatments).filter(
+      (treatment) => this.selectedTreatments[treatment]
+    );
+  }
+
+  deselectTreatment(treatment: string) {
+    this.selectedTreatments[treatment] = false;
+  }
+
+  onMousedown(event: MouseEvent) {
+    this.dragging = true;
+    this.dragStart = { x: event.clientX, y: event.clientY };
+    this.menuStart = { ...this.contextMenuPosition };
+  }
+
+  onMousemove(event: MouseEvent) {
+  if (!this.dragging) return;
+  requestAnimationFrame(() => {
+    this.contextMenuPosition.x = this.menuStart.x + event.clientX - this.dragStart.x;
+    this.contextMenuPosition.y = this.menuStart.y + event.clientY - this.dragStart.y;
+  });
+}
+
+  onMouseup() {
+    this.dragging = false;
+  }
+
   onClose() {
     this.closeMenu.emit();
   }
