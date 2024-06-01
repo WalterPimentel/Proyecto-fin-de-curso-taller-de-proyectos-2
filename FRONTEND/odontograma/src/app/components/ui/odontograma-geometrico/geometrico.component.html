@@ -2,7 +2,7 @@
   *ngIf="selectedDiente"
   [contextMenuPosition]="contextMenuPosition"
   [diente]="selectedDiente"
-  [part]="selectedPart"  
+  [part]="selectedPart"
   (selectMultipleTreatments)="onSelectMultipleTreatments($event)"
   (closeMenu)="closeMenu()"
 ></app-ui-menu-contextual>
@@ -30,23 +30,35 @@
         <span class="tooth-number">{{ diente }}</span>
         <div
           class="top tooth-side unselected"
-          (click)="logToothPart(diente, 'top', $event)"
+          (click)="logToothPart(diente, 'Vestibular', $event)"
         ></div>
         <div
           class="left tooth-side unselected"
-          (click)="logToothPart(diente, 'left', $event)"
+          (click)="
+            logToothPart(
+              diente,
+              diente >= 11 && diente <= 18 ? 'Distal' : 'Mesial',
+              $event
+            )
+          "
         ></div>
         <div
           class="bottom tooth-side unselected"
-          (click)="logToothPart(diente, 'bottom', $event)"
+          (click)="logToothPart(diente, 'Palatino', $event)"
         ></div>
         <div
           class="right tooth-side unselected"
-          (click)="logToothPart(diente, 'right', $event)"
+          (click)="
+            logToothPart(
+              diente,
+              diente >= 11 && diente <= 18 ? 'Mesial' : 'Distal',
+              $event
+            )
+          "
         ></div>
         <div
           class="center tooth-center unselected"
-          (click)="logToothPart(diente, 'center', $event)"
+          (click)="logToothPart(diente, 'Incisal', $event)"
         ></div>
       </div>
     </div>
@@ -64,23 +76,35 @@
         <div class="triangle"></div>
         <div
           class="top tooth-side unselected"
-          (click)="logToothPart(diente, 'top', $event)"
+          (click)="logToothPart(diente, 'Lingual', $event)"
         ></div>
         <div
           class="left tooth-side unselected"
-          (click)="logToothPart(diente, 'left', $event)"
+          (click)="
+            logToothPart(
+              diente,
+              diente >= 41 && diente <= 48 ? 'Distal' : 'Mesial',
+              $event
+            )
+          "
         ></div>
         <div
           class="bottom tooth-side unselected"
-          (click)="logToothPart(diente, 'bottom', $event)"
+          (click)="logToothPart(diente, 'Vestibular', $event)"
         ></div>
         <div
           class="right tooth-side unselected"
-          (click)="logToothPart(diente, 'right', $event)"
+          (click)="
+            logToothPart(
+              diente,
+              diente >= 41 && diente <= 48 ? 'Mesial' : 'Distal',
+              $event
+            )
+          "
         ></div>
         <div
           class="center tooth-center unselected"
-          (click)="logToothPart(diente, 'center', $event)"
+          (click)="logToothPart(diente, 'Incisal', $event)"
         ></div>
       </div>
     </div>
@@ -100,23 +124,35 @@
         <div class="triangle"></div>
         <div
           class="top tooth-side unselected"
-          (click)="logToothPart(diente, 'top', $event)"
+          (click)="logToothPart(diente, 'Vestibular', $event)"
         ></div>
         <div
           class="left tooth-side unselected"
-          (click)="logToothPart(diente, 'left', $event)"
+          (click)="
+            logToothPart(
+              diente,
+              diente >= 51 && diente <= 55 ? 'Distal' : 'Mesial',
+              $event
+            )
+          "
         ></div>
         <div
           class="bottom tooth-side unselected"
-          (click)="logToothPart(diente, 'bottom', $event)"
+          (click)="logToothPart(diente, 'Palatino', $event)"
         ></div>
         <div
           class="right tooth-side unselected"
-          (click)="logToothPart(diente, 'right', $event)"
+          (click)="
+            logToothPart(
+              diente,
+              diente >= 51 && diente <= 55 ? 'Mesial' : 'Distal',
+              $event
+            )
+          "
         ></div>
         <div
           class="center tooth-center unselected"
-          (click)="logToothPart(diente, 'center', $event)"
+          (click)="logToothPart(diente, 'Incisal', $event)"
         ></div>
       </div>
     </div>
@@ -134,23 +170,35 @@
         <div class="triangle"></div>
         <div
           class="top tooth-side unselected"
-          (click)="logToothPart(diente, 'top', $event)"
+          (click)="logToothPart(diente, 'Lingual', $event)"
         ></div>
         <div
           class="left tooth-side unselected"
-          (click)="logToothPart(diente, 'left', $event)"
+          (click)="
+            logToothPart(
+              diente,
+              diente >= 81 && diente <= 85 ? 'Distal' : 'Mesial',
+              $event
+            )
+          "
         ></div>
         <div
           class="bottom tooth-side unselected"
-          (click)="logToothPart(diente, 'bottom', $event)"
+          (click)="logToothPart(diente, 'Vestibular', $event)"
         ></div>
         <div
           class="right tooth-side unselected"
-          (click)="logToothPart(diente, 'right', $event)"
+          (click)="
+            logToothPart(
+              diente,
+              diente >= 81 && diente <= 85 ? 'Mesial' : 'Distal',
+              $event
+            )
+          "
         ></div>
         <div
           class="center tooth-center unselected"
-          (click)="logToothPart(diente, 'center', $event)"
+          (click)="logToothPart(diente, 'Incisal', $event)"
         ></div>
       </div>
     </div>
