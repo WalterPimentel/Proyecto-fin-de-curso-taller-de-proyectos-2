@@ -1,5 +1,8 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+
 import { HistoriaClinicaService } from '../../services/historiaClinica.service';
+import { OdontogramaService } from '../../services/odontograma.service';
 
 interface ToothTreatment {
   tratamiento: string;
@@ -17,7 +20,7 @@ interface ToothTreatment {
 export class OdontogramaComponent {
   isLoading: boolean;
   paciente: any;
-  userAuth : any;
+  userAuth: any;
   edadCategoria: string = '';
   tipoOdontograma: string;
   fechaActual = new Date();
@@ -26,6 +29,10 @@ export class OdontogramaComponent {
   modalOpen: boolean = false;
   selectedTooth: string | null = null;
   selectedTreatment: string = '';
+  odontograma: any;
+  form: FormGroup;
+  public saveButtonPressed = false;
+  formInvalid: boolean = false;
 
   tratamientos = [
     'Apiceptomía',
@@ -125,11 +132,18 @@ export class OdontogramaComponent {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private historiaClinicaService: HistoriaClinicaService
+    private historiaClinicaService: HistoriaClinicaService,
+    private odontogramaService: OdontogramaService,
+    private fb: FormBuilder
   ) {
     this.tipoOdontograma = 'geometrico';
     this.isLoading = true;
     this.cdr.markForCheck();
+    this.odontograma = [];
+    this.form = this.fb.group({
+      especificaciones: ['', Validators.required],
+      observaciones: ['', Validators.required],
+    });
   }
 
   closeModal(): void {
@@ -192,7 +206,71 @@ export class OdontogramaComponent {
     });
     this.historiaClinicaService.getUserAuthAleatorio().subscribe((userAuth) => {
       this.userAuth = userAuth;
+      this.isLoading = false;
     });
+    this.form = this.fb.group({
+      especificaciones: ['', Validators.required],
+      observaciones: ['', Validators.required],
+      odontograma: [
+        Object.keys(this.odontograma).length > 0,
+        Validators.requiredTrue,
+      ],
+    });
+
+    this.odontogramaService.currentOdontograma.subscribe((odontograma) => {
+      this.odontograma = odontograma;
+      if (!this.form.controls['odontograma']) {
+        this.form.addControl(
+          'odontograma',
+          this.fb.control(
+            Object.keys(this.odontograma).length > 0,
+            Validators.requiredTrue
+          )
+        );
+      } else {
+        this.form.controls['odontograma'].setValue(
+          Object.keys(this.odontograma).length > 0,
+          { emitEvent: false }
+        );
+      }
+    });
+  }
+
+  onSave() {
+    if (this.form.valid) {
+      const odontograma = {
+        especificaciones: this.form.controls['especificaciones'].value,
+        observaciones: this.form.controls['observaciones'].value,
+        tipoOdontograma: this.tipoOdontograma,
+        edadCategoria: this.edadCategoria,
+        fecha: this.formatDate(this.fechaActual),
+        operador: {
+          role: this.userAuth.role,
+          fullname: this.userAuth.fullname,
+          email: this.userAuth.email,
+        },
+        odontograma: this.odontograma,
+      };
+
+      const paciente = {
+        dni: this.paciente.dni,
+        nombres: this.paciente.nombres,
+        apellidos: this.paciente.apellidos,
+        edad: this.paciente.edad,
+        fechaRegistro: this.formatDate(this.paciente.fecha),
+        odontogramas: [odontograma],
+      };
+
+      console.log(paciente);
+
+      // Aquí deberías enviar 'paciente' a tu backend para que lo guarde en MongoDB
+      // Por ejemplo, si tienes un servicio de Angular para hacer esto, podrías hacer algo como:
+      // this.pacienteService.save(paciente).subscribe(response => {
+      //   console.log(response);
+      // });
+    } else {
+      console.log('El formulario no es válido');
+    }
   }
 
   getToothIcon(toothId: string): string | undefined {

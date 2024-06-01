@@ -6,7 +6,8 @@
   tabindex="0"
 >
   <div
-    class="context-menu w-[20%] max-h-[240x] fixed bg-white shadow-lg shadow-gray-600 rounded-lg"
+    #contextMenu
+    class="context-menu min-w-[175px] w-[20%] max-h-[240px] fixed bg-white shadow-lg shadow-gray-600 rounded-lg"
     [style.left.px]="contextMenuPosition.x"
     [style.top.px]="contextMenuPosition.y"
     (click)="$event.stopPropagation()"
@@ -43,7 +44,7 @@
         {{ treatment }}
         <i
           class="fas fa-xmark cursor-pointer"
-          (click)="deselectTreatment(treatment)"
+          (click)="deselectTreatment(treatment); emitSelectedTreatments()"
         ></i>
       </div>
     </div>
@@ -51,16 +52,13 @@
       <label
         *ngFor="let treatment of filteredTreatments"
         class="py-1 px-2 hover:bg-gray-200 cursor-pointer block"
-        (click)="selectedTreatments[treatment] = !selectedTreatments[treatment]"
+        (click)="
+          selectedTreatments[treatment] = !selectedTreatments[treatment];
+          emitSelectedTreatments()
+        "
       >
         <span class="ml-2">{{ treatment }}</span>
       </label>
     </div>
-    <button
-      class="bg-[#3B82F6] hover:bg-[#1D4ED8] rounded-b-lg w-full font-bold text-center text-white"
-      (click)="emitSelectedTreatments()"
-    >
-      Añadir
-    </button>
   </div>
 </div>

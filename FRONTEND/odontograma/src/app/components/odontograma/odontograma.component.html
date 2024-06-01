@@ -10,7 +10,10 @@
       />
     </div>
 
-    <div class="bg-gray-100 p-4 rounded-lg shadow-md mt-4">
+    <div
+      *ngIf="paciente && userAuth"
+      class="bg-gray-100 p-4 rounded-lg shadow-md mt-4"
+    >
       <div class="flex justify-between items-center">
         <p class="font-bold">Fecha {{ formatDate(fechaActual) }}</p>
         <button
@@ -28,7 +31,7 @@
         <p class="ml-3">Edad: {{ paciente.edad }}</p>
         <p class="ml-3">Registro: {{ formatDate(paciente.fecha) }}</p>
         <p class="font-bold">Operador</p>
-        <p class="ml-3">{{userAuth.role}} {{ userAuth.fullname }}</p>
+        <p class="ml-3">{{ userAuth.role }} {{ userAuth.fullname }}</p>
         <p class="ml-3 italic text-xs text-zinc-600">{{ userAuth.email }}</p>
       </div>
     </div>
@@ -66,38 +69,72 @@
       [edadCategoria]="edadCategoria"
     ></app-ui-odontograma-geometrico>
 
+    <div
+      *ngIf="
+        form.controls['odontograma'].touched &&
+        form.controls['odontograma'].invalid
+      "
+      class="text-red-500"
+    >
+      Odontograma es requerido.
+    </div>
+
     <div class="mt-4">
-      <div class="mb-4">
-        <label
-          for="especificaciones"
-          class="block text-gray-700 text-sm font-bold mb-2"
-          >Especificaciones:</label
+      <form [formGroup]="form">
+        <div>
+          <label
+            for="especificaciones"
+            class="block text-gray-700 text-sm font-bold mb-2"
+            >Especificaciones
+          </label>
+          <textarea
+            id="especificaciones"
+            formControlName="especificaciones"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Especificaciones"
+            rows="3"
+          ></textarea>
+          <div
+            *ngIf="
+              form.controls['especificaciones'].touched &&
+              form.controls['especificaciones'].invalid
+            "
+            class="text-red-500"
+          >
+            Especificaciones es requerida.
+          </div>
+        </div>
+        <div>
+          <label
+            for="observaciones"
+            class="block text-gray-700 text-sm font-bold mb-2"
+            >Observaciones
+          </label>
+          <textarea
+            id="observaciones"
+            formControlName="observaciones"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Observaciones"
+            rows="3"
+          ></textarea>
+          <div
+            *ngIf="
+              form.controls['observaciones'].touched &&
+              form.controls['observaciones'].invalid
+            "
+            class="text-red-500"
+          >
+            Observaciones es requerida.
+          </div>
+        </div>
+        <button
+          type="button"
+          (click)="onSave()"
+          class="w-full text-lg font-bold text-white rounded-lg bg-[#3B82F6] hover:bg-[#1D4ED8] p-2 mt-2"
         >
-        <textarea
-          id="especificaciones"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          placeholder="Especificaciones"
-          rows="3"
-        ></textarea>
-      </div>
-      <div>
-        <label
-          for="observaciones"
-          class="block text-gray-700 text-sm font-bold mb-2"
-          >Observaciones:</label
-        >
-        <textarea
-          id="observaciones"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          placeholder="Observaciones"
-          rows="3"
-        ></textarea>
-      </div>
-      <button
-        class="w-full text-lg font-bold text-white rounded-lg bg-[#3B82F6] hover:bg-[#1D4ED8] p-2 mt-2"
-      >
-        <i class="fas fa-save"></i> Guardar Odontograma
-      </button>
+          <i class="fas fa-save"></i> Guardar Odontograma
+        </button>
+      </form>
     </div>
   </div>
 </body>

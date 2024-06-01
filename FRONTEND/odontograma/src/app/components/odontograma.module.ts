@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { OdontogramaComponent } from './odontograma/odontograma.component';
 import { OdontogramaAnatomicoUIComponent } from './ui/odontograma-anatomico/anatomico.component';
 import { OdontogramaGeometricoUIComponent } from './ui/odontograma-geometrico/geometrico.component';
@@ -15,7 +17,7 @@ import { MenuContextualUIComponent } from './ui/menu-contextual/menuContextual.c
     OdontogramaComponent,
     SpinnerComponent,
   ],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [OdontogramaComponent],
 })
 export class OdontogramaModule {}
