@@ -6,11 +6,20 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class PacienteService {
+export class HistoriaClinicaService {
   constructor(private http: HttpClient) {}
 
   getPacienteAleatorio(): Observable<any> {
     return this.http.get<any[]>('http://localhost:3000/historiaClinica').pipe(
+      map((data: any[]) => {
+        const randomIndex = Math.floor(Math.random() * data.length);
+        return data[randomIndex];
+      })
+    );
+  }
+
+  getUserAuthAleatorio(): Observable<any> {
+    return this.http.get<any[]>('http://localhost:3000/userAuth').pipe(
       map((data: any[]) => {
         const randomIndex = Math.floor(Math.random() * data.length);
         return data[randomIndex];
