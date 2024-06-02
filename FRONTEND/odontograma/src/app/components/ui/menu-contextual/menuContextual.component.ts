@@ -26,6 +26,8 @@ export class MenuContextualUIComponent {
   menuStart: { x: number; y: number } = { x: 0, y: 0 };
 
   treatments = [
+    'Extaccion',
+    'Curacion',
     'Tratamiento 1',
     'diego',
     'el chino',

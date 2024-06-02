@@ -4,6 +4,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HistoriaClinicaService } from '../../services/historiaClinica.service';
 import { OdontogramaService } from '../../services/odontograma.service';
 
+import axios from 'axios';
+
 interface ToothTreatment {
   tratamiento: string;
   pieza: string;
@@ -268,6 +270,21 @@ export class OdontogramaComponent {
       // this.pacienteService.save(paciente).subscribe(response => {
       //   console.log(response);
       // });
+      const pacienteJSON = JSON.stringify(paciente);
+      //envio de datos al api
+      axios.post('http://localhost:3001/pacientes', pacienteJSON, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => {
+        console.log('Paciente guardado exitosamente:', response.data);
+
+      })
+      .catch(error => {
+        console.error('Error al guardar el paciente:', error);
+      });
+
     } else {
       console.log('El formulario no es válido');
     }
