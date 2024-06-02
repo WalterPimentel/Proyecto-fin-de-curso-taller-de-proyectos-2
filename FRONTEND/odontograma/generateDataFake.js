@@ -48,7 +48,8 @@ function generateData() {
         data.userAuth.push({
             id: i,
             username: faker.internet.userName(),
-            role: faker.random.arrayElement(['Admin', 'User', 'Guest']),
+            fullname: faker.name.lastName() + ' ' + faker.name.firstName(),
+            role: faker.random.arrayElement(['Dr.', 'Aux.', 'Prac.']),
             email: faker.internet.email(),
             status: faker.random.arrayElement(['Active', 'Inactive']),
         });
