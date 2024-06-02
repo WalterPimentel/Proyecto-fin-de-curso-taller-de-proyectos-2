@@ -28,7 +28,7 @@ dbFaker.json
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
-
+dbFaker.json
 # Miscellaneous
 /.angular/cache
 .sass-cache/
