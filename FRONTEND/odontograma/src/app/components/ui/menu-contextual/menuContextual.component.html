@@ -1,0 +1,64 @@
+<div
+  class="fixed inset-0 z-50"
+  *ngIf="diente && part"
+  (click)="onClose()"
+  (keydown.escape)="onClose()"
+  tabindex="0"
+>
+  <div
+    #contextMenu
+    class="context-menu min-w-[175px] w-[20%] max-h-[240px] fixed bg-white shadow-lg shadow-gray-600 rounded-lg"
+    [style.left.px]="contextMenuPosition.x"
+    [style.top.px]="contextMenuPosition.y"
+    (click)="$event.stopPropagation()"
+  >
+    <div
+      class="flex cursor-pointer header text-sm font-bold justify-between p-1 rounded-t-lg bg-gray-200 hover:bg-gray-300 text-gray-700 mb-1"
+      (mousedown)="onMousedown($event)"
+      (mousemove)="onMousemove($event)"
+      (mouseup)="onMouseup()"
+    >
+      {{ diente }} - {{ part }}
+      <i
+        class="fas fa-xmark cursor-pointer hover:text-[#3B82F6]"
+        (click)="onClose()"
+      ></i>
+    </div>
+    <div class="relative">
+      <input
+        #searchInput
+        [(ngModel)]="search"
+        class="w-full pl-8 pr-2 py-1 mb-1 border rounded-md"
+        placeholder="Buscar tratamiento"
+        (keydown)="onKeydown($event)"
+      />
+      <i
+        class="fas fa-search absolute left-2 top-1/2 transform -translate-y-1/2"
+      ></i>
+    </div>
+    <div class="selected-treatments flex flex-wrap">
+      <div
+        *ngFor="let treatment of selectedTreatmentsArray"
+        class="bg-slate-300 rounded-xl p-1 m-1 text-xs"
+      >
+        {{ treatment }}
+        <i
+          class="fas fa-xmark cursor-pointer"
+          (click)="deselectTreatment(treatment); emitSelectedTreatments()"
+        ></i>
+      </div>
+    </div>
+    <div class="body max-h-[100px] w-full overflow-auto">
+      <label
+        *ngFor="let treatment of filteredTreatments"
+        class="py-1 px-2 hover:bg-gray-200 cursor-pointer block"
+        (click)="
+          selectedTreatments[treatment] = !selectedTreatments[treatment];
+          emitSelectedTreatments()
+        "
+      >
+        <span class="ml-2">{{ treatment }}</span>
+      </label>
+    </div>
+  </div>
+</div>

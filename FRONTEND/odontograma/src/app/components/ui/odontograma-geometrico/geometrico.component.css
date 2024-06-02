@@ -1,0 +1,98 @@
+.row {
+    display: flex;
+    gap: 10px;
+}
+
+.row-with-border {
+    border-bottom: 3px solid #000;
+    margin-bottom: 10px;
+}
+
+.tooth {
+    width: 40px;
+    height: 40px;
+    outline: 2px solid #000;
+    position: relative;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    transform: rotate(45deg);
+}
+
+.tooth-side {
+    width: 20px;
+    height: 20px;
+    outline: 2px solid #000;
+    position: absolute;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.tooth-center {
+    width: 20px;
+    height: 20px;
+    outline: 2px solid #000;
+    position: absolute;
+    background-color: #fff;
+    cursor: pointer;
+    top: 25%;
+    left: 25%;
+    border-radius: 50%;
+}
+
+.tooth-with-margin-right {
+    margin-right: 10px;
+}
+
+.tooth-with-margin-left {
+    margin-left: 10px;
+}
+
+.tooth-number {
+    position: absolute;
+    top: -17px;
+    left: -16px;
+    transform: rotate(-45deg);
+}
+
+.tooth-center:hover {
+    background-color: #bcbc46;
+}
+
+.tooth-side.unselected {
+    background-color: #fff;
+}
+
+.tooth-side.selected {
+    background-color: #bcbc46;
+}
+
+.top {
+    top: 0;
+    left: 0;
+    border-top-left-radius: 100%;
+}
+
+.left {
+    bottom: 0;
+    left: 0;
+    border-bottom-left-radius: 100%;
+}
+
+.bottom {
+    bottom: 0;
+    right: 0;
+    border-bottom-right-radius: 100%;
+}
+
+.right {
+    top: 0;
+    right: 0;
+    border-top-right-radius: 100%;
+}
+
+.tooth-side:hover {
+    background-color: #bcbc46;
+}
