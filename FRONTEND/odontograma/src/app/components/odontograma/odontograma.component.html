@@ -74,8 +74,9 @@
         form.controls['odontograma'].touched &&
         form.controls['odontograma'].invalid
       "
-      class="text-red-500"
+      class="text-red-500 bg-red-100 border-l-8 border-red-500 p-3 mt-1"
     >
+      <i class="fas fa-circle-exclamation fa-sm fa-shake"></i>
       Odontograma es requerido.
     </div>
 
@@ -85,7 +86,7 @@
           <label
             for="especificaciones"
             class="block text-gray-700 text-sm font-bold mb-2"
-            >Especificaciones
+            >Especificaciones*
           </label>
           <textarea
             id="especificaciones"
@@ -99,8 +100,9 @@
               form.controls['especificaciones'].touched &&
               form.controls['especificaciones'].invalid
             "
-            class="text-red-500"
+            class="text-red-500 bg-red-100 border-l-8 border-red-500 p-3"
           >
+            <i class="fas fa-circle-exclamation fa-sm fa-shake"></i>
             Especificaciones es requerida.
           </div>
         </div>
@@ -108,7 +110,7 @@
           <label
             for="observaciones"
             class="block text-gray-700 text-sm font-bold mb-2"
-            >Observaciones
+            >Observaciones*
           </label>
           <textarea
             id="observaciones"
@@ -122,8 +124,9 @@
               form.controls['observaciones'].touched &&
               form.controls['observaciones'].invalid
             "
-            class="text-red-500"
+            class="text-red-500 bg-red-100 border-l-8 border-red-500 p-3"
           >
+            <i class="fas fa-circle-exclamation fa-sm fa-shake"></i>
             Observaciones es requerida.
           </div>
         </div>
