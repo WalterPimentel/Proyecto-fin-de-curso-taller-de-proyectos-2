@@ -1,8 +1,9 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { HistoriaClinicaService } from '../../services/historiaClinica.service';
 import { OdontogramaService } from '../../services/odontograma.service';
+import { ModalUIComponent } from '../ui/modal/modal.component';
 
 import axios from 'axios';
 
@@ -35,6 +36,7 @@ export class OdontogramaComponent {
   form: FormGroup;
   public saveButtonPressed = false;
   formInvalid: boolean = false;
+  @ViewChild('modal') modal!: ModalUIComponent;
 
   tratamientos = [
     'Apiceptomía',
@@ -238,8 +240,39 @@ export class OdontogramaComponent {
     });
   }
 
-  onSave() {
+  isFormValid() {
     if (this.form.valid) {
+      return true;
+    } else {
+      console.log('El formulario no es válido');
+      return false;
+    }
+  }
+
+  openConfirmationModal() {
+    if (this.isFormValid()) {
+      const numDientes = Object.keys(this.odontograma).length;
+      const dientesTexto = numDientes > 1 ? 'dientes' : 'diente';
+      const pacienteNombre = this.paciente.nombres;
+      this.modal
+        .open(
+          'Confirmar Guardado de Odontograma',
+          `¿Estás seguro de que quieres guardar este odontograma de ${pacienteNombre}? Has marcado ${numDientes} ${dientesTexto}.`,
+          'confirm'
+        )
+        .then((result) => {
+          if (result) {
+            this.isLoading = true;
+            this.onSave();
+          }
+        });
+
+      this.modal.onConfirm.subscribe(() => this.onSave());
+    }
+  }
+
+  onSave() {
+    if (this.isFormValid()) {
       const odontograma = {
         especificaciones: this.form.controls['especificaciones'].value,
         observaciones: this.form.controls['observaciones'].value,
@@ -263,30 +296,36 @@ export class OdontogramaComponent {
         odontogramas: [odontograma],
       };
 
-      console.log(paciente);
-
-      // Aquí deberías enviar 'paciente' a tu backend para que lo guarde en MongoDB
-      // Por ejemplo, si tienes un servicio de Angular para hacer esto, podrías hacer algo como:
-      // this.pacienteService.save(paciente).subscribe(response => {
-      //   console.log(response);
-      // });
       const pacienteJSON = JSON.stringify(paciente);
-      //envio de datos al api
-      axios.post('http://localhost:3001/pacientes', pacienteJSON, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(response => {
-        console.log('Paciente guardado exitosamente:', response.data);
 
-      })
-      .catch(error => {
-        console.error('Error al guardar el paciente:', error);
-      });
-
-    } else {
-      console.log('El formulario no es válido');
+      axios
+        .post('http://localhost:3001/pacientes', pacienteJSON, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(() => {
+          this.isLoading = false;
+          this.modal.open(
+            'Odontograma Guardado Exitosamente',
+            'El odontograma de' +
+              paciente.nombres +
+              ' ha sido guardado con éxito.',
+            'success'
+          );
+        })
+        .catch((error) => {
+          this.isLoading = false;
+          this.modal.open(
+            'Error al Guardar Odontograma',
+            'Hubo un error al guardar el odontograma de ' +
+              paciente.nombres +
+              '. Por favor, inténtalo de nuevo. ' +
+              error.code,
+            'error'
+          );
+          console.error('Error al guardar odontograma:', error);
+        });
     }
   }
 

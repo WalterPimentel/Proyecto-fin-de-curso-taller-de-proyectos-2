@@ -8,6 +8,7 @@ import { OdontogramaAnatomicoUIComponent } from './ui/odontograma-anatomico/anat
 import { OdontogramaGeometricoUIComponent } from './ui/odontograma-geometrico/geometrico.component';
 import { SpinnerComponent } from './ui/spinner/spinner.component';
 import { MenuContextualUIComponent } from './ui/menu-contextual/menuContextual.component';
+import { ModalUIComponent } from './ui/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { MenuContextualUIComponent } from './ui/menu-contextual/menuContextual.c
     OdontogramaGeometricoUIComponent,
     OdontogramaComponent,
     SpinnerComponent,
+    ModalUIComponent
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [OdontogramaComponent],
