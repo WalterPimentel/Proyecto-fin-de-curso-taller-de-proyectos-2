@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TooltipModule } from 'ng2-tooltip-directive';
 
 import { OdontogramaComponent } from './odontograma/odontograma.component';
 import { OdontogramaAnatomicoUIComponent } from './ui/odontograma-anatomico/anatomico.component';
@@ -19,7 +20,7 @@ import { ModalUIComponent } from './ui/modal/modal.component';
     SpinnerComponent,
     ModalUIComponent
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, TooltipModule],
   exports: [OdontogramaComponent],
 })
 export class OdontogramaModule {}
