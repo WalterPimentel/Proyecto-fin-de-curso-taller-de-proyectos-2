@@ -22,17 +22,61 @@
           Descargar PDF
         </button>
       </div>
-      <div class="mt-4">
-        <p class="font-bold">Paciente</p>
-        <p class="ml-3">DNI: {{ paciente.dni }}</p>
-        <p class="ml-3 italic">
-          {{ paciente.nombres }} {{ paciente.apellidos }}
-        </p>
-        <p class="ml-3">Edad: {{ paciente.edad }}</p>
-        <p class="ml-3">Registro: {{ formatDate(paciente.fecha) }}</p>
-        <p class="font-bold">Operador</p>
-        <p class="ml-3">{{ userAuth.role }} {{ userAuth.fullname }}</p>
-        <p class="ml-3 italic text-xs text-zinc-600">{{ userAuth.email }}</p>
+      <form [formGroup]="form">
+        <div class="relative mt-3">
+          <input
+            #searchInput
+            formControlName="search"
+            class="w-full pl-8 pr-2 py-1 border rounded-md"
+            placeholder="Buscar paciente"
+            (keydown)="onKeydown($event)"
+          />
+          <i
+            class="fas fa-search absolute left-2 top-1/2 transform -translate-y-1/2"
+          ></i>
+          <div
+            class="absolute w-full bg-white border rounded-md"
+            *ngIf="resultadosBusqueda.length > 0"
+          >
+            <div
+              *ngFor="let paciente of resultadosBusqueda"
+              class="p-2 hover:bg-gray-200 cursor-pointer"
+              (click)="onSelect(paciente)"
+            >
+              {{ paciente.nombres }} {{ paciente.apellidos }} ({{
+                paciente.dni
+              }})
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="flex mt-4">
+        <div class="w-[50%] p-3">
+          <p class="font-bold text-lg">Datos Paciente</p>
+          <p class="ml-3"><strong>DNI:</strong> {{ paciente.dni }}</p>
+          <p class="ml-3 -mb-2">
+            {{ paciente.nombres }} {{ paciente.apellidos }}
+          </p>
+          <span class="ml-3 italic text-xs text-zinc-600">
+            {{ paciente.email }}
+          </span>
+          <p class="ml-3">{{ paciente.telefono }}</p>
+          <p class="ml-3">{{ paciente.direccion }}</p>
+          <p class="ml-3">Edad: {{ paciente.edad }} años</p>
+          <p class="ml-3">{{ paciente.sexo }}</p>
+          <p class="ml-3">Registro: {{ formatDate(paciente?.fechaRegistro || paciente?.fechaRegistro) }}</p>
+        </div>
+        <div class="w-[50%] p-3">
+          <p class="font-bold text-lg">Datos Clínica</p>
+          <p class="ml-3"><strong>CliniConti S.A.C.</strong></p>
+          <p class="ml-3 -mb-2">{{ userAuth.role }} {{ userAuth.fullname }}</p>
+          <span class="ml-3 italic text-xs text-zinc-600">
+            {{ userAuth.email }}
+          </span>
+          <p class="ml-3">{{ userAuth.telefono }}</p>
+          <p class="ml-3">atencionalcliente&#64;clinicoti.com</p>
+          <p class="ml-3">{{ userAuth.direccion }}</p>
+        </div>
       </div>
     </div>
 
@@ -54,7 +98,7 @@
         class="bg-transparent border-b-2 border-gray-500"
       >
         <option value="adulto">Adulto</option>
-        <option value="menor">Pediático</option>
+        <option value="menor">Pediátrico</option>
         <option value="completo">Completo</option>
       </select>
       <label>.</label>

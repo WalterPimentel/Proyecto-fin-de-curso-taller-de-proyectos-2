@@ -24,6 +24,8 @@ export class OdontogramaComponent {
   public saveButtonPressed = false;
   formInvalid: boolean = false;
   @ViewChild('modal') modal!: ModalUIComponent;
+  resultadosBusqueda: any[] = [];
+  search = '';
 
   formatDate(date: Date | string): string {
     let validDate: Date;
@@ -84,6 +86,36 @@ export class OdontogramaComponent {
         );
       }
     });
+    this.form.controls['search'].valueChanges.subscribe((query) => {
+      if (query) {
+        this.historiaClinicaService
+          .buscarPaciente(query)
+          .subscribe((resultados) => {
+            this.resultadosBusqueda = resultados;
+          });
+      } else {
+        this.resultadosBusqueda = [];
+      }
+    });
+  }
+
+  onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Tab' || event.key === 'Enter') {
+      event.preventDefault();
+      if (this.resultadosBusqueda.length > 0) {
+        this.search = this.resultadosBusqueda[0].nombres;
+        if (event.key === 'Enter') {
+          this.onSelect(this.search);
+        }
+      }
+    }
+  }
+
+  onSelect(paciente: any) {
+    this.paciente = paciente;
+    this.form.controls['search'].setValue(
+      `${paciente.nombres} ${paciente.apellidos} (${paciente.dni})`
+    );
   }
 
   initializeForm() {
@@ -94,6 +126,7 @@ export class OdontogramaComponent {
         Object.keys(this.odontograma).length > 0,
         Validators.requiredTrue,
       ],
+      search: [''],
     });
   }
 
@@ -134,7 +167,7 @@ export class OdontogramaComponent {
         observaciones: this.form.controls['observaciones'].value,
         tipoOdontograma: this.tipoOdontograma,
         edadCategoria: this.edadCategoria,
-        fecha: this.formatDate(this.fechaActual),
+        fecha: this.fechaActual,
         operador: {
           role: this.userAuth.role,
           fullname: this.userAuth.fullname,
@@ -148,7 +181,7 @@ export class OdontogramaComponent {
         nombres: this.paciente.nombres,
         apellidos: this.paciente.apellidos,
         edad: this.paciente.edad,
-        fechaRegistro: this.formatDate(this.paciente.fecha),
+        fechaRegistro: this.paciente.fechaRegistro,
         odontogramas: [odontograma],
       };
 

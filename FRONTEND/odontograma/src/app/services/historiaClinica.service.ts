@@ -26,4 +26,16 @@ export class HistoriaClinicaService {
       })
     );
   }
+
+  buscarPaciente(query: string): Observable<any[]> {
+    return this.http.get<any[]>('http://localhost:3001/pacientes').pipe(
+      map((data: any[]) => {
+        return data.filter(paciente => 
+          paciente.nombres.toLowerCase().includes(query.toLowerCase()) ||
+          paciente.apellidos.toLowerCase().includes(query.toLowerCase()) ||
+          paciente.dni.includes(query)
+        );
+      })
+    );
+  }
 }
