@@ -26,17 +26,42 @@ export class MenuContextualUIComponent {
   menuStart: { x: number; y: number } = { x: 0, y: 0 };
 
   treatments = [
-    'Extaccion',
-    'Curacion',
-    'Tratamiento 1',
-    'diego',
-    'el chino',
-    'el delegado',
-    'esta',
-    'viedo',
-    'su',
-    'fulbito.',
-    'Jhordan',
+    'Apiceptomía',
+    'Carillas',
+    'Cirugía',
+    'Contanto Alimento',
+    'Corona',
+    'Curetaje',
+    'Endodoncia',
+    'Esqueletico',
+    'Estética',
+    'Exploración',
+    'Extrusión',
+    'Furcas',
+    'Girar',
+    'Impacto Alimento',
+    'Impresiones',
+    'Inclinacion',
+    'Limpieza',
+    'Movilidad',
+    'Obturacion',
+    'Ortodoncia',
+    'Perno',
+    'Pilar solo',
+    'Pilar transepitelial',
+    'Placa descarga',
+    'Protesis removible',
+    'Puente',
+    'Quitar',
+    'Radiografia',
+    'Reconstrucción',
+    'Sangrado',
+    'Sellador',
+    'Sensibilidad',
+    'Supurado',
+    'Tornillo',
+    'Tornillo Solo',
+    'Tratamiento'
   ];
 
   search = '';
@@ -51,18 +76,14 @@ export class MenuContextualUIComponent {
 
   ngAfterViewInit() {
     this.searchInput.nativeElement.focus();
-    // Espera a que el menú contextual se haya renderizado
     setTimeout(() => {
-      // Obtén el tamaño del menú contextual
       let rect = this.contextMenu.nativeElement.getBoundingClientRect();
       let menuWidth = rect.width;
       let menuHeight = rect.height;
 
-      // Obtén el tamaño de la ventana
       let windowWidth = window.innerWidth;
       let windowHeight = window.innerHeight;
 
-      // Ajusta la posición del menú contextual si es necesario
       if (this.contextMenuPosition.x + menuWidth > windowWidth) {
         this.contextMenuPosition.x = windowWidth - menuWidth;
       }
