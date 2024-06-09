@@ -27,7 +27,7 @@ function generateData() {
 
         data.historiaClinica.push({
             id: i,
-            fecha: format(fecha, 'dd/MM/yyyy'),
+            fechaRegistro: format(fecha, 'dd/MM/yyyy'),
             hora: format(hora, 'HH:mm'),
             dni: generateUniqueDni(),
             apellidos: faker.name.lastName(),
@@ -40,7 +40,9 @@ function generateData() {
             talla: faker.datatype.number({ min: 150, max: 200 }),
             presionArterial: faker.datatype.number({ min: 80, max: 120 }) + '/' + faker.datatype.number({ min: 60, max: 80 }),
             pulso: faker.datatype.number({ min: 60, max: 100 }),
-            temperatura: faker.datatype.number({ min: 36, max: 39, precision: 0.1 })
+            temperatura: faker.datatype.number({ min: 36, max: 39, precision: 0.1 }),
+            email: faker.internet.email(),
+            direccion: faker.address.streetAddress()
         });
     }
 
@@ -52,6 +54,8 @@ function generateData() {
             role: faker.random.arrayElement(['Dr.', 'Aux.', 'Prac.']),
             email: faker.internet.email(),
             status: faker.random.arrayElement(['Active', 'Inactive']),
+            telefono: '9' + faker.datatype.number({ min: 10000000, max: 99999999 }),
+            direccion: faker.address.streetAddress()
         });
     }
 

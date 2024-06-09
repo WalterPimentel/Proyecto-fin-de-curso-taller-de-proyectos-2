@@ -94,6 +94,12 @@ export class OdontogramaGeometricoUIComponent {
     }
   }
 
+  getTreatments(diente: number, part: string): string {
+    const treatments =
+      this.selectedTreatmentsRecord[diente]?.[part]?.join('<br>') || '';
+    return `${diente} - ${part}<br><hr>${treatments}`;
+  }
+
   dientes = Array(8)
     .fill(0)
     .map((x, i) => i + 11)
