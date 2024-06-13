@@ -30,6 +30,7 @@
         <span class="tooth-number">{{ diente }}</span>
         <div
           class="top tooth-side unselected"
+          [ngClass]="{ selected: tieneTratamientos(diente, 'Vestibular') }"
           (click)="logToothPart(diente, 'Vestibular', $event)"
           [tooltip]="getTreatments(diente, 'Vestibular')"
           placement="top"
@@ -37,24 +38,17 @@
         ></div>
         <div
           class="left tooth-side unselected"
-          (click)="
-            logToothPart(
-              diente,
-              diente >= 11 && diente <= 18 ? 'Distal' : 'Mesial',
-              $event
-            )
-          "
-          [tooltip]="
-            getTreatments(
-              diente,
-              diente >= 11 && diente <= 18 ? 'Distal' : 'Mesial'
-            )
-          "
+          [ngClass]="{
+            selected: tieneTratamientos(diente, getToothPart(diente, 'left'))
+          }"
+          (click)="logToothPart(diente, getToothPart(diente, 'left'), $event)"
+          [tooltip]="getTreatments(diente, getToothPart(diente, 'left'))"
           placement="top"
           [showDelay]="500"
         ></div>
         <div
           class="bottom tooth-side unselected"
+          [ngClass]="{ selected: tieneTratamientos(diente, 'Palatino') }"
           (click)="logToothPart(diente, 'Palatino', $event)"
           [tooltip]="getTreatments(diente, 'Palatino')"
           placement="top"
@@ -62,24 +56,17 @@
         ></div>
         <div
           class="right tooth-side unselected"
-          (click)="
-            logToothPart(
-              diente,
-              diente >= 11 && diente <= 18 ? 'Mesial' : 'Distal',
-              $event
-            )
-          "
-          [tooltip]="
-            getTreatments(
-              diente,
-              diente >= 11 && diente <= 18 ? 'Mesial' : 'Distal'
-            )
-          "
+          [ngClass]="{
+            selected: tieneTratamientos(diente, getToothPart(diente, 'right'))
+          }"
+          (click)="logToothPart(diente, getToothPart(diente, 'right'), $event)"
+          [tooltip]="getTreatments(diente, getToothPart(diente, 'right'))"
           placement="top"
           [showDelay]="500"
         ></div>
         <div
           class="center tooth-center unselected"
+          [ngClass]="{ selected: tieneTratamientos(diente, 'Incisal') }"
           (click)="logToothPart(diente, 'Incisal', $event)"
           [tooltip]="getTreatments(diente, 'Incisal')"
           placement="top"
@@ -98,9 +85,9 @@
         }"
       >
         <span class="tooth-number">{{ diente }}</span>
-        <div class="triangle"></div>
         <div
           class="top tooth-side unselected"
+          [ngClass]="{ selected: tieneTratamientos(diente, 'Lingual') }"
           (click)="logToothPart(diente, 'Lingual', $event)"
           [tooltip]="getTreatments(diente, 'Lingual')"
           placement="top"
@@ -108,24 +95,17 @@
         ></div>
         <div
           class="left tooth-side unselected"
-          (click)="
-            logToothPart(
-              diente,
-              diente >= 41 && diente <= 48 ? 'Distal' : 'Mesial',
-              $event
-            )
-          "
-          [tooltip]="
-            getTreatments(
-              diente,
-              diente >= 41 && diente <= 48 ? 'Distal' : 'Mesial'
-            )
-          "
+          [ngClass]="{
+            selected: tieneTratamientos(diente, getToothPart(diente, 'left'))
+          }"
+          (click)="logToothPart(diente, getToothPart(diente, 'left'), $event)"
+          [tooltip]="getTreatments(diente, getToothPart(diente, 'left'))"
           placement="top"
           [showDelay]="500"
         ></div>
         <div
           class="bottom tooth-side unselected"
+          [ngClass]="{ selected: tieneTratamientos(diente, 'Vestibular') }"
           (click)="logToothPart(diente, 'Vestibular', $event)"
           [tooltip]="getTreatments(diente, 'Vestibular')"
           placement="top"
@@ -133,23 +113,16 @@
         ></div>
         <div
           class="right tooth-side unselected"
-          (click)="
-            logToothPart(
-              diente,
-              diente >= 41 && diente <= 48 ? 'Mesial' : 'Distal',
-              $event
-            )
-          "
-          [tooltip]="
-            getTreatments(
-              diente,
-              diente >= 41 && diente <= 48 ? 'Mesial' : 'Distal'
-            )
-          "
+          [ngClass]="{
+            selected: tieneTratamientos(diente, getToothPart(diente, 'right'))
+          }"
+          (click)="logToothPart(diente, getToothPart(diente, 'right'), $event)"
+          [tooltip]="getTreatments(diente, getToothPart(diente, 'right'))"
           placement="top"
           [showDelay]="500"
         ></div>
         <div
+          [ngClass]="{ selected: tieneTratamientos(diente, 'Incisal') }"
           class="center tooth-center unselected"
           (click)="logToothPart(diente, 'Incisal', $event)"
           [tooltip]="getTreatments(diente, 'Incisal')"
@@ -171,9 +144,9 @@
         }"
       >
         <span class="tooth-number">{{ diente }}</span>
-        <div class="triangle"></div>
         <div
           class="top tooth-side unselected"
+          [ngClass]="{ selected: tieneTratamientos(diente, 'Vestibular') }"
           (click)="logToothPart(diente, 'Vestibular', $event)"
           [tooltip]="getTreatments(diente, 'Vestibular')"
           placement="top"
@@ -181,24 +154,17 @@
         ></div>
         <div
           class="left tooth-side unselected"
-          (click)="
-            logToothPart(
-              diente,
-              diente >= 51 && diente <= 55 ? 'Distal' : 'Mesial',
-              $event
-            )
-          "
-          [tooltip]="
-            getTreatments(
-              diente,
-              diente >= 51 && diente <= 55 ? 'Distal' : 'Mesial'
-            )
-          "
+          [ngClass]="{
+            selected: tieneTratamientos(diente, getToothPart(diente, 'left'))
+          }"
+          (click)="logToothPart(diente, getToothPart(diente, 'left'), $event)"
+          [tooltip]="getTreatments(diente, getToothPart(diente, 'left'))"
           placement="top"
           [showDelay]="500"
         ></div>
         <div
           class="bottom tooth-side unselected"
+          [ngClass]="{ selected: tieneTratamientos(diente, 'Palatino') }"
           (click)="logToothPart(diente, 'Palatino', $event)"
           [tooltip]="getTreatments(diente, 'Palatino')"
           placement="top"
@@ -206,24 +172,17 @@
         ></div>
         <div
           class="right tooth-side unselected"
-          (click)="
-            logToothPart(
-              diente,
-              diente >= 51 && diente <= 55 ? 'Mesial' : 'Distal',
-              $event
-            )
-          "
-          [tooltip]="
-            getTreatments(
-              diente,
-              diente >= 51 && diente <= 55 ? 'Mesial' : 'Distal'
-            )
-          "
+          [ngClass]="{
+            selected: tieneTratamientos(diente, getToothPart(diente, 'right'))
+          }"
+          (click)="logToothPart(diente, getToothPart(diente, 'right'), $event)"
+          [tooltip]="getTreatments(diente, getToothPart(diente, 'right'))"
           placement="top"
           [showDelay]="500"
         ></div>
         <div
           class="center tooth-center unselected"
+          [ngClass]="{ selected: tieneTratamientos(diente, 'Incisal') }"
           (click)="logToothPart(diente, 'Incisal', $event)"
           [tooltip]="getTreatments(diente, 'Incisal')"
           placement="top"
@@ -242,9 +201,9 @@
         }"
       >
         <span class="tooth-number">{{ diente }}</span>
-        <div class="triangle"></div>
         <div
           class="top tooth-side unselected"
+          [ngClass]="{ selected: tieneTratamientos(diente, 'Lingual') }"
           (click)="logToothPart(diente, 'Lingual', $event)"
           [tooltip]="getTreatments(diente, 'Lingual')"
           placement="top"
@@ -252,24 +211,17 @@
         ></div>
         <div
           class="left tooth-side unselected"
-          (click)="
-            logToothPart(
-              diente,
-              diente >= 81 && diente <= 85 ? 'Distal' : 'Mesial',
-              $event
-            )
-          "
-          [tooltip]="
-            getTreatments(
-              diente,
-              diente >= 81 && diente <= 85 ? 'Distal' : 'Mesial'
-            )
-          "
+          [ngClass]="{
+            selected: tieneTratamientos(diente, getToothPart(diente, 'left'))
+          }"
+          (click)="logToothPart(diente, getToothPart(diente, 'left'), $event)"
+          [tooltip]="getTreatments(diente, getToothPart(diente, 'left'))"
           placement="top"
           [showDelay]="500"
         ></div>
         <div
           class="bottom tooth-side unselected"
+          [ngClass]="{ selected: tieneTratamientos(diente, 'Vestibular') }"
           (click)="logToothPart(diente, 'Vestibular', $event)"
           [tooltip]="getTreatments(diente, 'Vestibular')"
           placement="top"
@@ -277,24 +229,17 @@
         ></div>
         <div
           class="right tooth-side unselected"
-          (click)="
-            logToothPart(
-              diente,
-              diente >= 81 && diente <= 85 ? 'Mesial' : 'Distal',
-              $event
-            )
-          "
-          [tooltip]="
-            getTreatments(
-              diente,
-              diente >= 81 && diente <= 85 ? 'Mesial' : 'Distal'
-            )
-          "
+          [ngClass]="{
+            selected: tieneTratamientos(diente, getToothPart(diente, 'right'))
+          }"
+          (click)="logToothPart(diente, getToothPart(diente, 'right'), $event)"
+          [tooltip]="getTreatments(diente, getToothPart(diente, 'right'))"
           placement="top"
           [showDelay]="500"
         ></div>
         <div
           class="center tooth-center unselected"
+          [ngClass]="{ selected: tieneTratamientos(diente, 'Incisal') }"
           (click)="logToothPart(diente, 'Incisal', $event)"
           [tooltip]="getTreatments(diente, 'Incisal')"
           placement="top"

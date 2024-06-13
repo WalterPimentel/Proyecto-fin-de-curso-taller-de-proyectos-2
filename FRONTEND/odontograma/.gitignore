@@ -19,7 +19,6 @@ yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
-dbFaker.json
 
 # Visual Studio Code
 .vscode/*
@@ -28,7 +27,7 @@ dbFaker.json
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
-dbFaker.json
+
 # Miscellaneous
 /.angular/cache
 .sass-cache/
@@ -37,6 +36,7 @@ dbFaker.json
 /libpeerconnection.log
 testem.log
 /typings
+dbFaker.json
 
 # System files
 .DS_Store
