@@ -96,8 +96,8 @@ export class OdontogramaGeometricoUIComponent {
 
   getTreatments(diente: number, part: string): string {
     const treatments =
-      this.selectedTreatmentsRecord[diente]?.[part]?.join(', ') || '';
-    return `${diente} - ${part} : ${treatments}`;
+      this.selectedTreatmentsRecord[diente]?.[part]?.join('<br>') || '';
+    return `${diente} - ${part}<br><hr>${treatments}`;
   }
 
   dientes = Array(8)
