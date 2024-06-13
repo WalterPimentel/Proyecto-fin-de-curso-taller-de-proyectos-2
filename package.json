@@ -1,0 +1,21 @@
+{
+  "name": "odontograma",
+  "version": "1.0.0",
+  "description": "Este repositorio contiene el código fuente y la documentación del proyecto final del curso \"Taller de Proyectos 2\". El proyecto se centra en el desarrollo de una aplicación web para la gestión de odontogramas en una clínica dental, utilizando tecnologías modernas para garantizar un rendimiento óptimo y una experiencia de usuario atractiva.",
+  "main": "index.js",
+  "scripts": {
+    "install:json-server": "npm list -g json-server || npm install -g json-server",
+    "install:frontend": "cd FRONTEND/odontograma && npm install",
+    "install:backend": "cd BACKEND && npm install",
+    "install:dependencies": "npm run install:frontend && npm run install:backend",
+    "start:backend": "cd BACKEND && npm run dev",
+    "start:frontend": "cd FRONTEND/odontograma && npm start",
+    "start": "npm install && npm run install:json-server && npm run install:dependencies && concurrently \"npm run start:backend\" \"npm run start:frontend\""
+  },
+  "keywords": [],
+  "author": "WalterPimentel",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

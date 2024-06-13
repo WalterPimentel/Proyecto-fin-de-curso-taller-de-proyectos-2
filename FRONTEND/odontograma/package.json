@@ -1,6 +1,6 @@
 {
   "name": "odontograma",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "npm run generate && concurrently \"npm run server\" \"ng serve\"",
@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@amin-karimi/ng2-tooltip-directive": "^4.0.2",
     "@angular/animations": "^17.3.0",
     "@angular/common": "^17.3.0",
     "@angular/compiler": "^17.3.0",
@@ -22,7 +23,6 @@
     "@angular/router": "^17.3.0",
     "axios": "^1.7.2",
     "date-fns": "^3.6.0",
-    "ng2-tooltip-directive": "^2.10.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
