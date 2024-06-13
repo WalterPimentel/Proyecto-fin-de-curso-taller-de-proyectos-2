@@ -4,6 +4,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HistoriaClinicaService } from '../../services/historiaClinica.service';
 import { OdontogramaService } from '../../services/odontograma.service';
 import { ModalUIComponent } from '../ui/modal/modal.component';
+import {SpinnerComponent} from '../ui/spinner/spinner.component';
 
 import axios from 'axios';
 

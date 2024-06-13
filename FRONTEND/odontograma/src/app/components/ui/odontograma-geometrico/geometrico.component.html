@@ -31,7 +31,7 @@
         <div
           class="top tooth-side unselected"
           (click)="logToothPart(diente, 'Vestibular', $event)"
-          tooltip="{{ getTreatments(diente, 'Vestibular') }}"
+          [tooltip]="getTreatments(diente, 'Vestibular')"
           placement="top"
           [showDelay]="500"
         ></div>
@@ -44,19 +44,19 @@
               $event
             )
           "
-          tooltip="{{
+          [tooltip]="
             getTreatments(
               diente,
               diente >= 11 && diente <= 18 ? 'Distal' : 'Mesial'
             )
-          }}"
+          "
           placement="top"
           [showDelay]="500"
         ></div>
         <div
           class="bottom tooth-side unselected"
           (click)="logToothPart(diente, 'Palatino', $event)"
-          tooltip="{{ getTreatments(diente, 'Palatino') }}"
+          [tooltip]="getTreatments(diente, 'Palatino')"
           placement="top"
           [showDelay]="500"
         ></div>
@@ -69,19 +69,19 @@
               $event
             )
           "
-           tooltip="{{
+          [tooltip]="
             getTreatments(
               diente,
               diente >= 11 && diente <= 18 ? 'Mesial' : 'Distal'
             )
-          }}"
+          "
           placement="top"
           [showDelay]="500"
         ></div>
         <div
           class="center tooth-center unselected"
           (click)="logToothPart(diente, 'Incisal', $event)"
-          tooltip="{{ getTreatments(diente, 'Incisal') }}"
+          [tooltip]="getTreatments(diente, 'Incisal')"
           placement="top"
           [showDelay]="500"
         ></div>
@@ -102,7 +102,7 @@
         <div
           class="top tooth-side unselected"
           (click)="logToothPart(diente, 'Lingual', $event)"
-          tooltip="{{ getTreatments(diente, 'Lingual') }}"
+          [tooltip]="getTreatments(diente, 'Lingual')"
           placement="top"
           [showDelay]="500"
         ></div>
@@ -115,19 +115,19 @@
               $event
             )
           "
-           tooltip="{{
+          [tooltip]="
             getTreatments(
               diente,
               diente >= 41 && diente <= 48 ? 'Distal' : 'Mesial'
             )
-          }}"
+          "
           placement="top"
           [showDelay]="500"
         ></div>
         <div
           class="bottom tooth-side unselected"
           (click)="logToothPart(diente, 'Vestibular', $event)"
-          tooltip="{{ getTreatments(diente, 'Vestibular') }}"
+          [tooltip]="getTreatments(diente, 'Vestibular')"
           placement="top"
           [showDelay]="500"
         ></div>
@@ -140,19 +140,19 @@
               $event
             )
           "
-           tooltip="{{
+          [tooltip]="
             getTreatments(
               diente,
               diente >= 41 && diente <= 48 ? 'Mesial' : 'Distal'
             )
-          }}"
+          "
           placement="top"
           [showDelay]="500"
         ></div>
         <div
           class="center tooth-center unselected"
           (click)="logToothPart(diente, 'Incisal', $event)"
-          tooltip="{{ getTreatments(diente, 'Incisal') }}"
+          [tooltip]="getTreatments(diente, 'Incisal')"
           placement="top"
           [showDelay]="500"
         ></div>
@@ -175,7 +175,7 @@
         <div
           class="top tooth-side unselected"
           (click)="logToothPart(diente, 'Vestibular', $event)"
-          tooltip="{{ getTreatments(diente, 'Vestibular') }}"
+          [tooltip]="getTreatments(diente, 'Vestibular')"
           placement="top"
           [showDelay]="500"
         ></div>
@@ -188,19 +188,19 @@
               $event
             )
           "
-           tooltip="{{
+          [tooltip]="
             getTreatments(
               diente,
               diente >= 51 && diente <= 55 ? 'Distal' : 'Mesial'
             )
-          }}"
+          "
           placement="top"
           [showDelay]="500"
         ></div>
         <div
           class="bottom tooth-side unselected"
           (click)="logToothPart(diente, 'Palatino', $event)"
-          tooltip="{{ getTreatments(diente, 'Palatino') }}"
+          [tooltip]="getTreatments(diente, 'Palatino')"
           placement="top"
           [showDelay]="500"
         ></div>
@@ -213,19 +213,19 @@
               $event
             )
           "
-           tooltip="{{
+          [tooltip]="
             getTreatments(
               diente,
               diente >= 51 && diente <= 55 ? 'Mesial' : 'Distal'
             )
-          }}"
+          "
           placement="top"
           [showDelay]="500"
         ></div>
         <div
           class="center tooth-center unselected"
           (click)="logToothPart(diente, 'Incisal', $event)"
-          tooltip="{{ getTreatments(diente, 'Incisal') }}"
+          [tooltip]="getTreatments(diente, 'Incisal')"
           placement="top"
           [showDelay]="500"
         ></div>
@@ -246,7 +246,7 @@
         <div
           class="top tooth-side unselected"
           (click)="logToothPart(diente, 'Lingual', $event)"
-          tooltip="{{ getTreatments(diente, 'Lingual') }}"
+          [tooltip]="getTreatments(diente, 'Lingual')"
           placement="top"
           [showDelay]="500"
         ></div>
@@ -259,19 +259,19 @@
               $event
             )
           "
-           tooltip="{{
+          [tooltip]="
             getTreatments(
               diente,
               diente >= 81 && diente <= 85 ? 'Distal' : 'Mesial'
             )
-          }}"
+          "
           placement="top"
           [showDelay]="500"
         ></div>
         <div
           class="bottom tooth-side unselected"
           (click)="logToothPart(diente, 'Vestibular', $event)"
-          tooltip="{{ getTreatments(diente, 'Vestibular') }}"
+          [tooltip]="getTreatments(diente, 'Vestibular')"
           placement="top"
           [showDelay]="500"
         ></div>
@@ -284,19 +284,19 @@
               $event
             )
           "
-           tooltip="{{
+          [tooltip]="
             getTreatments(
               diente,
               diente >= 81 && diente <= 85 ? 'Mesial' : 'Distal'
             )
-          }}"
+          "
           placement="top"
           [showDelay]="500"
         ></div>
         <div
           class="center tooth-center unselected"
           (click)="logToothPart(diente, 'Incisal', $event)"
-          tooltip="{{ getTreatments(diente, 'Incisal') }}"
+          [tooltip]="getTreatments(diente, 'Incisal')"
           placement="top"
           [showDelay]="500"
         ></div>
