@@ -10,7 +10,7 @@
     "install:dependencies": "npm run install:frontend && npm run install:backend",
     "start:backend": "cd BACKEND && npm run dev",
     "start:frontend": "cd FRONTEND/odontograma && npm start",
-    "start": "npm run install:json-server && concurrently \"npm run start:backend\" \"npm run start:frontend\""
+    "start": "npm install && npm run install:json-server && npm run install:dependencies && concurrently \"npm run start:backend\" \"npm run start:frontend\""
   },
   "keywords": [],
   "author": "WalterPimentel",
