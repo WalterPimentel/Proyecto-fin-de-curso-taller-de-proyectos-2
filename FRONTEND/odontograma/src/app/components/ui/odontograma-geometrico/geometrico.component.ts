@@ -100,6 +100,28 @@ export class OdontogramaGeometricoUIComponent {
     return `${diente} - ${part}<br><hr>${treatments}`;
   }
 
+  tieneTratamientos(diente: number, part: string): boolean {
+    const treatments = this.selectedTreatmentsRecord[diente]?.[part];
+    return treatments && treatments.length > 0;
+  }
+
+  getToothPart(numeroDiente: number, lado: 'left' | 'right'): string {
+    let nombreParte = '';
+
+    if (
+      (numeroDiente >= 11 && numeroDiente <= 18) ||
+      (numeroDiente >= 41 && numeroDiente <= 48) ||
+      (numeroDiente >= 51 && numeroDiente <= 55) ||
+      (numeroDiente >= 81 && numeroDiente <= 85)
+    ) {
+      nombreParte = lado === 'left' ? 'Distal' : 'Mesial';
+    } else {
+      nombreParte = lado === 'left' ? 'Mesial' : 'Distal';
+    }
+
+    return nombreParte;
+  }
+
   dientes = Array(8)
     .fill(0)
     .map((x, i) => i + 11)
