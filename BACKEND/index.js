@@ -74,8 +74,8 @@ app.post('/enviar-mail', async (req, res) => {
         await createAndSavePDF(pdfPath, dataPaciente);
 
         const mailOptions = {
-            from: 'correo@example.com',
-            to: 'correo@example.com',
+            from: 'admin@gmail.com',
+            to: `${nombre}@example.com`,
             subject: 'Asunto del correo',
             html: `
                 <html>
@@ -94,17 +94,42 @@ app.post('/enviar-mail', async (req, res) => {
                                 border-radius: 10px;
                                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                             }
+                            .header {
+                                background-color: #4CAF50;
+                                color: white;
+                                padding: 10px;
+                                text-align: center;
+                                border-radius: 10px 10px 0 0;
+                            }
+                            .content {
+                                padding: 20px;
+                            }
+                            .footer {
+                                text-align: center;
+                                padding: 10px;
+                                background-color: #f2f2f2;
+                                border-radius: 0 0 10px 10px;
+                            }
                         </style>
                     </head>
                     <body>
                         <div class="container">
-                            <h1>Hola, ${nombre}</h1>
-                            <p>Este es un correo electrónico de ejemplo con HTML bonito.</p>
-                            <p>Puedes personalizar este HTML como desees.</p>
+                            <div class="header">
+                                <h2>¡Hola, ${nombre}!</h2>
+                            </div>
+                            <div class="content">
+                                <p>Te enviamos este correo para informarte que hemos adjuntado un documento PDF con tu odontograma.</p>
+                                <p>Este odontograma es una representación gráfica detallada de tu estructura dental y tratamientos realizados.</p>
+                                <p>Si tienes alguna pregunta o necesitas más información, no dudes en contactarnos.</p>
+                            </div>
+                            <div class="footer">
+                                <p>Gracias por confiar en nuestro servicio.</p>
+                            </div>
                         </div>
                     </body>
                 </html>
             `,
+
             attachments: [
                 {
                     filename: pdfFileName,
