@@ -5,7 +5,8 @@ import { HistoriaClinicaService } from '../../services/historiaClinica.service';
 import { OdontogramaService } from '../../services/odontograma.service';
 import { ModalUIComponent } from '../ui/modal/modal.component';
 import {SpinnerComponent} from '../ui/spinner/spinner.component';
-
+import { MatDialog } from '@angular/material/dialog';
+import { DialogoComponent } from '../ui/dialogo/dialogo.component';
 import axios from 'axios';
 
 @Component({
@@ -49,7 +50,8 @@ export class OdontogramaComponent {
   constructor(
     private historiaClinicaService: HistoriaClinicaService,
     private odontogramaService: OdontogramaService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {
     this.tipoOdontograma = 'geometrico';
     this.isLoading = true;
@@ -217,5 +219,14 @@ export class OdontogramaComponent {
           console.error('Error al guardar odontograma:', error);
         });
     }
+  }
+
+  descargarPDF(){
+    const dialogRef = this.dialog.open(DialogoComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('El diálogo se cerró');
+      // Puedes realizar acciones después de que se cierre el diálogo si es necesario
+    });
   }
 }
