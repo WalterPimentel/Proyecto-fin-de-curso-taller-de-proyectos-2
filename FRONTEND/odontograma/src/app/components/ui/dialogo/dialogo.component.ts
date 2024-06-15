@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-
+import axios from 'axios';
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialogo.component.html',
@@ -16,14 +16,26 @@ export class DialogoComponent {
     aceptarClick() {
       const correoInput = document.getElementById('correo') as HTMLInputElement;
       const nombresInput = document.getElementById('nombres') as HTMLInputElement;
-      const telefonoInput = document.getElementById('telefono') as HTMLInputElement;
+      const dniInput = document.getElementById('dni') as HTMLInputElement;
 
-      console.log('Correo:', correoInput.value);
-      console.log('Nombres:', nombresInput.value);
-      console.log('Teléfono:', telefonoInput.value);
+      const nombre = nombresInput.value.toString().trim();
+      const correo = correoInput.value.toString().trim();
+      const DNI = dniInput.value.toString().trim();
+      console.log(nombre,correo,DNI);
 
-      // Puedes realizar otras acciones con los datos del formulario, como enviarlos a través de una solicitud HTTP, etc.
-      // Si quieres cerrar el diálogo después de hacer algo con los datos, puedes hacerlo así:
-      this.dialogRef.close();
-    }
+      axios.post('http://localhost:3001/enviar-mail', {nombre,correo,DNI}, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+          .then(response => {
+              console.log('Respuesta del servidor:', response.data);
+              alert('Correo enviado exitosamente');
+              this.dialogRef.close(); // Cerrar el diálogo solo después de un envío exitoso
+          })
+          .catch(error => {
+              console.error('Error al enviar el correo:', error);
+              alert('Error al enviar el correo');
+          });
+  }
 }

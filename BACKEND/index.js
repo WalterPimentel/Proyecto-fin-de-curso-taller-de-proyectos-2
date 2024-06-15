@@ -11,6 +11,9 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { Paciente } from './models/OdontogramaGeomorfico.js';
+import bodyParser from 'body-parser';
+
+
 
 dotenv.config();
 
@@ -18,6 +21,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.use(bodyParser.json());
 conectarDB();
 
 // CORS
@@ -58,10 +62,9 @@ app.get('/pacientes', async (req, res) => {
 });
 
 app.post('/enviar-mail', async (req, res) => {
-    const { nombre, correo, telefono } = req.body;
-
     try {
-        const dataPaciente = await Paciente.findOne({ nombres: nombre });
+        const { nombre, correo, DNI } = req.body;
+        const dataPaciente = await Paciente.findOne({ dni: DNI });
 
         if (!dataPaciente) {
             return res.status(404).json({ error: 'Paciente no encontrado' });
