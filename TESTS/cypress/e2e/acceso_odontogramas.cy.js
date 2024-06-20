@@ -19,4 +19,3 @@ describe('Verificación de acceso a los datos del odontograma', () => {
     });
   });
 });
-94247417
