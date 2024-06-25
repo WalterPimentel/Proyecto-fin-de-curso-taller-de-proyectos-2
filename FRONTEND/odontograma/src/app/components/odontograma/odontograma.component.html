@@ -22,35 +22,7 @@
         >
           Descargar PDF
         </button>
-      </div>
-      <form [formGroup]="form">
-        <div class="relative mt-3">
-          <input
-            #searchInput
-            formControlName="search"
-            class="w-full pl-8 pr-2 py-1 border rounded-md"
-            placeholder="Buscar paciente"
-            (keydown)="onKeydown($event)"
-          />
-          <i
-            class="fas fa-search absolute left-2 top-1/2 transform -translate-y-1/2"
-          ></i>
-          <div
-            class="absolute w-full bg-white border rounded-md"
-            *ngIf="resultadosBusqueda.length > 0"
-          >
-            <div
-              *ngFor="let paciente of resultadosBusqueda"
-              class="p-2 hover:bg-gray-200 cursor-pointer"
-              (click)="onSelect(paciente)"
-            >
-              {{ paciente.nombres }} {{ paciente.apellidos }} ({{
-                paciente.dni
-              }})
-            </div>
-          </div>
-        </div>
-      </form>
+      </div>      
       <div class="flex mt-4">
         <div class="w-[50%] p-3">
           <p class="font-bold text-lg">Datos Paciente</p>
@@ -69,13 +41,13 @@
         </div>
         <div class="w-[50%] p-3">
           <p class="font-bold text-lg">Datos Clínica</p>
-          <p class="ml-3"><strong>CliniConti S.A.C.</strong></p>
+          <p class="ml-3"><strong>OdontoConti S.A.C.</strong></p>
           <p class="ml-3 -mb-2">{{ userAuth.role }} {{ userAuth.fullname }}</p>
           <span class="ml-3 italic text-xs text-zinc-600">
             {{ userAuth.email }}
           </span>
           <p class="ml-3">{{ userAuth.telefono }}</p>
-          <p class="ml-3">atencionalcliente&#64;clinicoti.com</p>
+          <p class="ml-3">atencionalcliente&#64;odontoconti.com</p>
           <p class="ml-3">{{ userAuth.direccion }}</p>
         </div>
       </div>

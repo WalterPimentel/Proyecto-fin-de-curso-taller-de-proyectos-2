@@ -18,6 +18,10 @@ export class HistoriaClinicaService {
     );
   }
 
+  getTodosLosPacientes(): Observable<any[]> {
+    return this.http.get<any[]>('http://localhost:3000/historiaClinica');
+  }
+
   getUserAuthAleatorio(): Observable<any> {
     return this.http.get<any[]>('http://localhost:3000/userAuth').pipe(
       map((data: any[]) => {
