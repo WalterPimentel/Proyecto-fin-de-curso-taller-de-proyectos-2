@@ -1,1 +1,4 @@
-<app-odontograma></app-odontograma>
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div *ngIf="!isLoading">
+  <router-outlet></router-outlet>
+</div>

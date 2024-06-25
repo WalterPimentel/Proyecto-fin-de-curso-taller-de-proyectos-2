@@ -1,20 +1,20 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { HistoriaClinicaService } from '../../services/historiaClinica.service';
 import { OdontogramaService } from '../../services/odontograma.service';
 import { ModalUIComponent } from '../ui/modal/modal.component';
-import {SpinnerComponent} from '../ui/spinner/spinner.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoComponent } from '../ui/dialogo/dialogo.component';
 import axios from 'axios';
-import domToImage from 'dom-to-image';
+
 @Component({
   selector: 'app-odontograma',
   templateUrl: './odontograma.component.html',
   styleUrls: ['./odontograma.component.css'],
 })
-export class OdontogramaComponent {
+export class OdontogramaComponent implements OnInit {
   isLoading: boolean;
   paciente: any;
   userAuth: any;
@@ -26,8 +26,6 @@ export class OdontogramaComponent {
   public saveButtonPressed = false;
   formInvalid: boolean = false;
   @ViewChild('modal') modal!: ModalUIComponent;
-  resultadosBusqueda: any[] = [];
-  search = '';
 
   formatDate(date: Date | string): string {
     let validDate: Date;
@@ -51,10 +49,12 @@ export class OdontogramaComponent {
     private historiaClinicaService: HistoriaClinicaService,
     private odontogramaService: OdontogramaService,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
-    this.tipoOdontograma = 'geometrico';
     this.isLoading = true;
+    this.tipoOdontograma = 'geometrico';
     this.odontograma = [];
     this.form = this.fb.group({});
     this.initializeForm();
@@ -89,36 +89,6 @@ export class OdontogramaComponent {
         );
       }
     });
-    this.form.controls['search'].valueChanges.subscribe((query) => {
-      if (query) {
-        this.historiaClinicaService
-          .buscarPaciente(query)
-          .subscribe((resultados) => {
-            this.resultadosBusqueda = resultados;
-          });
-      } else {
-        this.resultadosBusqueda = [];
-      }
-    });
-  }
-
-  onKeydown(event: KeyboardEvent) {
-    if (event.key === 'Tab' || event.key === 'Enter') {
-      event.preventDefault();
-      if (this.resultadosBusqueda.length > 0) {
-        this.search = this.resultadosBusqueda[0].nombres;
-        if (event.key === 'Enter') {
-          this.onSelect(this.search);
-        }
-      }
-    }
-  }
-
-  onSelect(paciente: any) {
-    this.paciente = paciente;
-    this.form.controls['search'].setValue(
-      `${paciente.nombres} ${paciente.apellidos} (${paciente.dni})`
-    );
   }
 
   initializeForm() {
@@ -129,7 +99,6 @@ export class OdontogramaComponent {
         Object.keys(this.odontograma).length > 0,
         Validators.requiredTrue,
       ],
-      search: [''],
     });
   }
 
@@ -141,7 +110,6 @@ export class OdontogramaComponent {
       return false;
     }
   }
-
 
   async openConfirmationModal() {
     this.form.markAllAsTouched();
@@ -165,17 +133,14 @@ export class OdontogramaComponent {
         return;
       }
 
-      // Aquí se guarda el odontograma
       this.isLoading = true;
       this.onSave();
-
     } catch (error) {
       console.error('Error al abrir el modal:', error);
     } finally {
       this.isLoading = false;
     }
   }
-
 
   onSave() {
     if (this.isFormValid()) {
@@ -235,10 +200,10 @@ export class OdontogramaComponent {
     }
   }
 
-  descargarPDF(){
+  descargarPDF() {
     const dialogRef = this.dialog.open(DialogoComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('El diálogo se cerró');
       // Puedes realizar acciones después de que se cierre el diálogo si es necesario
     });

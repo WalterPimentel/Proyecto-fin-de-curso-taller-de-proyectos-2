@@ -40,7 +40,7 @@ function generateData() {
             talla: faker.datatype.number({ min: 150, max: 200 }),
             presionArterial: faker.datatype.number({ min: 80, max: 120 }) + '/' + faker.datatype.number({ min: 60, max: 80 }),
             pulso: faker.datatype.number({ min: 60, max: 100 }),
-            temperatura: faker.datatype.number({ min: 36, max: 39, precision: 0.1 }),
+            temperatura: faker.datatype.number({ min: 36.5, max: 37.3, precision: 0.1 }),
             email: faker.internet.email(),
             direccion: faker.address.streetAddress()
         });
