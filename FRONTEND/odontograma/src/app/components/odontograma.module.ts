@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { OdontogramaComponent } from './odontograma/odontograma.component';
 import { PacientesComponent } from './pacientes/pacientes.component';
@@ -20,6 +21,7 @@ import { OdontogramaGeometricoUIComponent } from './ui/odontograma-geometrico/ge
 import { SpinnerComponent } from './ui/spinner/spinner.component';
 import { MenuContextualUIComponent } from './ui/menu-contextual/menuContextual.component';
 import { ModalUIComponent } from './ui/modal/modal.component';
+import { DialogoComponent } from './ui/dialogo/dialogo.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { ModalUIComponent } from './ui/modal/modal.component';
     PacienteComponent,
     SpinnerComponent,
     ModalUIComponent,
+    DialogoComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +49,7 @@ import { ModalUIComponent } from './ui/modal/modal.component';
     MatAutocompleteModule,
     MatExpansionModule,
     MatButtonModule,
+    MatDialogModule,
   ],
   exports: [PacientesComponent, SpinnerComponent],
 })
