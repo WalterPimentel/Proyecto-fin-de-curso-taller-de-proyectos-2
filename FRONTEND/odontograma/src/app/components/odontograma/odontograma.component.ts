@@ -205,7 +205,6 @@ export class OdontogramaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('El diálogo se cerró');
-      // Puedes realizar acciones después de que se cierre el diálogo si es necesario
     });
   }
 }
