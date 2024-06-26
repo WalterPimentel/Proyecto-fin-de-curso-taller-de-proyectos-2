@@ -19,16 +19,16 @@ function generateData() {
         userAuth: []
     };
 
-    for (let i = 1; i <= 100; i++) {
+    for (let i = 1; i <= 985; i++) {
 
         const fechaNacimiento = faker.date.between('1950-01-01', '2018-12-31');
         const fecha = faker.date.past();
         const hora = faker.date.recent();
 
         data.historiaClinica.push({
-            id: i,
+            id: i.toString(),
             fechaRegistro: format(fecha, 'dd/MM/yyyy'),
-            hora: format(hora, 'HH:mm'),
+            horaRegistro: format(hora, 'HH:mm'),
             dni: generateUniqueDni(),
             apellidos: faker.name.lastName(),
             nombres: faker.name.firstName(),
@@ -48,7 +48,8 @@ function generateData() {
 
     for (i = 1; i <= 15; i++) {
         data.userAuth.push({
-            id: i,
+            id: i.toString(),
+            dni: generateUniqueDni(),
             username: faker.internet.userName(),
             fullname: faker.name.lastName() + ' ' + faker.name.firstName(),
             role: faker.random.arrayElement(['Dr.', 'Aux.', 'Prac.']),

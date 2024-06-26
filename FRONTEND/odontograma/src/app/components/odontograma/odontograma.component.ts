@@ -61,11 +61,32 @@ export class OdontogramaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.historiaClinicaService.getPacienteAleatorio().subscribe((paciente) => {
-      this.paciente = paciente;
-      this.edadCategoria = paciente.edad > 12 ? 'adulto' : 'menor';
-      this.isLoading = false;
+    this.route.paramMap.subscribe({
+      next: (params) => {
+        const id = params.get('id');
+        if (id) {
+          this.historiaClinicaService.getPacienteById(id).subscribe({
+            next: (paciente) => {
+              this.paciente = paciente;
+              this.edadCategoria = paciente.edad > 12 ? 'adulto' : 'menor';
+              this.isLoading = false;
+            },
+            error: (error) => {
+              console.error('Error al obtener datos del paciente:', error);
+              this.isLoading = false;
+            },
+          });
+        } else {
+          console.error('No se recibió ID en la ruta.');
+          this.isLoading = false;
+        }
+      },
+      error: (error) => {
+        console.error('Error al obtener parámetros de la ruta:', error);
+        this.isLoading = false;
+      },
     });
+
     this.historiaClinicaService.getUserAuthAleatorio().subscribe((userAuth) => {
       this.userAuth = userAuth;
       this.isLoading = false;
@@ -184,6 +205,9 @@ export class OdontogramaComponent implements OnInit {
               ' ha sido guardado con éxito.',
             'success'
           );
+          this.modal.onClose.subscribe(() => {
+            this.router.navigate(['/pacientes']);
+          });
         })
         .catch((error) => {
           this.isLoading = false;

@@ -10,48 +10,72 @@
       />
     </div>
 
-    <div
-      *ngIf="paciente && userAuth"
-      class="bg-gray-100 p-4 rounded-lg shadow-md mt-4"
-    >
-      <div class="flex justify-between items-center">
-        <p class="font-bold">Fecha {{ formatDate(fechaActual) }}</p>
-        <button
-          (click)="descargarPDF()"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    <mat-accordion *ngIf="paciente && userAuth">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header
+          class="contenedor justify-between text-center"
         >
-          Descargar PDF
-        </button>
-      </div>      
-      <div class="flex mt-4">
-        <div class="w-[50%] p-3">
-          <p class="font-bold text-lg">Datos Paciente</p>
-          <p class="ml-3"><strong>DNI:</strong> {{ paciente.dni }}</p>
-          <p class="ml-3 -mb-2">
-            {{ paciente.nombres }} {{ paciente.apellidos }}
-          </p>
-          <span class="ml-3 italic text-xs text-zinc-600">
-            {{ paciente.email }}
-          </span>
-          <p class="ml-3">{{ paciente.telefono }}</p>
-          <p class="ml-3">{{ paciente.direccion }}</p>
-          <p class="ml-3">Edad: {{ paciente.edad }} años</p>
-          <p class="ml-3">{{ paciente.sexo }}</p>
-          <p class="ml-3">Registro: {{ formatDate(paciente?.fechaRegistro || paciente?.fechaRegistro) }}</p>
+          <mat-panel-title>
+            <p>
+              <strong>Paciente: </strong>{{ paciente.nombres }},
+              {{ paciente.apellidos }}
+            </p>
+          </mat-panel-title>
+          <mat-panel-description>
+            <p class="font-bold">Fecha {{ formatDate(fechaActual) }}</p>
+          </mat-panel-description>
+          <mat-panel-description class="justify-end">
+            <button
+              (click)="descargarPDF()"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Descargar PDF
+            </button>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="flex mt-4">
+          <div class="w-[50%] p-3">
+            <p class="font-bold text-lg">Datos Paciente</p>
+            <div class="ml-3">
+              <p><strong>DNI:</strong> {{ paciente.dni }}</p>
+              <p><strong>Email:</strong> {{ paciente.email }}</p>
+              <p><strong>Dirección:</strong> {{ paciente.direccion }}</p>
+              <p><strong>Sexo:</strong> {{ paciente.sexo }}</p>
+              <p><strong>Edad:</strong> {{ paciente.edad }}</p>
+              <p><strong>Peso:</strong> {{ paciente.peso }} kg</p>
+              <p><strong>Talla:</strong> {{ paciente.talla }} cm</p>
+              <p><strong>Pulso:</strong> {{ paciente.pulso }} latidos/min</p>
+              <p><strong>Temperatura:</strong> {{ paciente.temperatura }} °C</p>
+              <p>
+                <strong>Presión Arterial:</strong>
+                {{ paciente.presionArterial }}
+              </p>
+              <p>
+                <strong>Fecha de Nacimiento:</strong>
+                {{ paciente.fechaNacimiento }}
+              </p>
+              <p>
+                <strong>Fecha de Registro:</strong>
+                {{ paciente.fechaRegistro }}, {{ paciente.horaRegistro }}
+              </p>
+            </div>
+          </div>
+          <div class="w-[50%] p-3">
+            <p class="font-bold text-lg">Datos Clínica</p>
+            <p class="ml-3"><strong>OdontoConti S.A.C.</strong></p>
+            <p class="ml-3 -mb-2">
+              {{ userAuth.role }} {{ userAuth.fullname }}
+            </p>
+            <span class="ml-3 italic text-xs text-zinc-600">
+              {{ userAuth.email }}
+            </span>
+            <p class="ml-3">{{ userAuth.telefono }}</p>
+            <p class="ml-3">atencionalcliente&#64;odontoconti.com</p>
+            <p class="ml-3">{{ userAuth.direccion }}</p>
+          </div>
         </div>
-        <div class="w-[50%] p-3">
-          <p class="font-bold text-lg">Datos Clínica</p>
-          <p class="ml-3"><strong>OdontoConti S.A.C.</strong></p>
-          <p class="ml-3 -mb-2">{{ userAuth.role }} {{ userAuth.fullname }}</p>
-          <span class="ml-3 italic text-xs text-zinc-600">
-            {{ userAuth.email }}
-          </span>
-          <p class="ml-3">{{ userAuth.telefono }}</p>
-          <p class="ml-3">atencionalcliente&#64;odontoconti.com</p>
-          <p class="ml-3">{{ userAuth.direccion }}</p>
-        </div>
-      </div>
-    </div>
+      </mat-expansion-panel>
+    </mat-accordion>
 
     <div class="mt-3 mb-3">
       <label for="tipoOdontograma">Odontograma </label>

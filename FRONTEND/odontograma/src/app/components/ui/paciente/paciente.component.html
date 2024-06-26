@@ -5,31 +5,32 @@
         {{ paciente.nombres }}, {{ paciente.apellidos }}
       </mat-panel-title>
       <mat-panel-description>
-        DNI: {{ paciente.dni }}
-    </mat-panel-description>
-      <mat-panel-description>
         Teléfono: {{ paciente.telefono }}
       </mat-panel-description>
-      <mat-panel-description>
-        {{ paciente.email }}
-      </mat-panel-description>
-      <mat-panel-description>
-        <button mat-flat-button color="primary" (click)="navigateToOdontograma(paciente)">
-            <i class="fas fa-tooth"></i> Registro Odontograma
-        </button>
+      <mat-panel-description class="justify-end">
+        <button          
+          mat-flat-button
+          color="primary"
+          (click)="navigateToOdontograma(paciente)"
+        >
+          <i class="fa fa-tooth"></i> Registro Odontograma
+        </button>        
       </mat-panel-description>
     </mat-expansion-panel-header>
     <div class="info-grupo">
-      <p><strong>Sexo:</strong> {{ paciente.sexo }}</p>
+      <p><strong>DNI:</strong> {{ paciente.dni }}</p>
+      <p><strong>Email:</strong> {{ paciente.email }}</p>
+      <p><strong>Sexo:</strong> {{ paciente.sexo }}</p>      
+      <p><strong>Fecha de Registro:</strong> {{ paciente.fechaRegistro }}, {{ paciente.horaRegistro }}</p>      
       <p><strong>Dirección:</strong> {{ paciente.direccion }}</p>
-      <p><strong>Fecha de Registro:</strong> {{ paciente.fechaRegistro }}</p>
-      <p><strong>Hora:</strong> {{ paciente.hora }}</p>
-      <p><strong>Fecha de Nacimiento:</strong> {{ paciente.fechaNacimiento }}</p>
+      <p>
+        <strong>Fecha de Nacimiento:</strong> {{ paciente.fechaNacimiento }}
+      </p>
       <p><strong>Edad:</strong> {{ paciente.edad }}</p>
-      <p><strong>Peso:</strong> {{ paciente.peso }} kg</p>
+      <p><strong>Pulso:</strong> {{ paciente.pulso }} latidos/min</p>
       <p><strong>Talla:</strong> {{ paciente.talla }} cm</p>
       <p><strong>Presión Arterial:</strong> {{ paciente.presionArterial }}</p>
-      <p><strong>Pulso:</strong> {{ paciente.pulso }} latidos/min</p>
+      <p><strong>Peso:</strong> {{ paciente.peso }} kg</p>      
       <p><strong>Temperatura:</strong> {{ paciente.temperatura }} °C</p>
     </div>
   </mat-expansion-panel>

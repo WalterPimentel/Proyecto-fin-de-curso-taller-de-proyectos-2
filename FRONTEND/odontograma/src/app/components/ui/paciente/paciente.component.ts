@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-paciente',
@@ -8,17 +8,12 @@ import { Router, NavigationExtras } from '@angular/router';
 })
 export class PacienteComponent {
   @Input() paciente: any;
-  isLoading: boolean;
 
-  constructor(private router: Router) {
-    this.isLoading = true;
-  }
+  constructor(private router: Router) {}
 
   navigateToOdontograma(paciente: any) {
-    const navigationExtras: NavigationExtras = {
+    this.router.navigate(['/odontograma', paciente.id], {
       state: { paciente: paciente },
-    };
-    this.router.navigate(['/odontograma'], navigationExtras);
-    console.log('Paciente seleccionado: ', paciente)
+    });
   }
 }
