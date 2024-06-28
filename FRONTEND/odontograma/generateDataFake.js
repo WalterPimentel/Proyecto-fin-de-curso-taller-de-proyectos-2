@@ -40,7 +40,7 @@ function generateRolEntity() {
 function generateData() {
     const data = {
         historiaClinica: [],
-        user: []
+        usuario: []
     };
 
     for (let i = 1; i <= 985; i++) {
@@ -71,7 +71,7 @@ function generateData() {
     }
 
     for (i = 1; i <= 15; i++) {
-        data.user.push({
+        data.usuario.push({
             id: i.toString(),
             codigo: generateUniqueDni(),
             email: faker.internet.email(),

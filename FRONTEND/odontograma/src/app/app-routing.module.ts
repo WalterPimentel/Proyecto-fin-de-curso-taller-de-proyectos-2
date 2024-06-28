@@ -6,7 +6,7 @@ import { PacientesComponent } from './components/pacientes/pacientes.component';
 const routes: Routes = [
   { path: 'pacientes', component: PacientesComponent },
   {
-    path: 'odontograma/:id',
+    path: 'odontograma/:dni',
     component: OdontogramaComponent,
     data: {
       paciente: null,

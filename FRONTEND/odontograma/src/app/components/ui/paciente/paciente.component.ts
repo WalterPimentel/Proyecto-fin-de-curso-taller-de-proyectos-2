@@ -12,8 +12,8 @@ export class PacienteComponent {
   constructor(private router: Router) {}
 
   navigateToOdontograma(paciente: any) {
-    this.router.navigate(['/odontograma', paciente.id], {
+    this.router.navigate(['/odontograma', paciente.dni], {      
       state: { paciente: paciente },
-    });
+    });    
   }
 }

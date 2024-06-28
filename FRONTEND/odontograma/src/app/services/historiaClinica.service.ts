@@ -9,8 +9,11 @@ import { map } from 'rxjs/operators';
 export class HistoriaClinicaService {
   constructor(private http: HttpClient) {}
 
-  getPacienteById(id: string): Observable<any> {
-    return this.http.get<any>(`http://localhost:3000/historiaClinica/${id}`);
+  getPacienteByDNI(dni: string): Observable<any> {
+    const params = new HttpParams().set('dni', dni);
+    return this.http.get<any[]>('http://localhost:3000/historiaClinica', { params }).pipe(
+      map(pacientes => pacientes[0] || null)
+    );
   }
 
   getTodosLosPacientes(): Observable<any[]> {
@@ -25,7 +28,7 @@ export class HistoriaClinicaService {
   }
 
   getUserAleatorio(): Observable<any> {
-    return this.http.get<any[]>('http://localhost:3000/user').pipe(
+    return this.http.get<any[]>('http://localhost:3000/usuario').pipe(
       map((data: any[]) => {
         const randomIndex = Math.floor(Math.random() * data.length);
         return data[randomIndex];

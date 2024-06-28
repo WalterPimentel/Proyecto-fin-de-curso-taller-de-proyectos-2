@@ -17,7 +17,7 @@ import axios from 'axios';
 export class OdontogramaComponent implements OnInit {
   isLoading: boolean;
   paciente: any;
-  user: any;
+  usuario: any;
   edadCategoria: string = '';
   tipoOdontograma: string;
   fechaActual = new Date();
@@ -63,9 +63,10 @@ export class OdontogramaComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe({
       next: (params) => {
-        const id = params.get('id');
-        if (id) {
-          this.historiaClinicaService.getPacienteById(id).subscribe({
+        const dni = params.get('dni');
+        console.log('DNI recibido:', dni);
+        if (dni) {
+          this.historiaClinicaService.getPacienteByDNI(dni).subscribe({
             next: (paciente) => {
               this.paciente = paciente;
               this.edadCategoria = paciente.edad > 12 ? 'adulto' : 'menor';
@@ -77,7 +78,7 @@ export class OdontogramaComponent implements OnInit {
             },
           });
         } else {
-          console.error('No se recibió ID en la ruta.');
+          console.error('No se recibió DNI en la ruta.');
           this.isLoading = false;
         }
       },
@@ -87,8 +88,8 @@ export class OdontogramaComponent implements OnInit {
       },
     });
 
-    this.historiaClinicaService.getUserAleatorio().subscribe((user) => {
-      this.user = user;
+    this.historiaClinicaService.getUserAleatorio().subscribe((usuario) => {
+      this.usuario = usuario;
       this.isLoading = false;
     });
     this.initializeForm();
@@ -141,7 +142,7 @@ export class OdontogramaComponent implements OnInit {
 
     const numDientes = Object.keys(this.odontograma).length;
     const dientesTexto = numDientes > 1 ? 'dientes' : 'diente';
-    const pacienteNombre = this.paciente.nombres;
+    const pacienteNombre = this.paciente.nombre;
 
     try {
       const result = await this.modal.open(
@@ -172,9 +173,9 @@ export class OdontogramaComponent implements OnInit {
         edadCategoria: this.edadCategoria,
         fecha: this.fechaActual,
         operador: {
-          role: this.user.role,
-          fullname: this.user.fullname,
-          email: this.user.email,
+          role: this.usuario.role,
+          fullname: this.usuario.fullname,
+          email: this.usuario.email,
         },
         odontograma: this.odontograma,
       };

@@ -9,8 +9,7 @@
         class="h-12 w-auto"
       />
     </div>
-
-    <mat-accordion>
+    <mat-accordion *ngIf="paciente && usuario">
       <mat-expansion-panel>
         <mat-expansion-panel-header
           class="contenedor justify-between text-center"
@@ -65,45 +64,45 @@
             <p class="ml-3"><strong>OdontoConti S.A.C.</strong></p>
             <p class="ml-3">atencionalcliente&#64;odontoconti.com</p>
             <div
-              *ngIf="user.rol === 'Estudiante'; else docenteInfo"
+              *ngIf="usuario.rol === 'Estudiante'; else docenteInfo"
               class="ml-3 flex items-center"
             >
               <img
                 class="w-24 h-24 mr-4"
-                src="{{ user.estudiante.foto }}"
+                src="{{ usuario.estudiante.foto }}"
                 alt="Foto del estudiante"
               />
               <div>
                 <p>
-                  <strong>{{ user.rol }}:</strong> {{ user.estudiante.nombre }},
-                  {{ user.estudiante.apellido }}
+                  <strong>{{ usuario.rol }}:</strong> {{ usuario.estudiante.nombre }},
+                  {{ usuario.estudiante.apellido }}
                 </p>
-                <p><strong>Código:</strong> {{ user.estudiante.codigo }}</p>
-                <p><strong>Email:</strong> {{ user.estudiante.email }}</p>
-                <p><strong>Teléfono:</strong> {{ user.estudiante.phone }}</p>
+                <p><strong>Código:</strong> {{ usuario.estudiante.codigo }}</p>
+                <p><strong>Email:</strong> {{ usuario.estudiante.email }}</p>
+                <p><strong>Teléfono:</strong> {{ usuario.estudiante.phone }}</p>
               </div>
             </div>
             <ng-template #docenteInfo>
               <div class="ml-3 flex items-center">
                 <img
                   class="w-24 h-24 mr-4"
-                  src="{{ user.docente.foto }}"
+                  src="{{ usuario.docente.foto }}"
                   alt="Foto del docente"
                 />
                 <div>
                   <p>
-                    <strong>{{ user.rol }}:</strong> Dr.
-                    {{ user.docente.nombre }},
-                    {{ user.docente.apellido }}
+                    <strong>{{ usuario.rol }}:</strong> Dr.
+                    {{ usuario.docente.nombre }},
+                    {{ usuario.docente.apellido }}
                   </p>
-                  <p><strong>Código:</strong> {{ user.docente.codigo }}</p>
-                  <p><strong>Email:</strong> {{ user.docente.email }}</p>
-                  <p><strong>Teléfono:</strong> {{ user.docente.phone }}</p>
+                  <p><strong>Código:</strong> {{ usuario.docente.codigo }}</p>
+                  <p><strong>Email:</strong> {{ usuario.docente.email }}</p>
+                  <p><strong>Teléfono:</strong> {{ usuario.docente.phone }}</p>
                 </div>
               </div>
             </ng-template>
             <span class="ml-3 italic text-xs text-zinc-600">
-              {{ user.email }}
+              {{ usuario.email }}
             </span>
           </div>
         </div>
