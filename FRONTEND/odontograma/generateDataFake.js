@@ -13,10 +13,34 @@ function generateUniqueDni() {
     return dni.toString();
 }
 
+function generateEstudianteOrDocente() {
+    return {
+        id: faker.datatype.number(),
+        nombre: faker.name.firstName(),
+        apellido: faker.name.lastName(),
+        codigo: generateUniqueDni(),
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+        phone: '9' + faker.datatype.number({ min: 10000000, max: 99999999 }),
+        genero: faker.random.arrayElement(['Masculino', 'Femenino']),
+        foto: faker.image.avatar(),
+        firmadigital: faker.image.imageUrl()
+    };
+}
+
+function generateRolEntity() {
+    return {
+        id: faker.datatype.number(),
+        nombre: faker.random.arrayElement(['Administrador', 'Usuario', 'Invitado']),
+        descripcion: faker.lorem.sentence(),
+        user: faker.internet.userName()
+    };
+}
+
 function generateData() {
     const data = {
         historiaClinica: [],
-        userAuth: []
+        user: []
     };
 
     for (let i = 1; i <= 985; i++) {
@@ -47,16 +71,16 @@ function generateData() {
     }
 
     for (i = 1; i <= 15; i++) {
-        data.userAuth.push({
+        data.user.push({
             id: i.toString(),
-            dni: generateUniqueDni(),
-            username: faker.internet.userName(),
-            fullname: faker.name.lastName() + ' ' + faker.name.firstName(),
-            role: faker.random.arrayElement(['Dr.', 'Aux.', 'Prac.']),
+            codigo: generateUniqueDni(),
             email: faker.internet.email(),
-            status: faker.random.arrayElement(['Active', 'Inactive']),
-            telefono: '9' + faker.datatype.number({ min: 10000000, max: 99999999 }),
-            direccion: faker.address.streetAddress()
+            password: faker.internet.password(),
+            estado: faker.random.arrayElement(['Activo', 'Inactivo']),
+            rol: faker.random.arrayElement(['Estudiante', 'Docente']),
+            estudiante: generateEstudianteOrDocente(),
+            docente: generateEstudianteOrDocente(),
+            rolEntity: generateRolEntity()
         });
     }
 

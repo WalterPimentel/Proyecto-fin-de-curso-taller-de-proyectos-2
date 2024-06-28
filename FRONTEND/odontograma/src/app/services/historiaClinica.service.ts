@@ -24,8 +24,8 @@ export class HistoriaClinicaService {
     return this.http.get<any[]>('http://localhost:3000/historiaClinica', { params });
   }
 
-  getUserAuthAleatorio(): Observable<any> {
-    return this.http.get<any[]>('http://localhost:3000/userAuth').pipe(
+  getUserAleatorio(): Observable<any> {
+    return this.http.get<any[]>('http://localhost:3000/user').pipe(
       map((data: any[]) => {
         const randomIndex = Math.floor(Math.random() * data.length);
         return data[randomIndex];

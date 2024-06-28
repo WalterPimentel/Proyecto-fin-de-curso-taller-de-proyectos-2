@@ -17,7 +17,7 @@ import axios from 'axios';
 export class OdontogramaComponent implements OnInit {
   isLoading: boolean;
   paciente: any;
-  userAuth: any;
+  user: any;
   edadCategoria: string = '';
   tipoOdontograma: string;
   fechaActual = new Date();
@@ -87,8 +87,8 @@ export class OdontogramaComponent implements OnInit {
       },
     });
 
-    this.historiaClinicaService.getUserAuthAleatorio().subscribe((userAuth) => {
-      this.userAuth = userAuth;
+    this.historiaClinicaService.getUserAleatorio().subscribe((user) => {
+      this.user = user;
       this.isLoading = false;
     });
     this.initializeForm();
@@ -172,9 +172,9 @@ export class OdontogramaComponent implements OnInit {
         edadCategoria: this.edadCategoria,
         fecha: this.fechaActual,
         operador: {
-          role: this.userAuth.role,
-          fullname: this.userAuth.fullname,
-          email: this.userAuth.email,
+          role: this.user.role,
+          fullname: this.user.fullname,
+          email: this.user.email,
         },
         odontograma: this.odontograma,
       };

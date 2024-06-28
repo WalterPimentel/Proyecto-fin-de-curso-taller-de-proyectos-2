@@ -10,7 +10,7 @@
       />
     </div>
 
-    <mat-accordion *ngIf="paciente && userAuth">
+    <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header
           class="contenedor justify-between text-center"
@@ -63,15 +63,48 @@
           <div class="w-[50%] p-3">
             <p class="font-bold text-lg">Datos Clínica</p>
             <p class="ml-3"><strong>OdontoConti S.A.C.</strong></p>
-            <p class="ml-3 -mb-2">
-              {{ userAuth.role }} {{ userAuth.fullname }}
-            </p>
-            <span class="ml-3 italic text-xs text-zinc-600">
-              {{ userAuth.email }}
-            </span>
-            <p class="ml-3">{{ userAuth.telefono }}</p>
             <p class="ml-3">atencionalcliente&#64;odontoconti.com</p>
-            <p class="ml-3">{{ userAuth.direccion }}</p>
+            <div
+              *ngIf="user.rol === 'Estudiante'; else docenteInfo"
+              class="ml-3 flex items-center"
+            >
+              <img
+                class="w-24 h-24 mr-4"
+                src="{{ user.estudiante.foto }}"
+                alt="Foto del estudiante"
+              />
+              <div>
+                <p>
+                  <strong>{{ user.rol }}:</strong> {{ user.estudiante.nombre }},
+                  {{ user.estudiante.apellido }}
+                </p>
+                <p><strong>Código:</strong> {{ user.estudiante.codigo }}</p>
+                <p><strong>Email:</strong> {{ user.estudiante.email }}</p>
+                <p><strong>Teléfono:</strong> {{ user.estudiante.phone }}</p>
+              </div>
+            </div>
+            <ng-template #docenteInfo>
+              <div class="ml-3 flex items-center">
+                <img
+                  class="w-24 h-24 mr-4"
+                  src="{{ user.docente.foto }}"
+                  alt="Foto del docente"
+                />
+                <div>
+                  <p>
+                    <strong>{{ user.rol }}:</strong> Dr.
+                    {{ user.docente.nombre }},
+                    {{ user.docente.apellido }}
+                  </p>
+                  <p><strong>Código:</strong> {{ user.docente.codigo }}</p>
+                  <p><strong>Email:</strong> {{ user.docente.email }}</p>
+                  <p><strong>Teléfono:</strong> {{ user.docente.phone }}</p>
+                </div>
+              </div>
+            </ng-template>
+            <span class="ml-3 italic text-xs text-zinc-600">
+              {{ user.email }}
+            </span>
           </div>
         </div>
       </mat-expansion-panel>
