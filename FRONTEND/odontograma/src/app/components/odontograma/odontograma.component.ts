@@ -1,12 +1,16 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
-import { HistoriaClinicaService } from '../../services/historiaClinica.service';
+import { CitaService } from '../../services/cita.service';
 import { OdontogramaService } from '../../services/odontograma.service';
 import { ModalUIComponent } from '../ui/modal/modal.component';
-import { MatDialog } from '@angular/material/dialog';
 import { DialogoComponent } from '../ui/dialogo/dialogo.component';
+
+import { format, differenceInYears, parseISO } from 'date-fns';
+import { es } from 'date-fns/locale';
+
 import axios from 'axios';
 
 @Component({
@@ -46,7 +50,7 @@ export class OdontogramaComponent implements OnInit {
   }
 
   constructor(
-    private historiaClinicaService: HistoriaClinicaService,
+    private citaService: CitaService,
     private odontogramaService: OdontogramaService,
     private fb: FormBuilder,
     private dialog: MatDialog,
@@ -64,16 +68,22 @@ export class OdontogramaComponent implements OnInit {
     this.route.paramMap.subscribe({
       next: (params) => {
         const dni = params.get('dni');
-        console.log('DNI recibido:', dni);
         if (dni) {
-          this.historiaClinicaService.getPacienteByDNI(dni).subscribe({
-            next: (paciente) => {
-              this.paciente = paciente;
-              this.edadCategoria = paciente.edad > 12 ? 'adulto' : 'menor';
-              this.isLoading = false;
+          this.citaService.getPacienteYUsuarioByDNI(dni).subscribe({
+            next: (resultado) => {
+              if (resultado && resultado.paciente && resultado.paciente.FechaNacimiento) {
+                this.paciente = resultado.paciente;
+                this.usuario = resultado.usuario;
+                const edad = this.calcularEdad(this.paciente.FechaNacimiento);
+                this.edadCategoria = edad > 12 ? 'adulto' : 'menor';
+                this.isLoading = false;
+              } else {
+                console.error('No se encontró la cita para el DNI proporcionado o falta la fecha de nacimiento.');
+                this.isLoading = false;
+              }
             },
             error: (error) => {
-              console.error('Error al obtener datos del paciente:', error);
+              console.error('Error al obtener datos del paciente y usuario:', error);
               this.isLoading = false;
             },
           });
@@ -88,10 +98,6 @@ export class OdontogramaComponent implements OnInit {
       },
     });
 
-    this.historiaClinicaService.getUserAleatorio().subscribe((usuario) => {
-      this.usuario = usuario;
-      this.isLoading = false;
-    });
     this.initializeForm();
 
     this.odontogramaService.currentOdontograma.subscribe((odontograma) => {
@@ -111,6 +117,15 @@ export class OdontogramaComponent implements OnInit {
         );
       }
     });
+  }
+
+  formatearFecha(fecha: string, incluirHora: boolean = false): string {
+    const formato = incluirHora ? 'dd/MM/yyyy HH:mm:ss a' : 'dd/MM/yyyy';
+    return format(parseISO(fecha), formato, { locale: es });
+  }
+
+  calcularEdad(fechaNacimiento: string): number {
+    return differenceInYears(new Date(), parseISO(fechaNacimiento));
   }
 
   initializeForm() {
@@ -202,8 +217,8 @@ export class OdontogramaComponent implements OnInit {
           this.modal.open(
             'Odontograma Guardado Exitosamente',
             'El odontograma de' +
-              paciente.nombres +
-              ' ha sido guardado con éxito.',
+            paciente.nombres +
+            ' ha sido guardado con éxito.',
             'success'
           );
           this.modal.onClose.subscribe(() => {
@@ -215,9 +230,9 @@ export class OdontogramaComponent implements OnInit {
           this.modal.open(
             'Error al Guardar Odontograma',
             'Hubo un error al guardar el odontograma de ' +
-              paciente.nombres +
-              '. Por favor, inténtalo de nuevo. ' +
-              error.code,
+            paciente.nombres +
+            '. Por favor, inténtalo de nuevo. ' +
+            error.code,
             'error'
           );
           console.error('Error al guardar odontograma:', error);
