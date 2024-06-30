@@ -12,6 +12,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 import { OdontogramaComponent } from './odontograma/odontograma.component';
 import { PacientesComponent } from './pacientes/pacientes.component';
@@ -35,6 +37,7 @@ import { DialogoComponent } from './ui/dialogo/dialogo.component';
     ModalUIComponent,
     DialogoComponent,
   ],
+  providers: [provideNativeDateAdapter()],
   imports: [
     CommonModule,
     FormsModule,
@@ -50,6 +53,7 @@ import { DialogoComponent } from './ui/dialogo/dialogo.component';
     MatExpansionModule,
     MatButtonModule,
     MatDialogModule,
+    MatIconModule,    
   ],
   exports: [PacientesComponent, SpinnerComponent],
 })

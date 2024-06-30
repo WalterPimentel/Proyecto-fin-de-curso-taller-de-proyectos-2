@@ -1,12 +1,16 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
-import { HistoriaClinicaService } from '../../services/historiaClinica.service';
+import { CitaService } from '../../services/cita.service';
 import { OdontogramaService } from '../../services/odontograma.service';
 import { ModalUIComponent } from '../ui/modal/modal.component';
-import { MatDialog } from '@angular/material/dialog';
 import { DialogoComponent } from '../ui/dialogo/dialogo.component';
+
+import { format, differenceInYears, parseISO } from 'date-fns';
+import { es } from 'date-fns/locale';
+
 import axios from 'axios';
 
 @Component({
@@ -17,7 +21,8 @@ import axios from 'axios';
 export class OdontogramaComponent implements OnInit {
   isLoading: boolean;
   paciente: any;
-  userAuth: any;
+  usuario: any;
+  cita: any;  
   edadCategoria: string = '';
   tipoOdontograma: string;
   fechaActual = new Date();
@@ -46,7 +51,7 @@ export class OdontogramaComponent implements OnInit {
   }
 
   constructor(
-    private historiaClinicaService: HistoriaClinicaService,
+    private citaService: CitaService,
     private odontogramaService: OdontogramaService,
     private fb: FormBuilder,
     private dialog: MatDialog,
@@ -61,15 +66,40 @@ export class OdontogramaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.historiaClinicaService.getPacienteAleatorio().subscribe((paciente) => {
-      this.paciente = paciente;
-      this.edadCategoria = paciente.edad > 12 ? 'adulto' : 'menor';
-      this.isLoading = false;
+    this.route.paramMap.subscribe({
+      next: (params) => {
+        const dni = params.get('dni');
+        if (dni) {
+          this.citaService.getPacienteYUsuarioByDNI(dni).subscribe({
+            next: (resultado) => {
+              if (resultado && resultado.paciente && resultado.usuario) {
+                this.paciente = resultado.paciente;
+                this.usuario = resultado.usuario;
+                this.cita = resultado;
+                const edad = this.calcularEdad(this.paciente.FechaNacimiento);
+                this.edadCategoria = edad > 12 ? 'adulto' : 'menor';
+                this.isLoading = false;
+              } else {
+                console.error('No se encontró la cita para el DNI proporcionado.');
+                this.isLoading = false;
+              }
+            },
+            error: (error) => {
+              console.error('Error al obtener datos del paciente y usuario:', error);
+              this.isLoading = false;
+            },
+          });
+        } else {
+          console.error('No se recibió DNI en la ruta.');
+          this.isLoading = false;
+        }
+      },
+      error: (error) => {
+        console.error('Error al obtener parámetros de la ruta:', error);
+        this.isLoading = false;
+      },
     });
-    this.historiaClinicaService.getUserAuthAleatorio().subscribe((userAuth) => {
-      this.userAuth = userAuth;
-      this.isLoading = false;
-    });
+
     this.initializeForm();
 
     this.odontogramaService.currentOdontograma.subscribe((odontograma) => {
@@ -89,6 +119,15 @@ export class OdontogramaComponent implements OnInit {
         );
       }
     });
+  }
+
+  formatearFecha(fecha: string, incluirHora: boolean = false): string {
+    const formato = incluirHora ? 'dd/MM/yyyy HH:mm:ss a' : 'dd/MM/yyyy';
+    return format(parseISO(fecha), formato, { locale: es });
+  }
+
+  calcularEdad(fechaNacimiento: string): number {
+    return differenceInYears(new Date(), parseISO(fechaNacimiento));
   }
 
   initializeForm() {
@@ -120,7 +159,7 @@ export class OdontogramaComponent implements OnInit {
 
     const numDientes = Object.keys(this.odontograma).length;
     const dientesTexto = numDientes > 1 ? 'dientes' : 'diente';
-    const pacienteNombre = this.paciente.nombres;
+    const pacienteNombre = this.paciente.nombre;
 
     try {
       const result = await this.modal.open(
@@ -151,9 +190,9 @@ export class OdontogramaComponent implements OnInit {
         edadCategoria: this.edadCategoria,
         fecha: this.fechaActual,
         operador: {
-          role: this.userAuth.role,
-          fullname: this.userAuth.fullname,
-          email: this.userAuth.email,
+          role: this.usuario.role,
+          fullname: this.usuario.fullname,
+          email: this.usuario.email,
         },
         odontograma: this.odontograma,
       };
@@ -180,19 +219,22 @@ export class OdontogramaComponent implements OnInit {
           this.modal.open(
             'Odontograma Guardado Exitosamente',
             'El odontograma de' +
-              paciente.nombres +
-              ' ha sido guardado con éxito.',
+            paciente.nombres +
+            ' ha sido guardado con éxito.',
             'success'
           );
+          this.modal.onClose.subscribe(() => {
+            this.router.navigate(['/pacientes']);
+          });
         })
         .catch((error) => {
           this.isLoading = false;
           this.modal.open(
             'Error al Guardar Odontograma',
             'Hubo un error al guardar el odontograma de ' +
-              paciente.nombres +
-              '. Por favor, inténtalo de nuevo. ' +
-              error.code,
+            paciente.nombres +
+            '. Por favor, inténtalo de nuevo. ' +
+            error.code,
             'error'
           );
           console.error('Error al guardar odontograma:', error);

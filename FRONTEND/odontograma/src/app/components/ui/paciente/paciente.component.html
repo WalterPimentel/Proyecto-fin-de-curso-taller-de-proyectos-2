@@ -1,36 +1,58 @@
 <mat-accordion>
   <mat-expansion-panel>
     <mat-expansion-panel-header class="contenedor">
-      <mat-panel-title>
-        {{ paciente.nombres }}, {{ paciente.apellidos }}
+      <mat-panel-title class="justify-start">
+        <img
+          class="rounded-full h-8 w-8 mr-3"
+          alt="Foto Paciente"
+          src="../../../../assets/images/user.png"
+        />
+        {{ cita.paciente.Nombre }}, {{ cita.paciente.ApellidoPaterno }}
+        {{ cita.paciente.ApellidoMaterno }}
       </mat-panel-title>
       <mat-panel-description>
-        DNI: {{ paciente.dni }}
-    </mat-panel-description>
-      <mat-panel-description>
-        Teléfono: {{ paciente.telefono }}
+        Teléfono: {{ cita.paciente.NroCelular }}
       </mat-panel-description>
-      <mat-panel-description>
-        {{ paciente.email }}
-      </mat-panel-description>
-      <mat-panel-description>
-        <button mat-flat-button color="primary" (click)="navigateToOdontograma(paciente)">
-            <i class="fas fa-tooth"></i> Registro Odontograma
+      <mat-panel-description class="justify-end">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="navigateToOdontograma(cita)"
+        >
+          <i class="fa fa-tooth"></i> Odontograma
         </button>
       </mat-panel-description>
     </mat-expansion-panel-header>
     <div class="info-grupo">
-      <p><strong>Sexo:</strong> {{ paciente.sexo }}</p>
-      <p><strong>Dirección:</strong> {{ paciente.direccion }}</p>
-      <p><strong>Fecha de Registro:</strong> {{ paciente.fechaRegistro }}</p>
-      <p><strong>Hora:</strong> {{ paciente.hora }}</p>
-      <p><strong>Fecha de Nacimiento:</strong> {{ paciente.fechaNacimiento }}</p>
-      <p><strong>Edad:</strong> {{ paciente.edad }}</p>
-      <p><strong>Peso:</strong> {{ paciente.peso }} kg</p>
-      <p><strong>Talla:</strong> {{ paciente.talla }} cm</p>
-      <p><strong>Presión Arterial:</strong> {{ paciente.presionArterial }}</p>
-      <p><strong>Pulso:</strong> {{ paciente.pulso }} latidos/min</p>
-      <p><strong>Temperatura:</strong> {{ paciente.temperatura }} °C</p>
+      <p><strong>DNI:</strong> {{ cita.paciente.dni }}</p>
+      <p><strong>Email:</strong> {{ cita.paciente.Correo }}</p>
+      <p><strong>Sexo:</strong> {{ cita.paciente.Sexo }}</p>
+      <p>
+        <strong>Fecha de Registro:</strong>
+        {{ formatearFecha(cita.paciente.FechaCreacion, true) }}
+      </p>
+      <p><strong>Dirección:</strong> {{ cita.paciente.Domicilio }}</p>
+      <p>
+        <strong>Fecha de Nacimiento:</strong>
+        {{ formatearFecha(cita.paciente.FechaNacimiento) }}
+      </p>
+      <p>
+        <strong>Edad:</strong>
+        {{ calcularEdad(cita.paciente.FechaNacimiento) }}
+      </p>
+      <p><strong>Lugar:</strong> {{ cita.paciente.Lugar }}</p>
+      <p><strong>Estado Civil:</strong> {{ cita.paciente.EstadoCivil }}</p>
+      <p><strong>Ocupación:</strong> {{ cita.paciente.Ocupacion }}</p>
+      <p><strong>Responsable:</strong> {{ cita.paciente.Responsable }}</p>
+      <p>
+        <strong>Domicilio Responsable:</strong>
+        {{ cita.paciente.DomicilioResponsable }}
+      </p>
+      <p>
+        <strong>Teléfono Responsable:</strong>
+        {{ cita.paciente.CelularResponsable }}
+      </p>
     </div>
+    <p><strong>Motivo Consulta:</strong> {{ cita.paciente.MotivoConsulta }}</p>
   </mat-expansion-panel>
 </mat-accordion>
