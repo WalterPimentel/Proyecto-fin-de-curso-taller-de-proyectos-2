@@ -1,5 +1,5 @@
 it('spec2', function () {
-    cy.visit('http://localhost:4200/');
+    cy.visit('http://localhost:4200/odontograma');
     cy.get('#pacienteCategoria')
         .select('completo');
 
