@@ -17,7 +17,6 @@ export class PacienteComponent {
   navigateToOdontograma(cita: any) {
     this.router.navigate(['/odontograma', cita.paciente.dni], {
       state: { cita: cita, usuario: cita.usuario },
-
     });
   }
 

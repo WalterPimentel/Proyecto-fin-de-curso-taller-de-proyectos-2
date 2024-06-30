@@ -14,8 +14,14 @@ export class CitaService {
       map(citas => {
         const citaConPaciente = citas.find(cita => cita.paciente.dni === dni);
         return citaConPaciente ? {
+          fecha: citaConPaciente.fecha,
+          hora: citaConPaciente.hora,
+          odontologo: citaConPaciente.odontologo,
+          motivo: citaConPaciente.motivo,
+          sede: citaConPaciente.sede,
+          extras: citaConPaciente.extras,
           paciente: citaConPaciente.paciente,
-          usuario: citaConPaciente.usuario
+          usuario: citaConPaciente.usuario,
         } : null;
       })
     );

@@ -22,6 +22,7 @@ export class OdontogramaComponent implements OnInit {
   isLoading: boolean;
   paciente: any;
   usuario: any;
+  cita: any;  
   edadCategoria: string = '';
   tipoOdontograma: string;
   fechaActual = new Date();
@@ -71,14 +72,15 @@ export class OdontogramaComponent implements OnInit {
         if (dni) {
           this.citaService.getPacienteYUsuarioByDNI(dni).subscribe({
             next: (resultado) => {
-              if (resultado && resultado.paciente && resultado.paciente.FechaNacimiento) {
+              if (resultado && resultado.paciente && resultado.usuario) {
                 this.paciente = resultado.paciente;
                 this.usuario = resultado.usuario;
+                this.cita = resultado;
                 const edad = this.calcularEdad(this.paciente.FechaNacimiento);
                 this.edadCategoria = edad > 12 ? 'adulto' : 'menor';
                 this.isLoading = false;
               } else {
-                console.error('No se encontró la cita para el DNI proporcionado o falta la fecha de nacimiento.');
+                console.error('No se encontró la cita para el DNI proporcionado.');
                 this.isLoading = false;
               }
             },

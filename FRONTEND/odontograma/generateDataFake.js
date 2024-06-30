@@ -18,7 +18,7 @@ function generateUsuario() {
         codigo: generateUniqueDni(),
         email: faker.internet.email(),
         password: faker.internet.password(),
-        estado: faker.random.arrayElement(['Activo', 'Inactivo']),
+        estado: faker.datatype.boolean({ probability: 0.8 }),
         rol: faker.random.arrayElement(['Estudiante', 'Docente']),
         nombre: faker.name.firstName(),
         apellido: faker.name.lastName(),
