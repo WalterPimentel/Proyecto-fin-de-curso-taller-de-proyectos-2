@@ -223,7 +223,7 @@ export class OdontogramaComponent implements OnInit {
       const pacienteJSON = JSON.stringify(paciente);
 
       axios
-        .post('http://localhost:3001/pacientes', pacienteJSON, {
+        .post('https://backend-nine-amber-97.vercel.app/pacientes', pacienteJSON, {
           headers: {
             'Content-Type': 'application/json',
           },
