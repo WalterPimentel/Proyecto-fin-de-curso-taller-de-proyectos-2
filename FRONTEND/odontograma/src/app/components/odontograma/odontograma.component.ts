@@ -183,6 +183,7 @@ export class OdontogramaComponent implements OnInit {
 
   onSave() {
     if (this.isFormValid()) {
+      this.isLoading = true;
       const odontograma = {
         especificaciones: this.form.controls['especificaciones'].value,
         observaciones: this.form.controls['observaciones'].value,

@@ -1,5 +1,5 @@
 it('guardando_datos', function () {
-    cy.visit('http://localhost:4200/pacientes');
+    cy.visit('https://proyecto-fin-de-curso-taller-de-proyectos-2-nu.vercel.app/pacientes');
     cy.get('#mat-expansion-panel-header-1 > .mat-content > .justify-center').click();
     cy.get('#mat-expansion-panel-header-1 > .mat-content > .justify-end > .mdc-button > .mdc-button__label').click();
     cy.get('.mat-content > :nth-child(2)').click();
