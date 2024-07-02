@@ -11,11 +11,11 @@
         "handle": "filesystem"
       },
       {
-        "src": "/(.*)",
+        "src": "/(.*\\.(ico|txt|js|css|png|jpg|jpeg|svg|gif|webp))$",
         "dest": "dist/odontograma/browser/$1"
       },
       {
-        "src": "/",
+        "src": "/(.*)",
         "dest": "dist/odontograma/browser/index.html"
       }
     ]
