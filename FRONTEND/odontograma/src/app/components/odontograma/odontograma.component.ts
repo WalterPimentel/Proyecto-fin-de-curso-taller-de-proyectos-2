@@ -22,7 +22,7 @@ export class OdontogramaComponent implements OnInit {
   isLoading: boolean;
   paciente: any;
   usuario: any;
-  cita: any;  
+  cita: any;
   edadCategoria: string = '';
   tipoOdontograma: string;
   fechaActual = new Date();
@@ -132,11 +132,11 @@ export class OdontogramaComponent implements OnInit {
 
   initializeForm() {
     this.form = this.fb.group({
-      especificaciones: ['', Validators.required],
-      observaciones: ['', Validators.required],
+      especificaciones: ['', [Validators.required, Validators.maxLength(500)]],
+      observaciones: ['', [Validators.required, Validators.maxLength(500)]],
       odontograma: [
         Object.keys(this.odontograma).length > 0,
-        Validators.requiredTrue,
+        Validators.requiredTrue
       ],
     });
   }
@@ -145,7 +145,7 @@ export class OdontogramaComponent implements OnInit {
     if (this.form.valid) {
       return true;
     } else {
-      console.log('El formulario no es válido');
+      console.warn('El formulario no es válido');
       return false;
     }
   }
@@ -159,7 +159,7 @@ export class OdontogramaComponent implements OnInit {
 
     const numDientes = Object.keys(this.odontograma).length;
     const dientesTexto = numDientes > 1 ? 'dientes' : 'diente';
-    const pacienteNombre = this.paciente.nombre;
+    const pacienteNombre = this.paciente.Nombre;
 
     try {
       const result = await this.modal.open(
@@ -189,20 +189,34 @@ export class OdontogramaComponent implements OnInit {
         tipoOdontograma: this.tipoOdontograma,
         edadCategoria: this.edadCategoria,
         fecha: this.fechaActual,
-        operador: {
-          role: this.usuario.role,
-          fullname: this.usuario.fullname,
-          email: this.usuario.email,
-        },
         odontograma: this.odontograma,
+        operador: {
+          codigo: this.usuario.codigo,
+          nombre: this.usuario.nombre,
+          apellido: this.usuario.apellido,
+          email: this.usuario.email,
+          telefono: this.usuario.phone,          
+        },        
       };
 
       const paciente = {
         dni: this.paciente.dni,
-        nombres: this.paciente.nombres,
-        apellidos: this.paciente.apellidos,
-        edad: this.paciente.edad,
-        fechaRegistro: this.paciente.fechaRegistro,
+        nombres: this.paciente.Nombre,
+        apellidoP: this.paciente.ApellidoPaterno,
+        apellidoM: this.paciente.ApellidoMaterno,
+        fechaNac: this.paciente.FechaNacimiento,
+        fechaRegistro: this.paciente.FechaCreacion,
+        sexo: this.paciente.Sexo,
+        lugar: this.paciente.Lugar,
+        domicilio: this.paciente.Domicilio,
+        estadoCivil: this.paciente.EstadoCivil,
+        telefono: this.paciente.NroCelular,
+        email: this.paciente.Correo,
+        ocupacion: this.paciente.Ocupacion,
+        responsable: this.paciente.Responsable,
+        domicilioResponsable: this.paciente.DomicilioResponsable,
+        telefonoResponsable: this.paciente.CelularResponsable,
+        motivoConsulta: this.cita.MotivoConsulta,
         odontogramas: [odontograma],
       };
 
@@ -246,7 +260,7 @@ export class OdontogramaComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogoComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('El diálogo se cerró');
+      console.info('El diálogo se cerró');
     });
   }
 }

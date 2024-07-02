@@ -43,7 +43,7 @@ function generatePaciente() {
         Lugar: faker.address.city(),
         Domicilio: faker.address.streetAddress(),
         FechaNacimiento: faker.date.between('1950-01-01', '2018-12-31'),
-        EstadoCivil: faker.random.arrayElement(['Soltero', 'Casado', 'Divorciado']),
+        EstadoCivil: faker.random.arrayElement(['Soltero', 'Casado', 'Divorciado', 'Viudo']),
         NroCelular: '9' + faker.datatype.number({ min: 10000000, max: 99999999 }),
         Correo: faker.internet.email(),
         Ocupacion: faker.name.jobTitle(),

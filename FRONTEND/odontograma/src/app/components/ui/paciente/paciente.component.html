@@ -7,11 +7,10 @@
           alt="Foto Paciente"
           src="../../../../assets/images/user.png"
         />
-        {{ cita.paciente.Nombre }}, {{ cita.paciente.ApellidoPaterno }}
-        {{ cita.paciente.ApellidoMaterno }}
+        {{ cita.paciente.Nombre }}, {{ cita.paciente.ApellidoPaterno }}        
       </mat-panel-title>
-      <mat-panel-description>
-        Teléfono: {{ cita.paciente.NroCelular }}
+      <mat-panel-description class="justify-center">
+        <i class="fa-brands fa-whatsapp fa-lg mr-1"></i>{{ cita.paciente.NroCelular }}
       </mat-panel-description>
       <mat-panel-description class="justify-end">
         <button
