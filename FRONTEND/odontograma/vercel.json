@@ -12,7 +12,7 @@
       },
       {
         "src": "/.*",
-        "dest": "/dist/odontograma/src/index.html"
+        "dest": "/dist/odontograma/browser/index.html"
       }
     ]
   }
