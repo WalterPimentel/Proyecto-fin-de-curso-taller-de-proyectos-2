@@ -5,12 +5,19 @@ import { PacientesComponent } from './components/pacientes/pacientes.component';
 
 const routes: Routes = [
   { path: 'pacientes', component: PacientesComponent },
-  { path: 'odontograma', component: OdontogramaComponent },
-  { path: '', redirectTo: '/pacientes', pathMatch: 'full' }
+  {
+    path: 'odontograma/:dni',
+    component: OdontogramaComponent,
+    data: {
+      paciente: null,
+    },
+  },
+  { path: '', redirectTo: '/pacientes', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [],
 })
 export class AppRoutingModule {}

@@ -4,9 +4,10 @@
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.contenedor:hover{
+
+.contenedor:hover {
     background-color: #e2dede;
-    transition: background-color 0.3s ease;    
+    transition: background-color 0.3s ease;
 }
 
 h3 {
@@ -17,7 +18,7 @@ h3 {
 .contenedor p {
     font-size: 16px;
     margin-left: 7px;
-    color: #333;    
+    color: #333;
 }
 
 .info-grupo {

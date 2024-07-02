@@ -1,12 +1,16 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
-import { HistoriaClinicaService } from '../../services/historiaClinica.service';
+import { CitaService } from '../../services/cita.service';
 import { OdontogramaService } from '../../services/odontograma.service';
 import { ModalUIComponent } from '../ui/modal/modal.component';
-import { MatDialog } from '@angular/material/dialog';
 import { DialogoComponent } from '../ui/dialogo/dialogo.component';
+
+import { format, differenceInYears, parseISO } from 'date-fns';
+import { es } from 'date-fns/locale';
+
 import axios from 'axios';
 
 @Component({
@@ -17,7 +21,8 @@ import axios from 'axios';
 export class OdontogramaComponent implements OnInit {
   isLoading: boolean;
   paciente: any;
-  userAuth: any;
+  usuario: any;
+  cita: any;
   edadCategoria: string = '';
   tipoOdontograma: string;
   fechaActual = new Date();
@@ -46,7 +51,7 @@ export class OdontogramaComponent implements OnInit {
   }
 
   constructor(
-    private historiaClinicaService: HistoriaClinicaService,
+    private citaService: CitaService,
     private odontogramaService: OdontogramaService,
     private fb: FormBuilder,
     private dialog: MatDialog,
@@ -61,15 +66,40 @@ export class OdontogramaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.historiaClinicaService.getPacienteAleatorio().subscribe((paciente) => {
-      this.paciente = paciente;
-      this.edadCategoria = paciente.edad > 12 ? 'adulto' : 'menor';
-      this.isLoading = false;
+    this.route.paramMap.subscribe({
+      next: (params) => {
+        const dni = params.get('dni');
+        if (dni) {
+          this.citaService.getPacienteYUsuarioByDNI(dni).subscribe({
+            next: (resultado) => {
+              if (resultado && resultado.paciente && resultado.usuario) {
+                this.paciente = resultado.paciente;
+                this.usuario = resultado.usuario;
+                this.cita = resultado;
+                const edad = this.calcularEdad(this.paciente.FechaNacimiento);
+                this.edadCategoria = edad > 12 ? 'adulto' : 'menor';
+                this.isLoading = false;
+              } else {
+                console.error('No se encontró la cita para el DNI proporcionado.');
+                this.isLoading = false;
+              }
+            },
+            error: (error) => {
+              console.error('Error al obtener datos del paciente y usuario:', error);
+              this.isLoading = false;
+            },
+          });
+        } else {
+          console.error('No se recibió DNI en la ruta.');
+          this.isLoading = false;
+        }
+      },
+      error: (error) => {
+        console.error('Error al obtener parámetros de la ruta:', error);
+        this.isLoading = false;
+      },
     });
-    this.historiaClinicaService.getUserAuthAleatorio().subscribe((userAuth) => {
-      this.userAuth = userAuth;
-      this.isLoading = false;
-    });
+
     this.initializeForm();
 
     this.odontogramaService.currentOdontograma.subscribe((odontograma) => {
@@ -91,13 +121,22 @@ export class OdontogramaComponent implements OnInit {
     });
   }
 
+  formatearFecha(fecha: string, incluirHora: boolean = false): string {
+    const formato = incluirHora ? 'dd/MM/yyyy HH:mm:ss a' : 'dd/MM/yyyy';
+    return format(parseISO(fecha), formato, { locale: es });
+  }
+
+  calcularEdad(fechaNacimiento: string): number {
+    return differenceInYears(new Date(), parseISO(fechaNacimiento));
+  }
+
   initializeForm() {
     this.form = this.fb.group({
-      especificaciones: ['', Validators.required],
-      observaciones: ['', Validators.required],
+      especificaciones: ['', [Validators.required, Validators.maxLength(500)]],
+      observaciones: ['', [Validators.required, Validators.maxLength(500)]],
       odontograma: [
         Object.keys(this.odontograma).length > 0,
-        Validators.requiredTrue,
+        Validators.requiredTrue
       ],
     });
   }
@@ -106,7 +145,7 @@ export class OdontogramaComponent implements OnInit {
     if (this.form.valid) {
       return true;
     } else {
-      console.log('El formulario no es válido');
+      console.warn('El formulario no es válido');
       return false;
     }
   }
@@ -120,7 +159,7 @@ export class OdontogramaComponent implements OnInit {
 
     const numDientes = Object.keys(this.odontograma).length;
     const dientesTexto = numDientes > 1 ? 'dientes' : 'diente';
-    const pacienteNombre = this.paciente.nombres;
+    const pacienteNombre = this.paciente.Nombre;
 
     try {
       const result = await this.modal.open(
@@ -144,33 +183,48 @@ export class OdontogramaComponent implements OnInit {
 
   onSave() {
     if (this.isFormValid()) {
+      this.isLoading = true;
       const odontograma = {
         especificaciones: this.form.controls['especificaciones'].value,
         observaciones: this.form.controls['observaciones'].value,
         tipoOdontograma: this.tipoOdontograma,
         edadCategoria: this.edadCategoria,
         fecha: this.fechaActual,
-        operador: {
-          role: this.userAuth.role,
-          fullname: this.userAuth.fullname,
-          email: this.userAuth.email,
-        },
         odontograma: this.odontograma,
+        operador: {
+          codigo: this.usuario.codigo,
+          nombre: this.usuario.nombre,
+          apellido: this.usuario.apellido,
+          email: this.usuario.email,
+          telefono: this.usuario.phone,          
+        },        
       };
 
       const paciente = {
         dni: this.paciente.dni,
-        nombres: this.paciente.nombres,
-        apellidos: this.paciente.apellidos,
-        edad: this.paciente.edad,
-        fechaRegistro: this.paciente.fechaRegistro,
+        nombres: this.paciente.Nombre,
+        apellidoP: this.paciente.ApellidoPaterno,
+        apellidoM: this.paciente.ApellidoMaterno,
+        fechaNac: this.paciente.FechaNacimiento,
+        fechaRegistro: this.paciente.FechaCreacion,
+        sexo: this.paciente.Sexo,
+        lugar: this.paciente.Lugar,
+        domicilio: this.paciente.Domicilio,
+        estadoCivil: this.paciente.EstadoCivil,
+        telefono: this.paciente.NroCelular,
+        email: this.paciente.Correo,
+        ocupacion: this.paciente.Ocupacion,
+        responsable: this.paciente.Responsable,
+        domicilioResponsable: this.paciente.DomicilioResponsable,
+        telefonoResponsable: this.paciente.CelularResponsable,
+        motivoConsulta: this.cita.MotivoConsulta,
         odontogramas: [odontograma],
       };
 
       const pacienteJSON = JSON.stringify(paciente);
 
       axios
-        .post('http://localhost:3001/pacientes', pacienteJSON, {
+        .post('https://backend-nine-amber-97.vercel.app/pacientes', pacienteJSON, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -180,19 +234,22 @@ export class OdontogramaComponent implements OnInit {
           this.modal.open(
             'Odontograma Guardado Exitosamente',
             'El odontograma de' +
-              paciente.nombres +
-              ' ha sido guardado con éxito.',
+            paciente.nombres +
+            ' ha sido guardado con éxito.',
             'success'
           );
+          this.modal.onClose.subscribe(() => {
+            this.router.navigate(['/pacientes']);
+          });
         })
         .catch((error) => {
           this.isLoading = false;
           this.modal.open(
             'Error al Guardar Odontograma',
             'Hubo un error al guardar el odontograma de ' +
-              paciente.nombres +
-              '. Por favor, inténtalo de nuevo. ' +
-              error.code,
+            paciente.nombres +
+            '. Por favor, inténtalo de nuevo. ' +
+            error.code,
             'error'
           );
           console.error('Error al guardar odontograma:', error);
@@ -204,7 +261,7 @@ export class OdontogramaComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogoComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('El diálogo se cerró');
+      console.info('El diálogo se cerró');
     });
   }
 }

@@ -9,58 +9,121 @@
         class="h-12 w-auto"
       />
     </div>
-
-    <div
-      *ngIf="paciente && userAuth"
-      class="bg-gray-100 p-4 rounded-lg shadow-md mt-4"
-    >
-      <div class="flex justify-between items-center">
-        <p class="font-bold">Fecha {{ formatDate(fechaActual) }}</p>
-        <button
-          (click)="descargarPDF()"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    <mat-accordion *ngIf="paciente && usuario">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header
+          class="contenedor justify-between text-center"
         >
-          Descargar PDF
-        </button>
-      </div>      
-      <div class="flex mt-4">
-        <div class="w-[50%] p-3">
-          <p class="font-bold text-lg">Datos Paciente</p>
-          <p class="ml-3"><strong>DNI:</strong> {{ paciente.dni }}</p>
-          <p class="ml-3 -mb-2">
-            {{ paciente.nombres }} {{ paciente.apellidos }}
-          </p>
-          <span class="ml-3 italic text-xs text-zinc-600">
-            {{ paciente.email }}
-          </span>
-          <p class="ml-3">{{ paciente.telefono }}</p>
-          <p class="ml-3">{{ paciente.direccion }}</p>
-          <p class="ml-3">Edad: {{ paciente.edad }} años</p>
-          <p class="ml-3">{{ paciente.sexo }}</p>
-          <p class="ml-3">Registro: {{ formatDate(paciente?.fechaRegistro || paciente?.fechaRegistro) }}</p>
+          <mat-panel-title>
+            <img
+              class="rounded-full h-8 w-8 mr-3"
+              alt="Foto Paciente"
+              src="../../../assets/images/user.png"
+            />
+            <p>
+              {{ paciente.Nombre }}, {{ paciente.ApellidoPaterno }}
+              {{ paciente.ApellidoMaterno }}
+            </p>
+          </mat-panel-title>
+          <mat-panel-description>
+            <p class="font-bold">Fecha {{ formatDate(fechaActual) }}</p>
+          </mat-panel-description>
+          <mat-panel-description class="justify-end">
+            <button
+              (click)="descargarPDF()"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Descargar PDF
+            </button>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="flex mt-4">
+          <div class="w-[50%] p-3">
+            <p class="font-bold text-lg">Datos del Paciente</p>
+            <div class="ml-3">
+              <p><strong>DNI:</strong> {{ paciente.dni }}</p>
+              <p><strong>Email:</strong> {{ paciente.Correo }}</p>
+              <p><strong>Dirección:</strong> {{ paciente.Domicilio }}</p>
+              <p><strong>Sexo:</strong> {{ paciente.Sexo }}</p>
+              <p>
+                <strong>Edad:</strong>
+                {{ calcularEdad(paciente.FechaNacimiento) }}
+              </p>
+              <p>
+                <strong>Fecha de Nacimiento:</strong>
+                {{ formatearFecha(paciente.FechaNacimiento) }}
+              </p>
+              <p><strong>Estado Civil:</strong> {{ paciente.EstadoCivil }}</p>
+              <p><strong>Nro Celular:</strong> {{ paciente.NroCelular }}</p>
+              <p><strong>Ocupación:</strong> {{ paciente.Ocupacion }}</p>
+              <p><strong>Responsable:</strong> {{ paciente.Responsable }}</p>
+              <p>
+                <strong>Domicilio Responsable:</strong>
+                {{ paciente.DomicilioResponsable }}
+              </p>
+              <p>
+                <strong>Celular Responsable:</strong>
+                {{ paciente.CelularResponsable }}
+              </p>
+              <p>
+                <strong>Motivo de Consulta:</strong>
+                {{ paciente.MotivoConsulta }}
+              </p>
+            </div>
+          </div>
+          <div class="w-[50%] p-3">
+            <p class="font-bold text-lg">Datos de la Clínica</p>
+            <div class="ml-3">
+              <p><strong>OdontoConti S.A.C.</strong> {{ cita.sede }}</p>
+              <p><strong>Dr.</strong> {{ cita.odontologo }}</p>
+              <p><strong>Motivo de la cita:</strong> {{ cita.motivo }}</p>
+              <p><strong>Extras:</strong> {{ cita.extras }}</p>
+              <span class="ml- italic text-xs text-zinc-600">
+                atencionalcliente&#64;odontoconti.com
+              </span>
+            </div>
+            <p class="font-bold text-lg mt-3">Datos del Odontólogo</p>
+            <div class="ml-3 flex items-center">
+              <img
+                class="w-24 h-24 mr-4"
+                src="../../../assets/images/kin.png"
+                alt="Foto del usuario"
+              />
+              <div>
+                <p>
+                  <strong>{{ usuario.rol }}:</strong> {{ usuario.nombre }}
+                  {{ usuario.apellido }}
+                </p>
+                <p><strong>Código:</strong> {{ usuario.codigo }}</p>
+                <p><strong>Teléfono:</strong> {{ usuario.phone }}</p>
+                <p>
+                  <strong>Estado:</strong>
+                  {{ usuario.estado ? "En servicio" : "Inactivo" }}
+                  <i
+                    class="fas fa-circle fa-2xs"
+                    [ngClass]="
+                      usuario.estado ? 'text-green-600' : 'text-red-600'
+                    "
+                  ></i>
+                </p>
+                <p><strong>Colegiatura:</strong> {{ usuario.colegiatura }}</p>
+              </div>
+            </div>
+            <span class="ml-7 italic text-xs text-zinc-600">{{
+              usuario.email
+            }}</span>
+          </div>
         </div>
-        <div class="w-[50%] p-3">
-          <p class="font-bold text-lg">Datos Clínica</p>
-          <p class="ml-3"><strong>OdontoConti S.A.C.</strong></p>
-          <p class="ml-3 -mb-2">{{ userAuth.role }} {{ userAuth.fullname }}</p>
-          <span class="ml-3 italic text-xs text-zinc-600">
-            {{ userAuth.email }}
-          </span>
-          <p class="ml-3">{{ userAuth.telefono }}</p>
-          <p class="ml-3">atencionalcliente&#64;odontoconti.com</p>
-          <p class="ml-3">{{ userAuth.direccion }}</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-3 mb-3">
+      </mat-expansion-panel>
+    </mat-accordion>
+    <div class="mt-3 block text-gray-700 text-sm font-bold mb-2">
       <label for="tipoOdontograma">Odontograma </label>
       <select
         id="tipoOdontograma"
         [(ngModel)]="tipoOdontograma"
         class="bg-transparent border-b-2 border-gray-500"
       >
-        <option value="anatomico">Anatómico</option>
+        <!-- <option value="anatomico">Anatómico</option> -->
         <option value="geometrico">Geométrico</option>
       </select>
       <label>, </label>
@@ -74,7 +137,7 @@
         <option value="menor">Pediátrico</option>
         <option value="completo">Completo</option>
       </select>
-      <label>.</label>
+      <label>*.</label>
     </div>
 
     <app-ui-odontograma-anatomico
@@ -103,48 +166,58 @@
           <label
             for="especificaciones"
             class="block text-gray-700 text-sm font-bold mb-2"
-            >Especificaciones*
-          </label>
+            >Especificaciones*</label
+          >
           <textarea
             id="especificaciones"
             formControlName="especificaciones"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Especificaciones"
             rows="3"
+            maxlength="500"
           ></textarea>
           <div
-            *ngIf="
-              form.controls['especificaciones'].touched &&
-              form.controls['especificaciones'].invalid
-            "
+            *ngIf="form.controls['especificaciones'].touched && form.controls['especificaciones'].errors?.['required']"
             class="text-red-500 bg-red-100 border-l-8 border-red-500 p-3"
           >
             <i class="fas fa-circle-exclamation fa-sm fa-shake"></i>
             Especificaciones es requerida.
+          </div>
+          <div
+            *ngIf="form.controls['especificaciones'].touched && form.controls['especificaciones'].errors?.['maxlength']"
+            class="text-amber-500 bg-amber-100 border-l-8 border-amber-500 p-3"
+          >
+            <i class="fas fa-circle-exclamation fa-sm fa-shake"></i>
+            Especificaciones no debe exceder los 500 caracteres.
           </div>
         </div>
         <div>
           <label
             for="observaciones"
             class="block text-gray-700 text-sm font-bold mb-2"
-            >Observaciones*
-          </label>
+            >Observaciones*</label
+          >
           <textarea
             id="observaciones"
             formControlName="observaciones"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Observaciones"
             rows="3"
+            maxlength="500"
           ></textarea>
           <div
-            *ngIf="
-              form.controls['observaciones'].touched &&
-              form.controls['observaciones'].invalid
-            "
+            *ngIf="form.controls['observaciones'].touched && form.controls['observaciones'].errors?.['required']"
             class="text-red-500 bg-red-100 border-l-8 border-red-500 p-3"
           >
             <i class="fas fa-circle-exclamation fa-sm fa-shake"></i>
             Observaciones es requerida.
+          </div>
+          <div
+            *ngIf="form.controls['observaciones'].touched && form.controls['observaciones'].errors?.['maxlength']"
+            class="text-amber-500 bg-amber-100 border-l-8 border-amber-500 p-3"
+          >
+            <i class="fas fa-circle-exclamation fa-sm fa-shake"></i>
+            Observaciones no debe exceder los 500 caracteres.
           </div>
         </div>
         <button
