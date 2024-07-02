@@ -11,8 +11,12 @@
         "handle": "filesystem"
       },
       {
-        "src": "/.*",
-        "dest": "/dist/odontograma/browser/index.html"
+        "src": "/(.*)",
+        "dest": "dist/odontograma/browser/$1"
+      },
+      {
+        "src": "/",
+        "dest": "dist/odontograma/browser/index.html"
       }
     ]
   }
