@@ -31,7 +31,7 @@ export class DialogoComponent {
 
     axios
       .post(
-        'https://backend-nine-amber-97.vercel.app/enviar-mail',
+        'https://5r1t37dq-3001.brs.devtunnels.ms/enviar-mail',
         { nombre, correo, DNI },
         {
           headers: {
