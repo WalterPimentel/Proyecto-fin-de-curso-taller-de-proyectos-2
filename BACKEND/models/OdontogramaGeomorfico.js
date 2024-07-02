@@ -1,4 +1,3 @@
-// models/paciente.js
 import mongoose from 'mongoose';
 
 const { Schema, model } = mongoose;
@@ -8,35 +7,46 @@ const OdontogramaSchema = new Schema({
     especificaciones: String,
     fecha: String,
     observaciones: String,
+    tipoOdontograma: String,
     odontograma: {
         type: Map,
         of: {
             type: Object,
             of: [String]
         }
+    },
+    operador: {
+        codigo: String,
+        nombre: String,
+        apellido: String,
+        email: String,
+        telefono: String,
     }
-});
-
-
-const OperadorSchema = new Schema({
-    email: String,
-    fullname: String,
-    role: String
 });
 
 const PacienteSchema = new Schema({
     dni: String,
     nombres: String,
-    apellidos: String,
-    edad: Number,
+    apellidoP: String,
+    apellidoM: String,
+    fechanac: Date,
+    fechaNac: String,
     fechaRegistro: String,
+    sexo: String,
+    lugar: String,
+    domicilio: String,
+    estadoCivil: String,
+    telefono: String,
+    email: String,
+    ocupacion: String,
+    responsable: String,
+    domicilioResponsable: String,
+    telefonoResponsable: String,
+    motivoConsulta: String,
     odontogramas: [OdontogramaSchema],
-    operador: OperadorSchema,
-    tipoOdontograma: String
 });
 
 const Paciente = model('Paciente', PacienteSchema);
 const Odontograma = model('Odontograma', OdontogramaSchema);
-const Operador = model('Operador', OperadorSchema);
 
-export { Paciente, Odontograma, Operador };
+export { Paciente, Odontograma };
